@@ -1,0 +1,204 @@
+export const title = "Getting Started with YakaJS";
+export const description = "Learn how to install and start using YakaJS in your projects";
+
+# Getting Started with YakaJS
+
+YakaJS is a next-generation JavaScript library that combines the simplicity of jQuery with modern features like voice commands, state management, and reactivity.
+
+## What is YakaJS?
+
+Think jQuery meets modern JavaScript. But with superpowers 🦸. YakaJS is a next-gen JavaScript library that's:
+
+- **🎤 Voice-Controlled** - The ONLY library with built-in voice commands
+- **⚡ Lightning Fast** - Batched DOM operations prevent layout thrashing
+- **🎨 Feature-Rich** - 150+ features including animations, routing, state management, and more
+- **🔒 Secure by Default** - Built-in XSS protection, CSRF tokens, and input sanitization
+- **📦 Tiny** - Just 151 KB minified (that's 56% smaller than the source!)
+- **🛡️ Never Crashes** - Safe-mode chaining with `_.safe()` prevents errors
+- **💎 Developer-Friendly** - If jQuery and modern frameworks had a baby, it would be YakaJS
+
+## Installation
+
+### CDN (Easy Mode)
+
+Just drop this in your HTML and you're good to go:
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/Yaka-UI-Labs/YakaJS@latest/dist/min.yaka.js"></script>
+```
+
+### npm (Cool Kid Mode)
+
+```bash
+npm install yakajs
+```
+
+Then import it in your JavaScript:
+
+```javascript
+import _ from 'yakajs';
+```
+
+### Git Clone (Hacker Mode)
+
+```bash
+git clone https://github.com/Yaka-UI-Labs/YakaJS.git
+cd YakaJS
+npm install
+npm run build  # Builds all 3 optimized versions!
+```
+
+## Quick Start (5 Minutes)
+
+Here's a complete example to get you started:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My First YakaJS App</title>
+</head>
+<body>
+    <h1 id="title">Hello World!</h1>
+    <button id="btn">Click Me 🎉</button>
+    
+    <!-- Add YakaJS -->
+    <script src="https://cdn.jsdelivr.net/gh/Yaka-UI-Labs/YakaJS@latest/dist/min.yaka.js"></script>
+    
+    <script>
+        // That's it! YakaJS is ready via the _ global variable
+        
+        // Animate the title
+        _('#title').fadeIn().css('color', 'purple');
+        
+        // Add click event
+        _('#btn').on('click', () => {
+            _('#title').text('You clicked it! 🎊').bounce();
+        });
+        
+        // Try voice commands!
+        _.voice.listen({
+            'change color': () => _('#title').css('color', 'blue'),
+            'reset': () => _('#title').text('Hello World!')
+        });
+    </script>
+</body>
+</html>
+```
+
+Run this and say **"change color"** into your microphone. Mind. Blown. 🤯
+
+## Basic Usage
+
+### Selecting Elements
+
+```javascript
+// Select by ID
+_('#myElement')
+
+// Select by class
+_('.myClass')
+
+// Select by tag
+_('div')
+
+// Complex selectors
+_('div.container > p.text')
+
+// Select within context
+_('li', '#myList')
+```
+
+### DOM Manipulation
+
+```javascript
+// Get/Set text
+_('#element').text()              // Get text
+_('#element').text('New text')    // Set text
+
+// Get/Set HTML
+_('#element').html()              // Get HTML
+_('#element').html('<p>New</p>')  // Set HTML
+
+// Get/Set attributes
+_('#element').attr('href')              // Get attribute
+_('#element').attr('href', 'https://...')  // Set attribute
+
+// Add/Remove classes
+_('#element').addClass('active')
+_('#element').removeClass('active')
+_('#element').toggleClass('active')
+```
+
+### Events
+
+```javascript
+// Click event
+_('#button').on('click', () => {
+    console.log('Clicked!');
+});
+
+// Multiple events
+_('#input').on('focus blur', () => {
+    console.log('Focus changed');
+});
+
+// Event delegation
+_('#list').on('click', 'li', (e) => {
+    console.log('List item clicked:', e.target);
+});
+
+// Remove events
+_('#button').off('click');
+```
+
+### Animations
+
+```javascript
+// Fade effects
+_('#element').fadeIn(500);
+_('#element').fadeOut(300);
+
+// Slide effects
+_('#element').slideDown();
+_('#element').slideUp();
+
+// Fun effects
+_('#element').bounce();
+_('#element').shake();
+_('#element').pulse();
+
+// Chain animations
+_('#element').fadeIn().bounce().swing();
+```
+
+## Next Steps
+
+Now that you have YakaJS installed and understand the basics, explore more features:
+
+- **Animations** - Learn about the 15+ built-in animations
+- **Voice Commands** - Control your app with your voice
+- **State Management** - Vuex-style store with undo/redo
+- **Routing** - Build single-page applications
+- **Reactivity** - Signals and effects like SolidJS
+- **Security** - XSS protection and CSRF tokens
+
+## Browser Support
+
+YakaJS works in all modern browsers:
+
+- ✅ Chrome/Edge (latest)
+- ✅ Firefox (latest)
+- ✅ Safari (latest)
+- ✅ Opera (latest)
+- ⚠️ IE11 (not supported - use polyfills if needed)
+
+## Help and Support
+
+- **GitHub Repository**: [Yaka-UI-Labs/YakaJS](https://github.com/Yaka-UI-Labs/YakaJS)
+- **Report Issues**: [GitHub Issues](https://github.com/Yaka-UI-Labs/YakaJS/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/Yaka-UI-Labs/YakaJS/discussions)
+
+---
+
+Ready to dive deeper? Check out the full [API Reference](/docs/yakajs-api-reference) or explore specific features in the documentation.

@@ -3,8 +3,8 @@ import { Header } from "@/components/header";
 import Hero from "@/components/home/hero";
 import GridContainer from "@/components/grid-container";
 import ExplainerSection from "@/components/home/explainer-section";
-import TailwindUiSection from "@/components/home/tailwind-ui-section";
-import WhyTailwindCssSection from "@/components/home/why-tailwind-css-section";
+// import TailwindUiSection from "@/components/home/tailwind-ui-section";
+import WhyYakaJsSection from "@/components/home/why-yakajs-section";
 import BuildAnythingSection from "@/components/home/build-anything-section";
 import PartnersSection from "@/components/home/partners-section";
 import { getHomepageSponsors } from "@/lib/sponsors";
@@ -27,10 +27,10 @@ export default async function Home() {
         <div className="grid gap-24 pb-24 text-gray-950 sm:gap-40 md:pb-40 dark:text-white">
           <Hero />
           <PartnersSection sponsors={sponsors} />
-          <WhyTailwindCssSection />
+          <WhyYakaJsSection />
           <ExplainerSection />
           <BuildAnythingSection />
-          <TailwindUiSection />
+          {/* <TailwindUiSection /> */}
         </div>
 
         {/* Candy cane */}

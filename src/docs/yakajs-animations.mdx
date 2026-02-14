@@ -1,0 +1,527 @@
+export const title = "Animations";
+export const description = "Learn about YakaJS's 15+ built-in animations and effects";
+
+# Animations
+
+YakaJS includes 15+ smooth, performant animations out of the box. No additional libraries needed!
+
+## Why YakaJS Animations?
+
+- **🚀 Performance** - Hardware-accelerated CSS animations
+- **⛓️ Chainable** - Combine multiple effects
+- **🎨 Beautiful** - Smooth, professional animations
+- **📦 Built-in** - No external animation libraries needed
+- **🎯 Simple** - One-line animation calls
+
+## Quick Example
+
+```javascript
+// Simple fade in
+_('#element').fadeIn();
+
+// Chain multiple animations
+_('#element')
+    .fadeIn(500)
+    .bounce()
+    .swing();
+
+// With callback
+_('#element').fadeOut(300, () => {
+    console.log('Animation complete!');
+});
+```
+
+## Fade Animations
+
+### fadeIn(duration, callback)
+
+Fade element in from invisible to visible.
+
+```javascript
+_('#element').fadeIn();              // Default 400ms
+_('#element').fadeIn(1000);          // Custom duration
+_('#element').fadeIn(500, () => {    // With callback
+    console.log('Fade in complete!');
+});
+```
+
+### fadeOut(duration, callback)
+
+Fade element out from visible to invisible.
+
+```javascript
+_('#element').fadeOut();
+_('#element').fadeOut(800);
+_('#element').fadeOut(300, () => {
+    _('#element').remove();  // Remove after fading out
+});
+```
+
+### fadeToggle(duration)
+
+Toggle between fadeIn and fadeOut.
+
+```javascript
+_('#element').fadeToggle();     // Toggle with default duration
+_('#element').fadeToggle(600);  // Custom duration
+```
+
+## Slide Animations
+
+### slideDown(duration)
+
+Slide element down to reveal it.
+
+```javascript
+_('#menu').slideDown();
+_('#menu').slideDown(500);
+```
+
+### slideUp(duration)
+
+Slide element up to hide it.
+
+```javascript
+_('#menu').slideUp();
+_('#menu').slideUp(300);
+```
+
+### slideToggle(duration)
+
+Toggle between slideDown and slideUp.
+
+```javascript
+_('#panel').slideToggle();
+_('#panel').slideToggle(400);
+```
+
+### slideLeft(duration)
+
+Slide element to the left.
+
+```javascript
+_('#sidebar').slideLeft(500);
+```
+
+### slideRight(duration)
+
+Slide element to the right.
+
+```javascript
+_('#sidebar').slideRight(500);
+```
+
+## Fun Effects
+
+### bounce(duration)
+
+Bouncing animation effect.
+
+```javascript
+_('#button').bounce();
+_('#button').bounce(800);
+
+// Bounce on click
+_('#button').on('click', function() {
+    _(this).bounce();
+});
+```
+
+### shake(duration)
+
+Shake animation (great for errors).
+
+```javascript
+_('#loginForm').shake();  // Shake to indicate error
+
+// Example: shake on invalid input
+_('#submitBtn').on('click', () => {
+    if (!isValid()) {
+        _('#form').shake();
+    }
+});
+```
+
+### swing(duration)
+
+Swinging animation effect.
+
+```javascript
+_('#notification').swing();
+```
+
+### pulse(duration)
+
+Pulsing scale animation.
+
+```javascript
+_('#heart').pulse();         // Pulse effect
+_('#heart').pulse(1000);     // Slower pulse
+
+// Continuous pulse
+setInterval(() => {
+    _('#indicator').pulse();
+}, 2000);
+```
+
+### rubberBand(duration)
+
+Rubber band stretching effect.
+
+```javascript
+_('#elastic').rubberBand();
+```
+
+### wobble(duration)
+
+Wobbling animation.
+
+```javascript
+_('#jellyElement').wobble();
+```
+
+### flash(duration)
+
+Flashing opacity animation.
+
+```javascript
+_('#alert').flash();         // Flash effect
+_('#notification').flash(600);
+```
+
+### jello(duration)
+
+Jello-like wobble effect.
+
+```javascript
+_('#funButton').jello();
+```
+
+### heartBeat(duration)
+
+Heartbeat scale animation.
+
+```javascript
+_('#liveIndicator').heartBeat();
+
+// Continuous heartbeat
+setInterval(() => {
+    _('#status').heartBeat();
+}, 1500);
+```
+
+## 3D Animations
+
+### flip3D(direction)
+
+3D flip animation.
+
+```javascript
+_('#card').flip3D();           // Default horizontal flip
+_('#card').flip3D('horizontal');
+_('#card').flip3D('vertical');
+_('#card').flip3D('diagonal');
+```
+
+### rotateIn(duration)
+
+Rotate in with 3D effect.
+
+```javascript
+_('#modal').rotateIn();
+_('#modal').rotateIn(800);
+```
+
+### rotateOut(duration)
+
+Rotate out with 3D effect.
+
+```javascript
+_('#modal').rotateOut();
+_('#modal').rotateOut(600);
+```
+
+## Chaining Animations
+
+One of the most powerful features is the ability to chain multiple animations:
+
+```javascript
+// Simple chain
+_('#element')
+    .fadeIn(500)
+    .bounce()
+    .swing();
+
+// Complex sequence
+_('#notification')
+    .slideDown(300)
+    .pulse()
+    .delay(2000)      // Wait 2 seconds
+    .shake()
+    .delay(1000)
+    .slideUp(300);
+
+// With callback
+_('#modal')
+    .fadeIn(400)
+    .bounce()
+    .delay(3000)
+    .fadeOut(400, () => {
+        console.log('Modal closed');
+    });
+```
+
+## Practical Examples
+
+### Loading Animation
+
+```javascript
+// Show loading with pulse
+_('#loader')
+    .show()
+    .pulse();
+
+// Hide when done
+fetch('/api/data')
+    .then(data => {
+        _('#loader').fadeOut(300);
+        _('#content').fadeIn(500);
+    });
+```
+
+### Success Notification
+
+```javascript
+function showSuccess(message) {
+    _('#success')
+        .text(message)
+        .fadeIn(300)
+        .bounce()
+        .delay(3000)
+        .fadeOut(500);
+}
+
+// Usage
+showSuccess('Profile saved successfully!');
+```
+
+### Error Shake
+
+```javascript
+function showError(field) {
+    _(field)
+        .addClass('error')
+        .shake()
+        .delay(500)
+        .removeClass('error');
+}
+
+// Usage
+if (!emailValid) {
+    showError('#emailInput');
+}
+```
+
+### Modal with Animations
+
+```javascript
+// Show modal
+function openModal(selector) {
+    _(selector)
+        .css('display', 'flex')
+        .fadeIn(300)
+        .find('.modal-content')
+        .rotateIn(400);
+}
+
+// Hide modal
+function closeModal(selector) {
+    _(selector)
+        .find('.modal-content')
+        .rotateOut(300)
+        .parent()
+        .delay(300)
+        .fadeOut(200);
+}
+
+// Usage
+_('#openBtn').on('click', () => openModal('#myModal'));
+_('#closeBtn').on('click', () => closeModal('#myModal'));
+```
+
+### Animated List Items
+
+```javascript
+// Add item with animation
+function addListItem(text) {
+    const item = _('<li>').text(text);
+    _('#list')
+        .append(item);
+    
+    item.css('opacity', 0)
+        .slideDown(300)
+        .fadeIn(300)
+        .bounce();
+}
+
+// Remove item with animation
+_('#list').on('click', '.delete', function() {
+    _(this).parent()
+        .shake()
+        .delay(300)
+        .slideUp(300, function() {
+            _(this).remove();
+        });
+});
+```
+
+### Page Transitions
+
+```javascript
+function navigateWithAnimation(url) {
+    _('#content')
+        .fadeOut(300)
+        .slideUp(300, () => {
+            // Load new content
+            loadPage(url);
+            
+            // Animate new content in
+            _('#content')
+                .slideDown(300)
+                .fadeIn(400);
+        });
+}
+```
+
+### Tooltip Animation
+
+```javascript
+_('[data-tooltip]').on('mouseenter', function() {
+    const text = _(this).attr('data-tooltip');
+    const tooltip = _('<div class="tooltip">')
+        .text(text)
+        .css({
+            position: 'absolute',
+            top: _(this).offset().top - 40,
+            left: _(this).offset().left
+        });
+    
+    _('body').append(tooltip);
+    tooltip.fadeIn(200).pulse();
+});
+
+_('[data-tooltip]').on('mouseleave', function() {
+    _('.tooltip').fadeOut(200, function() {
+        _(this).remove();
+    });
+});
+```
+
+## Performance Tips
+
+### Hardware Acceleration
+
+YakaJS animations use CSS transforms which are hardware-accelerated for better performance:
+
+```javascript
+// These are performant (hardware accelerated)
+_('#element').fadeIn();      // Uses opacity
+_('#element').bounce();      // Uses transform
+_('#element').slideDown();   // Uses transform
+```
+
+### Batch Animations
+
+Animate multiple elements efficiently:
+
+```javascript
+// Good: Batch animation
+_('.cards').each((i, card) => {
+    setTimeout(() => {
+        _(card).fadeIn().bounce();
+    }, i * 100);  // Stagger by 100ms
+});
+
+// Also good: Animate all at once
+_('.notifications').fadeIn(300).bounce();
+```
+
+### Avoid Layout Thrashing
+
+```javascript
+// Good: Use YakaJS batch operations
+_('.items').css('display', 'none');  // Batched
+_('.items').fadeIn();
+
+// Avoid: Reading then writing in loop
+// This causes layout thrashing
+_('.items').each((i, item) => {
+    const height = item.offsetHeight;  // Read (bad in loop)
+    item.style.height = height + 'px'; // Write (bad in loop)
+});
+```
+
+## Custom Animation Durations
+
+All animations accept custom durations in milliseconds:
+
+```javascript
+_('#element').fadeIn(100);    // Fast (100ms)
+_('#element').fadeIn(400);    // Default (400ms)
+_('#element').fadeIn(1000);   // Slow (1000ms)
+_('#element').fadeIn(2500);   // Very slow (2.5s)
+```
+
+## Animation Events
+
+Listen for animation complete events:
+
+```javascript
+_('#element').fadeIn(500, () => {
+    console.log('Fade in complete!');
+    // Do something after animation
+});
+
+// Chain with callback
+_('#modal')
+    .fadeIn(300)
+    .bounce()
+    .delay(2000)
+    .fadeOut(300, () => {
+        _('#modal').remove();
+    });
+```
+
+## Browser Support
+
+YakaJS animations work in all modern browsers:
+
+- ✅ Chrome/Edge (excellent)
+- ✅ Firefox (excellent)
+- ✅ Safari (excellent)
+- ✅ Opera (excellent)
+- ⚠️ IE11 (partial support)
+
+## Combining with Voice Commands
+
+Animations work great with voice commands:
+
+```javascript
+_.voice.listen({
+    'bounce': () => _('#element').bounce(),
+    'shake': () => _('#element').shake(),
+    'spin': () => _('#element').flip3D(),
+    'fade out': () => _('#element').fadeOut(),
+    'fade in': () => _('#element').fadeIn(),
+    'show': () => _('#element').slideDown().fadeIn(),
+    'hide': () => _('#element').fadeOut().slideUp()
+});
+```
+
+Try saying "bounce" or "shake" to see animations triggered by voice! 🎤
+
+---
+
+Animations make your web applications feel alive and professional. Experiment with different combinations to find what works best for your UI!
+
+For the complete list of methods, see the [API Reference](/docs/yakajs-api-reference#animations).

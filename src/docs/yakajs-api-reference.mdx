@@ -1,0 +1,633 @@
+export const title = "YakaJS API Reference";
+export const description = "Complete API reference for all YakaJS methods and features";
+
+# YakaJS API Reference
+
+Complete reference guide for all YakaJS methods, utilities, and features.
+
+## Core Selector
+
+### `_(selector, context)`
+
+The main YakaJS function for selecting and manipulating DOM elements.
+
+```javascript
+_('#myId')              // Select by ID
+_('.myClass')           // Select by class
+_('div')                // Select by tag
+_('<div>Hello</div>')   // Create elements
+_(document.ready)       // DOM ready callback
+```
+
+**Parameters:**
+- `selector` (String|Element|Array|Function): The selector or element(s) to wrap
+- `context` (Element, optional): Context element to search within
+
+**Returns:** YakaJS object for chaining
+
+## DOM Manipulation
+
+### `.text(value)`
+
+Get or set the text content of elements.
+
+```javascript
+_('#element').text()              // Get text
+_('#element').text('New text')    // Set text
+```
+
+### `.html(value, sanitize)`
+
+Get or set the HTML content of elements.
+
+```javascript
+_('#element').html()                    // Get HTML
+_('#element').html('<p>New HTML</p>')   // Set HTML
+_('#element').html(userInput, true)     // Set with XSS protection
+```
+
+### `.attr(name, value)`
+
+Get or set attributes.
+
+```javascript
+_('#link').attr('href')                    // Get attribute
+_('#link').attr('href', 'https://...')     // Set attribute
+_('#img').attr({src: 'img.jpg', alt: 'Image'})  // Set multiple
+```
+
+### `.val(value)`
+
+Get or set form element values.
+
+```javascript
+_('#input').val()           // Get value
+_('#input').val('text')     // Set value
+```
+
+### `.addClass(className)`
+
+Add one or more classes.
+
+```javascript
+_('#element').addClass('active')
+_('#element').addClass('active highlight')
+```
+
+### `.removeClass(className)`
+
+Remove one or more classes.
+
+```javascript
+_('#element').removeClass('active')
+_('#element').removeClass('active highlight')
+```
+
+### `.toggleClass(className)`
+
+Toggle one or more classes.
+
+```javascript
+_('#element').toggleClass('active')
+```
+
+### `.hasClass(className)`
+
+Check if element has a class.
+
+```javascript
+if (_('#element').hasClass('active')) {
+    // Element has the class
+}
+```
+
+## CSS Manipulation
+
+### `.css(property, value)`
+
+Get or set CSS properties.
+
+```javascript
+_('#element').css('color')                 // Get property
+_('#element').css('color', 'red')          // Set property
+_('#element').css({color: 'red', fontSize: '20px'})  // Set multiple
+```
+
+### `.show()`
+
+Show hidden elements.
+
+```javascript
+_('#element').show()
+```
+
+### `.hide()`
+
+Hide elements.
+
+```javascript
+_('#element').hide()
+```
+
+### `.toggle()`
+
+Toggle element visibility.
+
+```javascript
+_('#element').toggle()
+```
+
+## Event Handling
+
+### `.on(event, selector, handler)`
+
+Attach event handlers.
+
+```javascript
+// Simple event
+_('#button').on('click', () => console.log('Clicked!'))
+
+// Multiple events
+_('#input').on('focus blur', (e) => console.log(e.type))
+
+// Event delegation
+_('#list').on('click', 'li', (e) => console.log('Item clicked'))
+
+// Multiple handlers
+_('#element').on({
+    click: () => console.log('Click'),
+    hover: () => console.log('Hover')
+})
+```
+
+### `.off(event, handler)`
+
+Remove event handlers.
+
+```javascript
+_('#button').off('click')              // Remove all click handlers
+_('#button').off('click', myHandler)   // Remove specific handler
+```
+
+### `.one(event, handler)`
+
+Attach event handler that runs only once.
+
+```javascript
+_('#button').one('click', () => console.log('Clicked once!'))
+```
+
+### `.trigger(event, data)`
+
+Trigger an event.
+
+```javascript
+_('#button').trigger('click')
+_('#input').trigger('change', {value: 'new'})
+```
+
+## Animations
+
+### Fade Effects
+
+```javascript
+_('#element').fadeIn(duration, callback)
+_('#element').fadeOut(duration, callback)
+_('#element').fadeToggle(duration)
+```
+
+### Slide Effects
+
+```javascript
+_('#element').slideDown(duration)
+_('#element').slideUp(duration)
+_('#element').slideToggle(duration)
+_('#element').slideLeft(duration)
+_('#element').slideRight(duration)
+```
+
+### Fun Effects
+
+```javascript
+_('#element').bounce(duration)
+_('#element').shake(duration)
+_('#element').swing(duration)
+_('#element').pulse(duration)
+_('#element').rubberBand(duration)
+_('#element').wobble(duration)
+_('#element').flash(duration)
+_('#element').jello(duration)
+_('#element').heartBeat(duration)
+```
+
+### 3D Effects
+
+```javascript
+_('#element').flip3D(direction)
+_('#element').rotateIn(duration)
+_('#element').rotateOut(duration)
+```
+
+## Traversal
+
+### `.find(selector)`
+
+Find descendants matching selector.
+
+```javascript
+_('#container').find('.item')
+```
+
+### `.parent()`
+
+Get immediate parent.
+
+```javascript
+_('#element').parent()
+```
+
+### `.parents(selector)`
+
+Get all ancestors, optionally filtered.
+
+```javascript
+_('#element').parents('.container')
+```
+
+### `.children(selector)`
+
+Get immediate children.
+
+```javascript
+_('#list').children('li')
+```
+
+### `.siblings(selector)`
+
+Get siblings.
+
+```javascript
+_('#item').siblings('.active')
+```
+
+### `.next()`
+
+Get next sibling.
+
+```javascript
+_('#item').next()
+```
+
+### `.prev()`
+
+Get previous sibling.
+
+```javascript
+_('#item').prev()
+```
+
+### `.first()`
+
+Get first element.
+
+```javascript
+_('li').first()
+```
+
+### `.last()`
+
+Get last element.
+
+```javascript
+_('li').last()
+```
+
+### `.eq(index)`
+
+Get element at index.
+
+```javascript
+_('li').eq(2)  // Third item (0-indexed)
+```
+
+## AJAX
+
+### `_.get(url, data, success, error)`
+
+Make GET request.
+
+```javascript
+_.get('/api/users', (data) => {
+    console.log('Users:', data);
+});
+
+// With error handling
+_.get('/api/users', null, 
+    (data) => console.log('Success:', data),
+    (error) => console.error('Error:', error)
+);
+```
+
+### `_.post(url, data, success, error)`
+
+Make POST request (automatically includes CSRF token if set).
+
+```javascript
+_.post('/api/users', {name: 'John'}, (response) => {
+    console.log('Created:', response);
+});
+```
+
+### `_.ajax(options)`
+
+Make custom AJAX request.
+
+```javascript
+_.ajax({
+    url: '/api/data',
+    method: 'PUT',
+    data: {key: 'value'},
+    headers: {'X-Custom': 'header'},
+    timeout: 5000,
+    retry: 3,
+    success: (data) => console.log(data),
+    error: (error) => console.error(error),
+    progress: (percent) => console.log('Progress:', percent)
+});
+```
+
+## Voice Commands
+
+### `_.voice.listen(commands, options)`
+
+Enable voice command recognition.
+
+```javascript
+_.voice.listen({
+    'click button': () => _('#myButton').click(),
+    'show menu': () => _('#menu').show(),
+    'scroll down': () => window.scrollBy(0, 100),
+    'change color': () => _('#title').css('color', 'blue')
+}, {
+    language: 'en-US',
+    continuous: true
+});
+```
+
+### `_.voice.stop()`
+
+Stop voice recognition.
+
+```javascript
+_.voice.stop();
+```
+
+## State Management
+
+### `_.createStore(options)`
+
+Create a Vuex-style store.
+
+```javascript
+const store = _.createStore({
+    state: {
+        count: 0,
+        user: null
+    },
+    mutations: {
+        increment(state) {
+            state.count++;
+        },
+        setUser(state, user) {
+            state.user = user;
+        }
+    },
+    actions: {
+        async fetchUser({ commit }) {
+            const user = await fetch('/api/user').then(r => r.json());
+            commit('setUser', user);
+        }
+    },
+    getters: {
+        doubleCount(state) {
+            return state.count * 2;
+        }
+    }
+});
+
+// Use the store
+store.commit('increment');
+store.dispatch('fetchUser');
+console.log(store.state.count);
+console.log(store.getters.doubleCount);
+
+// Undo/redo
+store.undo();
+store.redo();
+```
+
+## Reactivity
+
+### `_.signal(value)`
+
+Create a reactive signal.
+
+```javascript
+const count = _.signal(0);
+
+// Get value
+console.log(count());  // 0
+
+// Set value
+count.set(5);
+
+// Update value
+count.update(n => n + 1);
+```
+
+### `_.computed(fn)`
+
+Create computed value.
+
+```javascript
+const count = _.signal(10);
+const doubled = _.computed(() => count() * 2);
+
+console.log(doubled());  // 20
+count.set(5);
+console.log(doubled());  // 10
+```
+
+### `_.effect(fn)`
+
+Create side effect that runs when dependencies change.
+
+```javascript
+const name = _.signal('John');
+
+_.effect(() => {
+    console.log('Name changed:', name());
+});
+
+name.set('Jane');  // Logs: "Name changed: Jane"
+```
+
+## Routing
+
+### `_.createRouter()`
+
+Create SPA router.
+
+```javascript
+const router = _.createRouter();
+
+// Add routes
+router.addRoute('/', {
+    component: () => '<h1>Home</h1>'
+});
+
+router.addRoute('/user/:id', {
+    component: (params) => `<h1>User ${params.id}</h1>`,
+    beforeEnter: async () => {
+        const isAuth = await checkAuth();
+        return isAuth;  // Return false to prevent navigation
+    }
+});
+
+// Navigate
+router.navigateTo('/user/42');
+router.back();
+router.forward();
+
+// Initialize
+router.init();
+```
+
+## Security
+
+### `_.security.sanitizeHtml(html)`
+
+Sanitize HTML to prevent XSS.
+
+```javascript
+const safe = _.security.sanitizeHtml('<script>alert("xss")</script>');
+```
+
+### `_.security.escapeHtml(text)`
+
+Escape HTML entities.
+
+```javascript
+const escaped = _.security.escapeHtml('<div>Text</div>');
+// Result: "&lt;div&gt;Text&lt;/div&gt;"
+```
+
+### `_.csrf.setToken(token)`
+
+Set CSRF token for AJAX requests.
+
+```javascript
+_.csrf.setToken('your-csrf-token');
+// Now all POST/PUT/DELETE requests include the token
+```
+
+## Premium Features
+
+### `_.commandPalette(commands)`
+
+Create VS Code-style command palette (Ctrl+K).
+
+```javascript
+_.commandPalette([
+    {
+        title: 'Open Settings',
+        action: () => openSettings()
+    },
+    {
+        title: 'Toggle Dark Mode',
+        action: () => document.body.classList.toggle('dark')
+    }
+]);
+```
+
+### `_.virtualScroll(container, items, options)`
+
+Render large lists efficiently.
+
+```javascript
+const items = Array.from({length: 10000}, (_, i) => ({
+    id: i,
+    name: `Item ${i}`
+}));
+
+_.virtualScroll('#container', items, {
+    itemHeight: 50,
+    renderItem: (item) => `<div>${item.name}</div>`
+});
+```
+
+### `_.onboardingTour(steps)`
+
+Create guided tour.
+
+```javascript
+_.onboardingTour([
+    {
+        element: '#welcome',
+        title: 'Welcome!',
+        content: 'This is your dashboard'
+    },
+    {
+        element: '#menu',
+        title: 'Navigation',
+        content: 'Use this menu to navigate'
+    }
+]);
+```
+
+## Utility Methods
+
+### `.each(callback)`
+
+Iterate over elements.
+
+```javascript
+_('li').each((index, element) => {
+    console.log(index, element);
+});
+```
+
+### `.filter(selector)`
+
+Filter elements.
+
+```javascript
+_('li').filter('.active')
+_('li').filter((index, elem) => elem.textContent.includes('search'))
+```
+
+### `.safe()`
+
+Enable safe mode (prevents errors on null elements).
+
+```javascript
+_('#maybe-exists').safe().hide().fadeIn();
+// Won't throw errors if element doesn't exist
+```
+
+## Chaining
+
+All methods return the YakaJS object, allowing for method chaining:
+
+```javascript
+_('#element')
+    .addClass('active')
+    .css('color', 'red')
+    .fadeIn(500)
+    .bounce()
+    .on('click', () => console.log('Clicked!'));
+```
+
+---
+
+For more examples and tutorials, check out our [Getting Started Guide](/docs/yakajs-getting-started).
