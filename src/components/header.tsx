@@ -235,6 +235,7 @@ export function Header(props: React.PropsWithChildren) {
               </div>
             </DialogPanel>
           </Dialog>
+          </div>
         </div>
       </div>
     </div>
