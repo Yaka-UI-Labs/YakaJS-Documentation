@@ -75,8 +75,8 @@ export default function WhyYakaJsSection() {
 
       <GridContainer>
         <p className="max-w-(--breakpoint-md) px-2 text-base/7 text-gray-600 max-sm:px-4 dark:text-gray-400">
-          Tailwind is unapologetically modern, and takes advantage of all the latest and greatest CSS features to make
-          the developer experience as enjoyable as possible.
+          YakaJS is unapologetically modern, taking advantage of the latest JavaScript features to make
+          DOM manipulation and event handling as enjoyable and efficient as possible.
         </p>
       </GridContainer>
 
@@ -563,9 +563,9 @@ export default function WhyYakaJsSection() {
                 <CascadeLayersIcon />
               </BentoIcon>
               <div>
-                <BentoTitle>Cascade layers</BentoTitle>
+                <BentoTitle>Event Delegation</BentoTitle>
                 <BentoDescription>
-                  Tailwind uses CSS layers so you don’t have to worry about specificity issues.
+                  YakaJS uses smart event delegation so you don't have to worry about performance issues with multiple event listeners.
                 </BentoDescription>
               </div>
             </BentoHeader>
