@@ -1,4 +1,3 @@
-
 <svg width="500" height="500" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <g>
   <title>Layer 1</title>
@@ -256,18 +255,7 @@
   <path fill="#FFFFFF" id="svg_252"/>
   <path fill="#FFFFFF" id="svg_253"/>
   <path fill="#FFFFFF" id="svg_254"/>
-  
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="'Work Sans'" font-size="80" stroke-width="10" id="svg_255" y="293.8" x="193.79998" stroke="null" fill="#ffffff">YakaJS</text>
  </g>
-<g id="yakajs-logo-text">
-  <text
-    x="193.79998"
-    y="293.8"
-    font-family="Outfit, sans-serif"
-    font-size="80"
-    font-weight="700"
-    fill="#ffffff">
-    YakaJS
-  </text>
-</g>
 
 </svg>
