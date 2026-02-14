@@ -11,12 +11,12 @@ export function TopNavLink(props: { href: string } & React.ComponentPropsWithout
     <Component
       className={clsx(
         "group",
-        "inline-flex items-center gap-3 text-base/8 text-gray-600 sm:text-sm/7 dark:text-gray-300",
-        "**:data-outline:stroke-gray-400 dark:**:data-outline:stroke-gray-500 **:[svg]:first:size-5 **:[svg]:first:sm:size-4",
-        "hover:text-gray-950 hover:**:data-highlight:fill-gray-300 hover:**:data-outline:stroke-gray-950",
-        "dark:hover:text-white dark:hover:**:data-highlight:fill-gray-600 dark:hover:**:data-outline:stroke-white",
-        "aria-[current]:font-semibold aria-[current]:text-gray-950 aria-[current]:**:data-highlight:fill-gray-300 aria-[current]:**:data-outline:stroke-gray-950",
-        "dark:aria-[current]:text-white dark:aria-[current]:**:data-highlight:fill-gray-600 dark:aria-[current]:**:data-outline:stroke-white",
+        "inline-flex items-center gap-3 text-base/8 text-yaka-medium sm:text-sm/7 dark:text-yaka-lighter",
+        "**:data-outline:stroke-yaka-light dark:**:data-outline:stroke-yaka-medium **:[svg]:first:size-5 **:[svg]:first:sm:size-4",
+        "hover:text-yaka-darkest hover:**:data-highlight:fill-yaka-lighter hover:**:data-outline:stroke-yaka-darkest",
+        "dark:hover:text-yaka-lightest dark:hover:**:data-highlight:fill-yaka-medium dark:hover:**:data-outline:stroke-yaka-lightest",
+        "aria-[current]:font-semibold aria-[current]:text-yaka-darkest aria-[current]:**:data-highlight:fill-yaka-lighter aria-[current]:**:data-outline:stroke-yaka-darkest",
+        "dark:aria-[current]:text-yaka-lightest dark:aria-[current]:**:data-highlight:fill-yaka-medium dark:aria-[current]:**:data-outline:stroke-yaka-lightest",
       )}
       {...props}
     />

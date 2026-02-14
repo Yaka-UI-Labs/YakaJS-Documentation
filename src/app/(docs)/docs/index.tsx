@@ -1,6 +1,6 @@
 export default {
   "Getting Started": [
-    ["Getting Started", "/docs/yakajs-getting-started"],
+    ["Introduction", "/docs/yakajs-getting-started"],
     ["API Reference", "/docs/yakajs-api-reference"],
   ] as const,
   "DOM Manipulation": [

@@ -45,52 +45,28 @@ function VersionPicker() {
   return (
     <Menu>
       <MenuButton
-        className="flex items-center gap-0.5 rounded-2xl bg-gray-950/5 py-0.5 pr-1.5 pl-2.5 text-xs/5 font-medium text-gray-950 tabular-nums hover:bg-gray-950/7.5 data-active:bg-gray-950/7.5 dark:bg-white/10 dark:text-white dark:hover:bg-white/12.5 dark:data-active:bg-white/12.5"
+        className="flex items-center gap-0.5 rounded-2xl bg-yaka-darkest/5 py-0.5 pr-1.5 pl-2.5 text-xs/5 font-medium text-yaka-darkest tabular-nums hover:bg-yaka-darkest/10 data-active:bg-yaka-darkest/10 dark:bg-yaka-lightest/10 dark:text-yaka-lightest dark:hover:bg-yaka-lightest/15 dark:data-active:bg-yaka-lightest/15"
         aria-label="Select version of library"
       >
-        v4.1
-        <ChevronDownIcon className="size-4 fill-gray-400" />
+        v1.1
+        <ChevronDownIcon className="size-4 fill-yaka-light" />
       </MenuButton>
       <MenuItems
         anchor="bottom start"
-        className="mt-2 w-28 rounded-xl bg-white p-1 py-1 text-xs/7 font-medium text-gray-950 tabular-nums shadow-sm ring ring-gray-950/5 [--anchor-offset:calc(var(--spacing)*-1)] dark:bg-gray-950 dark:text-white dark:ring-white/10"
+        className="mt-2 w-28 rounded-xl bg-white p-1 py-1 text-xs/7 font-medium text-yaka-darkest tabular-nums shadow-sm ring ring-yaka-darkest/5 [--anchor-offset:calc(var(--spacing)*-1)] dark:bg-yaka-dark dark:text-yaka-lightest dark:ring-yaka-lightest/10"
       >
         <MenuItem disabled>
-          <div className="flex items-center justify-between gap-2 rounded-lg px-2.5 data-active:bg-gray-950/5 dark:data-active:bg-white/10">
-            v4.1
+          <div className="flex items-center justify-between gap-2 rounded-lg px-2.5 data-active:bg-yaka-darkest/5 dark:data-active:bg-yaka-lightest/10">
+            v1.1
             <CheckIcon className="size-4" />
           </div>
         </MenuItem>
         <MenuItem>
           <a
-            href="https://v3.tailwindcss.com"
-            className="flex items-center justify-between gap-2 rounded-lg px-2.5 data-active:bg-gray-950/5 dark:data-active:bg-white/10"
+            href="#"
+            className="flex items-center justify-between gap-2 rounded-lg px-2.5 data-active:bg-yaka-darkest/5 dark:data-active:bg-yaka-lightest/10"
           >
-            v3.4.17
-          </a>
-        </MenuItem>
-        <MenuItem>
-          <a
-            href="https://v2.tailwindcss.com"
-            className="flex items-center justify-between gap-2 rounded-lg px-2.5 data-active:bg-gray-950/5 dark:data-active:bg-white/10"
-          >
-            v2.2.19
-          </a>
-        </MenuItem>
-        <MenuItem>
-          <a
-            href="https://v1.tailwindcss.com"
-            className="flex items-center justify-between gap-2 rounded-lg px-2.5 data-active:bg-gray-950/5 dark:data-active:bg-white/10"
-          >
-            v1.9.6
-          </a>
-        </MenuItem>
-        <MenuItem>
-          <a
-            href="https://tailwindcss-v0.netlify.app"
-            className="flex items-center justify-between gap-2 rounded-lg px-2.5 data-active:bg-gray-950/5 dark:data-active:bg-white/10"
-          >
-            v0.7.4
+            v1.0
           </a>
         </MenuItem>
       </MenuItems>
@@ -103,7 +79,7 @@ export function Header(props: React.PropsWithChildren) {
   let router = useRouter();
 
   return (
-    <div className="bg-white dark:bg-gray-950">
+    <div className="bg-white dark:bg-yaka-dark">
       <div className="flex h-14 items-center justify-between gap-8 px-4 sm:px-6">
         <div className="flex items-center gap-4">
           <Link
@@ -115,16 +91,16 @@ export function Header(props: React.PropsWithChildren) {
               router.push("/brand");
             }}
           >
-            <Logo className="h-5 text-black dark:text-white" />
+            <Logo className="h-5 text-yaka-darkest dark:text-yaka-lightest" />
           </Link>
           <VersionPicker />
         </div>
         <div className="flex items-center gap-6 max-md:hidden">
-          <SearchButton className="inline-flex items-center gap-1 rounded-full bg-gray-950/2 px-2 py-1 inset-ring inset-ring-gray-950/8 dark:bg-white/5 dark:inset-ring-white/2">
+          <SearchButton className="inline-flex items-center gap-1 rounded-full bg-yaka-darkest/5 px-2 py-1 inset-ring inset-ring-yaka-darkest/10 dark:bg-yaka-lightest/5 dark:inset-ring-yaka-lightest/10">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
-              className="-ml-0.5 size-4 fill-gray-600 dark:fill-gray-500"
+              className="-ml-0.5 size-4 fill-yaka-medium dark:fill-yaka-light"
             >
               <path
                 fillRule="evenodd"
@@ -133,31 +109,31 @@ export function Header(props: React.PropsWithChildren) {
               />
             </svg>
 
-            <kbd className="hidden font-sans text-xs/4 text-gray-500 dark:text-gray-400 [.os-macos_&]:block">⌘K</kbd>
-            <kbd className="hidden font-sans text-xs/4 text-gray-500 not-[.os-macos_&]:block dark:text-gray-400">
+            <kbd className="hidden font-sans text-xs/4 text-yaka-light dark:text-yaka-lighter [.os-macos_&]:block">⌘K</kbd>
+            <kbd className="hidden font-sans text-xs/4 text-yaka-light not-[.os-macos_&]:block dark:text-yaka-lighter">
               Ctrl&nbsp;K
             </kbd>
           </SearchButton>
-          <Link href="/docs" className="text-sm/6 text-gray-950 dark:text-white">
+          <Link href="/docs/yakajs-getting-started" className="text-sm/6 text-yaka-darkest dark:text-yaka-lightest">
             Docs
           </Link>
-          <Link href="/blog" className="text-sm/6 text-gray-950 dark:text-white">
+          <Link href="/blog" className="text-sm/6 text-yaka-darkest dark:text-yaka-lightest">
             Blog
           </Link>
-          <Link href="/showcase" className="text-sm/6 text-gray-950 dark:text-white">
+          <Link href="/showcase" className="text-sm/6 text-yaka-darkest dark:text-yaka-lightest">
             Showcase
           </Link>
-          <Link href="/sponsor" className="text-sm/6 text-gray-950 dark:text-white">
+          <Link href="/sponsor" className="text-sm/6 text-yaka-darkest dark:text-yaka-lightest">
             Sponsor
           </Link>
-          <a href="/plus?ref=top" className="group relative px-1.5 text-sm/6 text-sky-800 dark:text-sky-300">
-            <span className="absolute inset-0 border border-dashed border-sky-300/60 bg-sky-400/10 group-hover:bg-sky-400/15 dark:border-sky-300/30" />
+          <a href="/plus?ref=top" className="group relative px-1.5 text-sm/6 text-yaka-accent-dark dark:text-yaka-accent">
+            <span className="absolute inset-0 border border-dashed border-yaka-accent/60 bg-yaka-accent/10 group-hover:bg-yaka-accent/15 dark:border-yaka-accent/30" />
             Plus
             <svg
               width="5"
               height="5"
               viewBox="0 0 5 5"
-              className="absolute top-[-2px] left-[-2px] fill-sky-300 dark:fill-sky-300/50"
+              className="absolute top-[-2px] left-[-2px] fill-yaka-accent dark:fill-yaka-accent/50"
             >
               <path d="M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z" />
             </svg>
@@ -165,7 +141,7 @@ export function Header(props: React.PropsWithChildren) {
               width="5"
               height="5"
               viewBox="0 0 5 5"
-              className="absolute top-[-2px] right-[-2px] fill-sky-300 dark:fill-sky-300/50"
+              className="absolute top-[-2px] right-[-2px] fill-yaka-accent dark:fill-yaka-accent/50"
             >
               <path d="M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z" />
             </svg>
@@ -173,7 +149,7 @@ export function Header(props: React.PropsWithChildren) {
               width="5"
               height="5"
               viewBox="0 0 5 5"
-              className="absolute bottom-[-2px] left-[-2px] fill-sky-300 dark:fill-sky-300/50"
+              className="absolute bottom-[-2px] left-[-2px] fill-yaka-accent dark:fill-yaka-accent/50"
             >
               <path d="M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z" />
             </svg>
@@ -181,14 +157,14 @@ export function Header(props: React.PropsWithChildren) {
               width="5"
               height="5"
               viewBox="0 0 5 5"
-              className="absolute right-[-2px] bottom-[-2px] fill-sky-300 dark:fill-sky-300/50"
+              className="absolute right-[-2px] bottom-[-2px] fill-yaka-accent dark:fill-yaka-accent/50"
             >
               <path d="M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z" />
             </svg>
           </a>
 
-          <Link href="https://github.com/Yaka-UI-Labs/YakaJS-Documentation" aria-label="GitHub repository">
-            <GitHubLogo className="size-5 fill-black/40 dark:fill-gray-400" />
+          <Link href="https://github.com/Yaka-UI-Labs/YakaJS" aria-label="GitHub repository">
+            <GitHubLogo className="size-5 fill-yaka-darkest/40 dark:fill-yaka-light" />
           </Link>
         </div>
         <div className="flex items-center gap-2.5 md:hidden">
@@ -211,7 +187,7 @@ export function Header(props: React.PropsWithChildren) {
           <Dialog
             open={navIsOpen}
             onClose={() => setNavIsOpen(false)}
-            className="fixed inset-0 bg-white focus:outline-none md:hidden dark:bg-gray-950"
+            className="fixed inset-0 bg-white focus:outline-none md:hidden dark:bg-yaka-dark"
           >
             <DialogPanel className="size-full overflow-y-auto">
               <div className="flex h-14 items-center justify-between px-4 py-4 sm:px-6">
@@ -224,38 +200,38 @@ export function Header(props: React.PropsWithChildren) {
               </div>
               <div className="grid grid-cols-1 gap-1 px-1 pb-1 sm:px-3 sm:pb-3">
                 <Link
-                  href="/docs"
-                  className="rounded-lg px-3 py-2 text-xl/9 font-medium text-gray-950 data-active:bg-gray-950/5 dark:text-white dark:hover:bg-white/10"
+                  href="/docs/yakajs-getting-started"
+                  className="rounded-lg px-3 py-2 text-xl/9 font-medium text-yaka-darkest data-active:bg-yaka-darkest/5 dark:text-yaka-lightest dark:hover:bg-yaka-lightest/10"
                 >
                   Docs
                 </Link>
                 <a
                   href="/plus/?ref=top"
-                  className="rounded-lg px-3 py-2 text-xl/9 font-medium text-gray-950 data-active:bg-gray-950/5 dark:text-white dark:hover:bg-white/10"
+                  className="rounded-lg px-3 py-2 text-xl/9 font-medium text-yaka-darkest data-active:bg-yaka-darkest/5 dark:text-yaka-lightest dark:hover:bg-yaka-lightest/10"
                 >
                   Plus
                 </a>
                 <Link
                   href="/blog"
-                  className="rounded-lg px-3 py-2 text-xl/9 font-medium text-gray-950 data-active:bg-gray-950/5 dark:text-white dark:hover:bg-white/10"
+                  className="rounded-lg px-3 py-2 text-xl/9 font-medium text-yaka-darkest data-active:bg-yaka-darkest/5 dark:text-yaka-lightest dark:hover:bg-yaka-lightest/10"
                 >
                   Blog
                 </Link>
                 <Link
                   href="/showcase"
-                  className="rounded-lg px-3 py-2 text-xl/9 font-medium text-gray-950 data-active:bg-gray-950/5 dark:text-white dark:hover:bg-white/10"
+                  className="rounded-lg px-3 py-2 text-xl/9 font-medium text-yaka-darkest data-active:bg-yaka-darkest/5 dark:text-yaka-lightest dark:hover:bg-yaka-lightest/10"
                 >
                   Showcase
                 </Link>
                 <Link
                   href="/sponsor"
-                  className="rounded-lg px-3 py-2 text-xl/9 font-medium text-gray-950 data-active:bg-gray-950/5 dark:text-white dark:hover:bg-white/10"
+                  className="rounded-lg px-3 py-2 text-xl/9 font-medium text-yaka-darkest data-active:bg-yaka-darkest/5 dark:text-yaka-lightest dark:hover:bg-yaka-lightest/10"
                 >
                   Sponsor
                 </Link>
                 <Link
-                  href="https://github.com/tailwindlabs/tailwindcss"
-                  className="rounded-lg px-3 py-2 text-xl/9 font-medium text-gray-950 data-active:bg-gray-950/5 dark:text-white dark:hover:bg-white/10"
+                  href="https://github.com/Yaka-UI-Labs/YakaJS"
+                  className="rounded-lg px-3 py-2 text-xl/9 font-medium text-yaka-darkest data-active:bg-yaka-darkest/5 dark:text-yaka-lightest dark:hover:bg-yaka-lightest/10"
                 >
                   GitHub
                 </Link>
