@@ -1,7 +1,10 @@
 import Link from "next/link";
 import index from "../app/(docs)/docs/index";
 
-let flatIndex = Object.values(index).flatMap((e) => e.flatMap((e) => [e, ...(Array.isArray(e[2]) ? e[2] : [])]));
+let flatIndex = Object.values(index).flatMap((e) => e.flatMap((e) => {
+  const children = (e as any)[2];
+  return [e, ...(Array.isArray(children) ? children : [])];
+}));
 
 export default function Pagination({ slug }: { slug: string }) {
   let position = flatIndex.findIndex(([_, path]) => path === `/docs/${slug}`);

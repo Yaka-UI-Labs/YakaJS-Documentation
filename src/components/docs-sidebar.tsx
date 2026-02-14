@@ -168,7 +168,10 @@ export function DocsSidebar() {
         <NavList key={category} data-autoscroll>
           <NavListHeading>{category}</NavListHeading>
           <NavListItems>
-            {entries.map(([title, path, children]) => (
+            {entries.map((entry) => {
+              const [title, path] = entry;
+              const children = (entry as any)[2] as readonly [string, string][] | undefined;
+              return (
               <NavListItem key={path}>
                 <DocsSidebarLink title={title} path={path} />
 
@@ -182,7 +185,7 @@ export function DocsSidebar() {
                   </NavListItems>
                 )}
               </NavListItem>
-            ))}
+            )})}
           </NavListItems>
         </NavList>
       ))}

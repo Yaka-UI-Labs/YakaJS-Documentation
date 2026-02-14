@@ -1,0 +1,610 @@
+export const title = "Security Features";
+export const description = "Keep your applications secure with YakaJS's built-in XSS protection, CSRF tokens, and input sanitization";
+
+# Security Features
+
+Complete guide to building secure applications with YakaJS. Protection against XSS, CSRF, and more!
+
+## XSS Protection
+
+### HTML Sanitization
+
+YakaJS automatically sanitizes HTML to prevent XSS attacks:
+
+```javascript
+// DANGEROUS: User input without sanitization
+const userInput = '<script>alert("XSS")</script>';
+_('#content').html(userInput);  // ⚠️ XSS vulnerability!
+
+// SAFE: Sanitize user input
+_('#content').html(userInput, true);  // ✅ Script tags removed!
+
+// Result: <script>alert("XSS")</script> becomes empty or safe text
+```
+
+### Manual Sanitization
+
+```javascript
+// Sanitize HTML string
+const clean = _.security.sanitizeHtml(userInput);
+console.log(clean);  // All dangerous tags removed
+
+// Escape HTML entities
+const escaped = _.security.escapeHtml(userInput);
+console.log(escaped);  // <script> becomes &lt;script&gt;
+
+// URL encoding
+const safe = _.security.escapeUrl(userUrl);
+```
+
+### Allowed Tags
+
+Configure which HTML tags are allowed:
+
+```javascript
+_.security.setAllowedTags([
+    'p', 'br', 'strong', 'em', 'u',
+    'h1', 'h2', 'h3', 'ul', 'ol', 'li',
+    'a', 'img'
+]);
+
+// Sanitize with custom allowed tags
+const clean = _.security.sanitizeHtml(userInput);
+```
+
+## CSRF Protection
+
+### Set CSRF Token
+
+```javascript
+// Get token from meta tag
+const token = _('meta[name="csrf-token"]').attr('content');
+_.csrf.setToken(token);
+
+// Or set directly
+_.csrf.setToken('your-csrf-token-here');
+```
+
+### Automatic Token Inclusion
+
+All POST/PUT/DELETE/PATCH requests automatically include the CSRF token:
+
+```javascript
+// Token automatically included in request
+_.post('/api/data', { foo: 'bar' });
+
+// Also works with _.ajax
+_.ajax({
+    url: '/api/data',
+    method: 'POST',
+    data: { foo: 'bar' }
+    // CSRF token auto-included!
+});
+```
+
+### Manual Token Inclusion
+
+```javascript
+// Get current token
+const token = _.csrf.getToken();
+
+// Add to form
+_('#myForm').append(
+    `<input type="hidden" name="_csrf" value="${token}">`
+);
+```
+
+### Token Refresh
+
+```javascript
+// Refresh token after login
+_.csrf.refresh('/api/csrf-token');
+
+// Or set new token
+_.csrf.setToken(newToken);
+```
+
+## Input Validation & Sanitization
+
+### Text Input
+
+```javascript
+// Sanitize text input
+function sanitizeText(input) {
+    return _.security.escapeHtml(input);
+}
+
+_('#name').on('blur', function() {
+    const clean = sanitizeText(_(this).val());
+    _(this).val(clean);
+});
+```
+
+### Email Validation
+
+```javascript
+function isValidEmail(email) {
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return pattern.test(email);
+}
+
+_('#email').on('blur', function() {
+    const email = _(this).val();
+    if (!isValidEmail(email)) {
+        _.notify('Invalid email address', 'error');
+    }
+});
+```
+
+### URL Validation
+
+```javascript
+function isValidUrl(url) {
+    try {
+        new URL(url);
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+// Sanitize URL
+function sanitizeUrl(url) {
+    if (!isValidUrl(url)) return '';
+    
+    const parsed = new URL(url);
+    
+    // Only allow specific protocols
+    if (!['http:', 'https:'].includes(parsed.protocol)) {
+        return '';
+    }
+    
+    return _.security.escapeUrl(url);
+}
+```
+
+## Content Security Policy
+
+### CSP Nonce Support
+
+```javascript
+// Set CSP nonce for inline scripts
+_.security.setNonce('random-nonce-value');
+
+// Add nonce to dynamically created scripts
+const script = document.createElement('script');
+script.nonce = _.security.getNonce();
+script.textContent = 'console.log("Hello")';
+document.body.appendChild(script);
+```
+
+### CSP Meta Tag
+
+```html
+<meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; script-src 'self' 'nonce-{nonce}'">
+```
+
+## Authentication Helpers
+
+### Check Authentication
+
+```javascript
+// Store auth token
+_.storage.set('auth_token', token);
+
+// Check if authenticated
+function isAuthenticated() {
+    return !!_.storage.get('auth_token');
+}
+
+// Require authentication
+function requireAuth() {
+    if (!isAuthenticated()) {
+        window.location.href = '/login';
+    }
+}
+```
+
+### Secure Token Storage
+
+```javascript
+// Store token securely
+_.storage.setSecure('auth_token', token);
+
+// Get secured token
+const token = _.storage.getSecure('auth_token');
+
+// Remove token on logout
+_.storage.remove('auth_token');
+```
+
+## Password Security
+
+### Password Strength Check
+
+```javascript
+function checkPasswordStrength(password) {
+    const strength = {
+        length: password.length >= 8,
+        hasUpper: /[A-Z]/.test(password),
+        hasLower: /[a-z]/.test(password),
+        hasNumber: /\d/.test(password),
+        hasSpecial: /[@$!%*?&]/.test(password)
+    };
+    
+    const score = Object.values(strength).filter(Boolean).length;
+    
+    return {
+        score,
+        strength: score < 3 ? 'weak' : score < 5 ? 'medium' : 'strong',
+        requirements: strength
+    };
+}
+
+_('#password').on('input', function() {
+    const result = checkPasswordStrength(_(this).val());
+    _('#strength').text(result.strength)
+        .removeClass()
+        .addClass('strength-' + result.strength);
+});
+```
+
+## File Upload Security
+
+### Validate File Type
+
+```javascript
+function validateFileType(file, allowedTypes) {
+    return allowedTypes.includes(file.type);
+}
+
+_('#fileInput').on('change', function(e) {
+    const file = e.target.files[0];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    
+    if (!validateFileType(file, allowedTypes)) {
+        _.notify('Invalid file type. Only images allowed.', 'error');
+        _(this).val('');  // Clear input
+        return;
+    }
+    
+    // File is valid, proceed with upload
+    uploadFile(file);
+});
+```
+
+### Validate File Size
+
+```javascript
+function validateFileSize(file, maxSizeMB) {
+    const maxBytes = maxSizeMB * 1024 * 1024;
+    return file.size <= maxBytes;
+}
+
+_('#fileInput').on('change', function(e) {
+    const file = e.target.files[0];
+    
+    if (!validateFileSize(file, 5)) {  // 5 MB max
+        _.notify('File too large. Maximum 5 MB allowed.', 'error');
+        _(this).val('');
+        return;
+    }
+});
+```
+
+## SQL Injection Prevention
+
+When building API queries on the backend, always use parameterized queries. On the frontend:
+
+```javascript
+// NEVER build queries like this:
+const query = `SELECT * FROM users WHERE name = '${userName}'`;  // ⚠️ Vulnerable!
+
+// Instead, send data to API and let backend handle it:
+_.post('/api/users/search', {
+    name: userName  // Let backend sanitize and use parameterized queries
+});
+```
+
+## Security Headers
+
+### Set Security Headers (Backend)
+
+Configure these headers on your server:
+
+```
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+Content-Security-Policy: default-src 'self'
+Referrer-Policy: no-referrer
+```
+
+### Check Headers (Frontend)
+
+```javascript
+// Verify security headers
+async function checkSecurityHeaders() {
+    const response = await fetch('/');
+    const headers = response.headers;
+    
+    const required = [
+        'x-content-type-options',
+        'x-frame-options',
+        'strict-transport-security'
+    ];
+    
+    required.forEach(header => {
+        if (!headers.get(header)) {
+            console.warn(`Missing security header: ${header}`);
+        }
+    });
+}
+```
+
+## Rate Limiting
+
+### Client-side Rate Limiting
+
+```javascript
+class RateLimiter {
+    constructor(maxRequests, timeWindow) {
+        this.maxRequests = maxRequests;
+        this.timeWindow = timeWindow;  // in milliseconds
+        this.requests = [];
+    }
+    
+    canMakeRequest() {
+        const now = Date.now();
+        this.requests = this.requests.filter(
+            time => now - time < this.timeWindow
+        );
+        
+        return this.requests.length < this.maxRequests;
+    }
+    
+    recordRequest() {
+        this.requests.push(Date.now());
+    }
+}
+
+// Allow 10 requests per minute
+const limiter = new RateLimiter(10, 60000);
+
+function makeAPIRequest(url, data) {
+    if (!limiter.canMakeRequest()) {
+        _.notify('Too many requests. Please wait.', 'warning');
+        return;
+    }
+    
+    limiter.recordRequest();
+    return _.post(url, data);
+}
+```
+
+## Secure Form Submission
+
+### Complete Secure Form
+
+```javascript
+_('#secureForm').on('submit', async function(e) {
+    e.preventDefault();
+    
+    // 1. Validate input
+    const result = _(this).validate({
+        email: {
+            required: true,
+            email: true,
+            requiredMessage: 'Email is required'
+        },
+        password: {
+            required: true,
+            minLength: 8,
+            requiredMessage: 'Password is required'
+        }
+    });
+    
+    if (!result.valid) {
+        _.notify('Please fix errors', 'error');
+        return;
+    }
+    
+    // 2. Sanitize input
+    const formData = _(this).serializeObject();
+    Object.keys(formData).forEach(key => {
+        formData[key] = _.security.escapeHtml(formData[key]);
+    });
+    
+    // 3. Disable submit button
+    const $btn = _('button[type="submit"]');
+    $btn.prop('disabled', true).text('Submitting...');
+    
+    try {
+        // 4. Submit with CSRF token (auto-included)
+        const response = await _.post('/api/submit', formData);
+        
+        _.notify('Success!', 'success');
+        
+        // 5. Clear form
+        _(this)[0].reset();
+        
+    } catch (error) {
+        _.notify('Submission failed', 'error');
+    } finally {
+        // 6. Re-enable button
+        $btn.prop('disabled', false).text('Submit');
+    }
+});
+```
+
+## Security Best Practices
+
+### 1. Always Sanitize User Input
+
+```javascript
+// ALWAYS sanitize before displaying
+_('#content').html(userInput, true);
+
+// Or manually sanitize
+const clean = _.security.sanitizeHtml(userInput);
+_('#content').html(clean);
+```
+
+### 2. Use HTTPS
+
+```javascript
+// Check if using HTTPS
+if (location.protocol !== 'https:') {
+    console.warn('⚠️ Not using HTTPS! Data not encrypted.');
+}
+
+// Redirect to HTTPS
+if (location.protocol === 'http:' && location.hostname !== 'localhost') {
+    location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+}
+```
+
+### 3. Validate Everything
+
+```javascript
+// Client-side AND server-side validation
+_('#form').validate(rules);  // Client-side
+
+// Server also validates!
+_.post('/api/submit', data);  // Server validates again
+```
+
+### 4. Use Content Security Policy
+
+```html
+<meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; script-src 'self' 'nonce-{nonce}'">
+```
+
+### 5. Implement CSRF Protection
+
+```javascript
+// Set token on page load
+const token = _('meta[name="csrf-token"]').attr('content');
+_.csrf.setToken(token);
+
+// All POST requests include token automatically
+```
+
+### 6. Store Sensitive Data Securely
+
+```javascript
+// Use secure storage
+_.storage.setSecure('auth_token', token);
+
+// Never store passwords
+// Never store credit cards
+// Use tokens, not credentials
+```
+
+### 7. Sanitize URLs
+
+```javascript
+function isValidUrl(url) {
+    try {
+        const parsed = new URL(url);
+        return ['http:', 'https:'].includes(parsed.protocol);
+    } catch {
+        return false;
+    }
+}
+
+// Only use valid URLs
+if (isValidUrl(userUrl)) {
+    window.location.href = userUrl;
+}
+```
+
+### 8. Prevent Clickjacking
+
+```javascript
+// Check if page is in iframe
+if (window.top !== window.self) {
+    // Page is in iframe - potential clickjacking
+    console.warn('⚠️ Page loaded in iframe');
+    window.top.location = window.self.location;
+}
+```
+
+### 9. Secure Authentication
+
+```javascript
+// Store auth token securely
+_.storage.setSecure('auth_token', token);
+
+// Include in requests
+_.ajax({
+    url: '/api/protected',
+    headers: {
+        'Authorization': 'Bearer ' + _.storage.getSecure('auth_token')
+    }
+});
+
+// Clear on logout
+function logout() {
+    _.storage.remove('auth_token');
+    _.csrf.clear();
+    window.location.href = '/login';
+}
+```
+
+### 10. Monitor for Security Issues
+
+```javascript
+// Detect suspicious activity
+window.addEventListener('error', function(e) {
+    // Log client-side errors
+    if (e.message.includes('script')) {
+        console.error('Potential XSS attempt:', e);
+    }
+});
+
+// Detect devtools
+let devtoolsOpen = false;
+setInterval(function() {
+    const threshold = 160;
+    const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+    const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+    
+    if (widthThreshold || heightThreshold) {
+        if (!devtoolsOpen) {
+            console.warn('Developer tools opened');
+            devtoolsOpen = true;
+        }
+    } else {
+        devtoolsOpen = false;
+    }
+}, 500);
+```
+
+## Security Checklist
+
+- [ ] Sanitize all user input before displaying
+- [ ] Use CSRF tokens for POST/PUT/DELETE requests
+- [ ] Validate input on client AND server
+- [ ] Use HTTPS in production
+- [ ] Implement Content Security Policy
+- [ ] Set security headers
+- [ ] Validate file uploads (type and size)
+- [ ] Use secure password requirements
+- [ ] Store tokens securely
+- [ ] Implement rate limiting
+- [ ] Escape URLs before redirecting
+- [ ] Prevent clickjacking
+- [ ] Monitor for suspicious activity
+- [ ] Keep YakaJS updated
+- [ ] Review code for security issues
+
+## Next Steps
+
+- Learn about [Forms & Validation](/docs/forms)
+- Explore [Storage](/docs/storage)
+- Master [AJAX Requests](/docs/ajax)
+- Discover [Best Practices](/docs/best-practices)
