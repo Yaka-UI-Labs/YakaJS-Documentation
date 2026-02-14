@@ -1,42 +1,42 @@
 .prose {
-  --prose-color: var(--color-yaka-medium);
-  --prose-heading-color: var(--color-yaka-darkest);
-  --prose-strong-color: var(--color-yaka-darkest);
-  --prose-link-color: var(--color-yaka-darkest);
-  --prose-code-color: var(--color-yaka-darkest);
-  --prose-marker-color: color-mix(in oklab, var(--color-yaka-medium) 25%, transparent);
-  --prose-link-underline-color: var(--color-yaka-accent);
-  --prose-th-borders: var(--color-yaka-darker);
-  --prose-td-borders: var(--color-yaka-light);
-  --prose-hr-color: color-mix(in oklab, var(--color-yaka-darkest) 5%, transparent);
-  --prose-blockquote-border-color: var(--color-yaka-darker);
+  --prose-color: var(--color-oatmeal-stone);
+  --prose-heading-color: #FFFFFF;
+  --prose-strong-color: var(--color-oatmeal-white);
+  --prose-link-color: var(--color-oatmeal-white);
+  --prose-code-color: var(--color-oatmeal-white);
+  --prose-marker-color: color-mix(in oklab, var(--color-oatmeal-stone) 25%, transparent);
+  --prose-link-underline-color: var(--color-oatmeal-white);
+  --prose-th-borders: var(--color-oatmeal-olive);
+  --prose-td-borders: var(--color-oatmeal-olive);
+  --prose-hr-color: color-mix(in oklab, var(--color-oatmeal-olive) 50%, transparent);
+  --prose-blockquote-border-color: var(--color-oatmeal-olive);
 
   &:where(.dark, .dark *) {
-    --prose-color: var(--color-yaka-lighter);
-    --prose-heading-color: var(--color-yaka-lightest);
-    --prose-strong-color: var(--color-yaka-lightest);
-    --prose-link-color: var(--color-yaka-lightest);
-    --prose-code-color: var(--color-yaka-lightest);
-    --prose-marker-color: color-mix(in oklab, var(--color-yaka-lighter) 35%, transparent);
-    --prose-link-underline-color: var(--color-yaka-accent);
-    --prose-th-borders: var(--color-yaka-medium-light);
-    --prose-td-borders: var(--color-yaka-darker);
-    --prose-hr-color: color-mix(in oklab, var(--color-yaka-lightest) 10%, transparent);
-    --prose-blockquote-border-color: var(--color-yaka-medium-light);
+    --prose-color: var(--color-oatmeal-stone);
+    --prose-heading-color: #FFFFFF;
+    --prose-strong-color: var(--color-oatmeal-white);
+    --prose-link-color: var(--color-oatmeal-white);
+    --prose-code-color: var(--color-oatmeal-white);
+    --prose-marker-color: color-mix(in oklab, var(--color-oatmeal-stone) 35%, transparent);
+    --prose-link-underline-color: var(--color-oatmeal-white);
+    --prose-th-borders: var(--color-oatmeal-olive);
+    --prose-td-borders: var(--color-oatmeal-olive);
+    --prose-hr-color: color-mix(in oklab, var(--color-oatmeal-olive) 50%, transparent);
+    --prose-blockquote-border-color: var(--color-oatmeal-olive);
   }
   @media (prefers-color-scheme: dark) {
     &:where(.system, .system *) {
-      --prose-color: var(--color-yaka-lighter);
-      --prose-heading-color: var(--color-yaka-lightest);
-      --prose-strong-color: var(--color-yaka-lightest);
-      --prose-link-color: var(--color-yaka-lightest);
-      --prose-code-color: var(--color-yaka-lightest);
-      --prose-marker-color: color-mix(in oklab, var(--color-yaka-lighter) 35%, transparent);
-      --prose-link-underline-color: var(--color-yaka-accent);
-      --prose-th-borders: var(--color-yaka-medium-light);
-      --prose-td-borders: var(--color-yaka-darker);
-      --prose-hr-color: color-mix(in oklab, var(--color-yaka-lightest) 10%, transparent);
-      --prose-blockquote-border-color: var(--color-yaka-medium-light);
+      --prose-color: var(--color-oatmeal-stone);
+      --prose-heading-color: #FFFFFF;
+      --prose-strong-color: var(--color-oatmeal-white);
+      --prose-link-color: var(--color-oatmeal-white);
+      --prose-code-color: var(--color-oatmeal-white);
+      --prose-marker-color: color-mix(in oklab, var(--color-oatmeal-stone) 35%, transparent);
+      --prose-link-underline-color: var(--color-oatmeal-white);
+      --prose-th-borders: var(--color-oatmeal-olive);
+      --prose-td-borders: var(--color-oatmeal-olive);
+      --prose-hr-color: color-mix(in oklab, var(--color-oatmeal-olive) 50%, transparent);
+      --prose-blockquote-border-color: var(--color-oatmeal-olive);
     }
   }
 
@@ -207,11 +207,11 @@
   thead:where(:not(.not-prose, .not-prose *)) {
     border-bottom-width: 2px;
     border-bottom-color: var(--prose-th-borders);
-    background-color: color-mix(in oklab, var(--color-yaka-lightest) 50%, transparent);
+    background-color: color-mix(in oklab, var(--color-oatmeal-card) 80%, transparent);
   }
 
   .dark thead:where(:not(.not-prose, .not-prose *)) {
-    background-color: color-mix(in oklab, var(--color-yaka-dark) 30%, transparent);
+    background-color: color-mix(in oklab, var(--color-oatmeal-card) 60%, transparent);
   }
 
   thead th:where(:not(.not-prose, .not-prose *)) {
@@ -236,11 +236,11 @@
   }
 
   tbody tr:hover:where(:not(.not-prose, .not-prose *)) {
-    background-color: color-mix(in oklab, var(--color-yaka-lightest) 40%, transparent);
+    background-color: color-mix(in oklab, var(--color-oatmeal-olive) 30%, transparent);
   }
 
   .dark tbody tr:hover:where(:not(.not-prose, .not-prose *)) {
-    background-color: color-mix(in oklab, var(--color-yaka-dark) 25%, transparent);
+    background-color: color-mix(in oklab, var(--color-oatmeal-olive) 40%, transparent);
   }
 
   tbody tr:last-child:where(:not(.not-prose, .not-prose *)) {
