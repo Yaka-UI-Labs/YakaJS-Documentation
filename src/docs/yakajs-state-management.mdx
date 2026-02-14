@@ -1,0 +1,661 @@
+export const title = "State Management & Reactivity";
+export const description = "Learn about YakaJS's Vuex-style stores, signals, and reactive programming";
+
+# State Management & Reactivity
+
+YakaJS provides powerful state management features inspired by Vuex, Redux, and SolidJS - all built-in!
+
+## Overview
+
+YakaJS offers two approaches to state management:
+
+1. **Store Pattern** - Vuex-style centralized state with mutations, actions, and getters
+2. **Signals & Reactivity** - SolidJS-inspired reactive primitives for fine-grained reactivity
+
+## Store Pattern (Vuex-Style)
+
+### Creating a Store
+
+Create a centralized store for your application state:
+
+```javascript
+const store = _.createStore({
+    state: {
+        count: 0,
+        user: null,
+        todos: []
+    },
+    mutations: {
+        increment(state) {
+            state.count++;
+        },
+        decrement(state) {
+            state.count--;
+        },
+        setUser(state, user) {
+            state.user = user;
+        },
+        addTodo(state, todo) {
+            state.todos.push(todo);
+        },
+        removeTodo(state, id) {
+            state.todos = state.todos.filter(t => t.id !== id);
+        }
+    },
+    actions: {
+        async fetchUser({ commit }) {
+            const user = await fetch('/api/user').then(r => r.json());
+            commit('setUser', user);
+        },
+        async incrementAsync({ commit }) {
+            setTimeout(() => {
+                commit('increment');
+            }, 1000);
+        }
+    },
+    getters: {
+        doubleCount(state) {
+            return state.count * 2;
+        },
+        completedTodos(state) {
+            return state.todos.filter(t => t.completed);
+        },
+        todoCount(state) {
+            return state.todos.length;
+        }
+    }
+});
+```
+
+### Using the Store
+
+#### Accessing State
+
+```javascript
+// Read state directly
+console.log(store.state.count);    // 0
+console.log(store.state.user);     // null
+```
+
+#### Committing Mutations
+
+Mutations are synchronous changes to state:
+
+```javascript
+// Commit a mutation
+store.commit('increment');
+console.log(store.state.count);  // 1
+
+// Commit with payload
+store.commit('setUser', {
+    id: 1,
+    name: 'John Doe'
+});
+
+// Commit multiple times
+store.commit('increment');
+store.commit('increment');
+console.log(store.state.count);  // 3
+```
+
+#### Dispatching Actions
+
+Actions can be asynchronous:
+
+```javascript
+// Dispatch an action
+store.dispatch('fetchUser');
+
+// Dispatch with payload
+store.dispatch('addTodo', {
+    id: Date.now(),
+    text: 'Learn YakaJS',
+    completed: false
+});
+
+// Actions can return promises
+store.dispatch('incrementAsync').then(() => {
+    console.log('Increment complete!');
+});
+```
+
+#### Using Getters
+
+Getters are computed properties based on state:
+
+```javascript
+console.log(store.getters.doubleCount);      // Computed value
+console.log(store.getters.completedTodos);   // Filtered array
+console.log(store.getters.todoCount);        // Count
+```
+
+### Time Travel (Undo/Redo)
+
+YakaJS stores support undo/redo out of the box!
+
+```javascript
+// Make some changes
+store.commit('increment');  // count: 1
+store.commit('increment');  // count: 2
+store.commit('increment');  // count: 3
+
+// Undo
+store.undo();              // count: 2
+store.undo();              // count: 1
+
+// Redo
+store.redo();              // count: 2
+store.redo();              // count: 3
+
+// Check if undo/redo available
+if (store.canUndo()) {
+    store.undo();
+}
+
+if (store.canRedo()) {
+    store.redo();
+}
+```
+
+### Subscribing to Changes
+
+Watch for state changes:
+
+```javascript
+// Subscribe to all mutations
+store.subscribe((mutation, state) => {
+    console.log('Mutation:', mutation.type);
+    console.log('Payload:', mutation.payload);
+    console.log('New state:', state);
+});
+
+// Subscribe to specific mutations
+store.subscribe((mutation, state) => {
+    if (mutation.type === 'increment') {
+        console.log('Count incremented:', state.count);
+    }
+});
+```
+
+## Signals & Reactivity
+
+### Creating Signals
+
+Signals are reactive values that automatically track dependencies:
+
+```javascript
+// Create a signal
+const count = _.signal(0);
+
+// Read value (call as function)
+console.log(count());  // 0
+
+// Set value
+count.set(5);
+console.log(count());  // 5
+
+// Update value based on current
+count.update(n => n + 1);
+console.log(count());  // 6
+```
+
+### Computed Values
+
+Computed values automatically update when dependencies change:
+
+```javascript
+const count = _.signal(10);
+const doubled = _.computed(() => count() * 2);
+
+console.log(doubled());  // 20
+
+count.set(5);
+console.log(doubled());  // 10
+
+count.update(n => n + 3);
+console.log(doubled());  // 16
+```
+
+### Effects
+
+Effects run automatically when their dependencies change:
+
+```javascript
+const name = _.signal('John');
+const age = _.signal(25);
+
+// Create effect that runs when dependencies change
+_.effect(() => {
+    console.log(`${name()} is ${age()} years old`);
+});
+// Logs: "John is 25 years old"
+
+name.set('Jane');
+// Logs: "Jane is 25 years old"
+
+age.set(30);
+// Logs: "Jane is 30 years old"
+```
+
+### Reactive DOM Updates
+
+Combine signals with DOM manipulation:
+
+```javascript
+const count = _.signal(0);
+
+// Update DOM when count changes
+_.effect(() => {
+    _('#counter').text(count());
+});
+
+// Button clicks update signal
+_('#increment').on('click', () => {
+    count.update(n => n + 1);
+});
+
+_('#decrement').on('click', () => {
+    count.update(n => n - 1);
+});
+```
+
+## Real-World Examples
+
+### Todo App with Store
+
+```javascript
+const todoStore = _.createStore({
+    state: {
+        todos: [],
+        filter: 'all'  // 'all', 'active', 'completed'
+    },
+    mutations: {
+        addTodo(state, text) {
+            state.todos.push({
+                id: Date.now(),
+                text,
+                completed: false
+            });
+        },
+        toggleTodo(state, id) {
+            const todo = state.todos.find(t => t.id === id);
+            if (todo) todo.completed = !todo.completed;
+        },
+        removeTodo(state, id) {
+            state.todos = state.todos.filter(t => t.id !== id);
+        },
+        setFilter(state, filter) {
+            state.filter = filter;
+        }
+    },
+    getters: {
+        filteredTodos(state) {
+            if (state.filter === 'active') {
+                return state.todos.filter(t => !t.completed);
+            }
+            if (state.filter === 'completed') {
+                return state.todos.filter(t => t.completed);
+            }
+            return state.todos;
+        },
+        activeCount(state) {
+            return state.todos.filter(t => !t.completed).length;
+        }
+    }
+});
+
+// Add todo
+_('#addTodo').on('click', () => {
+    const text = _('#todoInput').val();
+    if (text) {
+        todoStore.commit('addTodo', text);
+        _('#todoInput').val('');
+        renderTodos();
+    }
+});
+
+// Render todos
+function renderTodos() {
+    const todos = todoStore.getters.filteredTodos;
+    const html = todos.map(todo => `
+        <li data-id="${todo.id}" class="${todo.completed ? 'completed' : ''}">
+            <input type="checkbox" ${todo.completed ? 'checked' : ''}>
+            <span>${todo.text}</span>
+            <button class="delete">Delete</button>
+        </li>
+    `).join('');
+    
+    _('#todoList').html(html);
+}
+
+// Toggle todo
+_('#todoList').on('click', 'input[type="checkbox"]', function() {
+    const id = _(this).parent().attr('data-id');
+    todoStore.commit('toggleTodo', Number(id));
+    renderTodos();
+});
+
+// Delete todo
+_('#todoList').on('click', '.delete', function() {
+    const id = _(this).parent().attr('data-id');
+    todoStore.commit('removeTodo', Number(id));
+    renderTodos();
+});
+```
+
+### Counter with Signals
+
+```javascript
+// Create reactive counter
+const count = _.signal(0);
+const message = _.computed(() => {
+    const n = count();
+    if (n === 0) return 'Start counting!';
+    if (n < 10) return `Count: ${n}`;
+    if (n < 20) return `Getting high: ${n}`;
+    return `Wow! ${n}`;
+});
+
+// Auto-update DOM
+_.effect(() => {
+    _('#count').text(count());
+    _('#message').text(message());
+});
+
+// Button actions
+_('#increment').on('click', () => count.update(n => n + 1));
+_('#decrement').on('click', () => count.update(n => n - 1));
+_('#reset').on('click', () => count.set(0));
+```
+
+### Shopping Cart
+
+```javascript
+const cartStore = _.createStore({
+    state: {
+        items: [],
+        discount: 0
+    },
+    mutations: {
+        addItem(state, product) {
+            const existing = state.items.find(i => i.id === product.id);
+            if (existing) {
+                existing.quantity++;
+            } else {
+                state.items.push({ ...product, quantity: 1 });
+            }
+        },
+        removeItem(state, productId) {
+            state.items = state.items.filter(i => i.id !== productId);
+        },
+        updateQuantity(state, { productId, quantity }) {
+            const item = state.items.find(i => i.id === productId);
+            if (item) {
+                item.quantity = Math.max(0, quantity);
+            }
+        },
+        setDiscount(state, discount) {
+            state.discount = discount;
+        },
+        clearCart(state) {
+            state.items = [];
+        }
+    },
+    getters: {
+        subtotal(state) {
+            return state.items.reduce((sum, item) => {
+                return sum + (item.price * item.quantity);
+            }, 0);
+        },
+        total(state, getters) {
+            const subtotal = getters.subtotal;
+            return subtotal - (subtotal * state.discount / 100);
+        },
+        itemCount(state) {
+            return state.items.reduce((sum, item) => sum + item.quantity, 0);
+        }
+    }
+});
+
+// Subscribe to cart changes
+cartStore.subscribe((mutation, state) => {
+    // Update cart icon badge
+    const count = cartStore.getters.itemCount;
+    _('#cartBadge').text(count).toggle(count > 0);
+    
+    // Update total
+    _('#cartTotal').text(`$${cartStore.getters.total.toFixed(2)}`);
+});
+
+// Add to cart
+_('.add-to-cart').on('click', function() {
+    const product = {
+        id: _(this).attr('data-id'),
+        name: _(this).attr('data-name'),
+        price: parseFloat(_(this).attr('data-price'))
+    };
+    cartStore.commit('addItem', product);
+});
+```
+
+### User Authentication State
+
+```javascript
+const authStore = _.createStore({
+    state: {
+        user: null,
+        token: localStorage.getItem('token'),
+        loading: false
+    },
+    mutations: {
+        setUser(state, user) {
+            state.user = user;
+        },
+        setToken(state, token) {
+            state.token = token;
+            if (token) {
+                localStorage.setItem('token', token);
+            } else {
+                localStorage.removeItem('token');
+            }
+        },
+        setLoading(state, loading) {
+            state.loading = loading;
+        }
+    },
+    actions: {
+        async login({ commit }, { email, password }) {
+            commit('setLoading', true);
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.token) {
+                    commit('setToken', data.token);
+                    commit('setUser', data.user);
+                    return { success: true };
+                }
+                
+                return { success: false, error: data.error };
+            } finally {
+                commit('setLoading', false);
+            }
+        },
+        async logout({ commit }) {
+            commit('setToken', null);
+            commit('setUser', null);
+        },
+        async checkAuth({ commit, state }) {
+            if (!state.token) return;
+            
+            try {
+                const response = await fetch('/api/me', {
+                    headers: {
+                        'Authorization': `Bearer ${state.token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const user = await response.json();
+                    commit('setUser', user);
+                } else {
+                    commit('setToken', null);
+                }
+            } catch (error) {
+                console.error('Auth check failed:', error);
+            }
+        }
+    },
+    getters: {
+        isAuthenticated(state) {
+            return !!state.user;
+        },
+        userName(state) {
+            return state.user?.name || 'Guest';
+        }
+    }
+});
+
+// Check auth on load
+authStore.dispatch('checkAuth');
+
+// Subscribe to auth changes
+authStore.subscribe((mutation, state) => {
+    if (mutation.type === 'setUser') {
+        // Update UI
+        if (state.user) {
+            _('#userName').text(state.user.name);
+            _('#loginBtn').hide();
+            _('#logoutBtn').show();
+        } else {
+            _('#userName').text('Guest');
+            _('#loginBtn').show();
+            _('#logoutBtn').hide();
+        }
+    }
+});
+```
+
+## Best Practices
+
+### Choose the Right Tool
+
+- **Use Store** for:
+  - Global application state
+  - Complex state with many mutations
+  - When you need time travel (undo/redo)
+  - Team projects where structure helps
+
+- **Use Signals** for:
+  - Local component state
+  - Simple reactive values
+  - Performance-critical updates
+  - Fine-grained reactivity
+
+### Combining Both
+
+You can use stores and signals together:
+
+```javascript
+// Global store for app state
+const appStore = _.createStore({ /* ... */ });
+
+// Local signals for component state
+function createCounter() {
+    const count = _.signal(0);
+    const doubled = _.computed(() => count() * 2);
+    
+    return { count, doubled };
+}
+```
+
+### Modular Stores
+
+Split large stores into modules:
+
+```javascript
+// User module
+const userModule = {
+    state: { user: null },
+    mutations: {
+        setUser(state, user) { state.user = user; }
+    }
+};
+
+// Cart module
+const cartModule = {
+    state: { items: [] },
+    mutations: {
+        addItem(state, item) { state.items.push(item); }
+    }
+};
+
+// Combine modules
+const store = _.createStore({
+    state: {
+        ...userModule.state,
+        ...cartModule.state
+    },
+    mutations: {
+        ...userModule.mutations,
+        ...cartModule.mutations
+    }
+});
+```
+
+## Performance Tips
+
+### Batch Updates
+
+Batch multiple mutations:
+
+```javascript
+// Instead of multiple commits
+store.commit('setName', 'John');
+store.commit('setAge', 30);
+store.commit('setEmail', 'john@example.com');
+
+// Use a single mutation
+store.commit('setUser', {
+    name: 'John',
+    age: 30,
+    email: 'john@example.com'
+});
+```
+
+### Memoize Getters
+
+Complex getters are automatically memoized:
+
+```javascript
+getters: {
+    expensiveComputation(state) {
+        // This runs only when state.data changes
+        return state.data.map(/* expensive operation */);
+    }
+}
+```
+
+### Use Computed Wisely
+
+```javascript
+// Good: Computed depends on other reactive values
+const doubled = _.computed(() => count() * 2);
+
+// Avoid: Expensive operations in computed
+const bad = _.computed(() => {
+    // Avoid API calls or heavy processing
+    return heavyProcessing();
+});
+```
+
+---
+
+State management in YakaJS is powerful yet simple. Choose the approach that fits your needs!
+
+For more details, see the [API Reference](/docs/yakajs-api-reference).

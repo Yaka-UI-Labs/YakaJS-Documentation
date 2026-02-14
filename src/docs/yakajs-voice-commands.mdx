@@ -1,0 +1,474 @@
+export const title = "Voice Commands";
+export const description = "Control your web application with voice commands - a unique YakaJS feature";
+
+# Voice Commands
+
+**YakaJS is the ONLY JavaScript library with built-in voice commands.** Control your web application using your voice - no other library offers this out of the box!
+
+## What are Voice Commands?
+
+Voice commands allow users to interact with your web application using spoken words instead of clicks and keypresses. YakaJS uses the Web Speech API to recognize voice input and trigger actions.
+
+## Quick Start
+
+Here's a simple example:
+
+```javascript
+// Enable voice commands
+_.voice.listen({
+    'click button': () => _('#myButton').click(),
+    'show menu': () => _('#menu').show(),
+    'hide menu': () => _('#menu').hide(),
+    'scroll down': () => window.scrollBy(0, 100),
+    'scroll up': () => window.scrollBy(0, -100)
+});
+```
+
+Now users can say "show menu" and your menu will appear! 🎤
+
+## Basic Usage
+
+### Starting Voice Recognition
+
+Use `_.voice.listen()` to start listening for commands:
+
+```javascript
+_.voice.listen({
+    'hello': () => {
+        alert('Hello! Voice commands are working!');
+    },
+    'change color': () => {
+        _('#element').css('color', 'blue');
+    },
+    'animate': () => {
+        _('#element').bounce();
+    }
+});
+```
+
+### Stopping Voice Recognition
+
+Stop listening with `_.voice.stop()`:
+
+```javascript
+// Stop voice commands
+_.voice.stop();
+
+// You can start again later
+_.voice.listen({ /* commands */ });
+```
+
+## Advanced Options
+
+### Configuration
+
+Customize voice recognition with options:
+
+```javascript
+_.voice.listen({
+    'click button': () => _('#btn').click()
+}, {
+    language: 'en-US',      // Recognition language
+    continuous: true,       // Keep listening after recognition
+    interimResults: false,  // Return interim results
+    maxAlternatives: 1      // Max number of alternatives
+});
+```
+
+### Multiple Languages
+
+Support different languages:
+
+```javascript
+// English commands
+_.voice.listen({
+    'open menu': () => _('#menu').show()
+}, { language: 'en-US' });
+
+// Spanish commands
+_.voice.listen({
+    'abrir menú': () => _('#menu').show()
+}, { language: 'es-ES' });
+
+// French commands
+_.voice.listen({
+    'ouvrir menu': () => _('#menu').show()
+}, { language: 'fr-FR' });
+```
+
+## Real-World Examples
+
+### Navigation Control
+
+```javascript
+_.voice.listen({
+    'go home': () => router.navigateTo('/'),
+    'go to settings': () => router.navigateTo('/settings'),
+    'go to profile': () => router.navigateTo('/profile'),
+    'go back': () => router.back(),
+    'go forward': () => router.forward()
+});
+```
+
+### Form Control
+
+```javascript
+_.voice.listen({
+    'clear form': () => {
+        _('input[type="text"]').val('');
+    },
+    'submit form': () => {
+        _('#myForm').trigger('submit');
+    },
+    'focus search': () => {
+        _('#searchInput').focus();
+    }
+});
+```
+
+### Media Control
+
+```javascript
+const video = document.querySelector('#myVideo');
+
+_.voice.listen({
+    'play video': () => video.play(),
+    'pause video': () => video.pause(),
+    'stop video': () => {
+        video.pause();
+        video.currentTime = 0;
+    },
+    'volume up': () => {
+        video.volume = Math.min(1, video.volume + 0.1);
+    },
+    'volume down': () => {
+        video.volume = Math.max(0, video.volume - 0.1);
+    },
+    'mute': () => video.muted = true,
+    'unmute': () => video.muted = false
+});
+```
+
+### Accessibility Features
+
+```javascript
+_.voice.listen({
+    'increase font': () => {
+        const current = parseFloat(_('body').css('fontSize'));
+        _('body').css('fontSize', (current + 2) + 'px');
+    },
+    'decrease font': () => {
+        const current = parseFloat(_('body').css('fontSize'));
+        _('body').css('fontSize', (current - 2) + 'px');
+    },
+    'dark mode': () => {
+        _('body').addClass('dark-theme');
+    },
+    'light mode': () => {
+        _('body').removeClass('dark-theme');
+    },
+    'high contrast': () => {
+        _('body').addClass('high-contrast');
+    }
+});
+```
+
+### E-commerce Example
+
+```javascript
+_.voice.listen({
+    'add to cart': () => {
+        const productId = _('.product.active').attr('data-id');
+        addToCart(productId);
+    },
+    'view cart': () => {
+        _('#cartModal').show();
+    },
+    'checkout': () => {
+        router.navigateTo('/checkout');
+    },
+    'search products': () => {
+        _('#searchBox').focus();
+    },
+    'filter by price': () => {
+        _('#priceFilter').click();
+    },
+    'sort by rating': () => {
+        _('#sortRating').click();
+    }
+});
+```
+
+## Pattern Matching
+
+### Partial Matches
+
+Commands support partial matching for flexibility:
+
+```javascript
+_.voice.listen({
+    // Matches "show", "show the", "show my", etc.
+    'show': () => _('#element').show(),
+    
+    // Matches "hide", "hide the", "hide my", etc.
+    'hide': () => _('#element').hide()
+});
+```
+
+### Dynamic Commands
+
+Generate commands dynamically:
+
+```javascript
+const pages = ['home', 'about', 'contact', 'products'];
+const commands = {};
+
+pages.forEach(page => {
+    commands[`go to ${page}`] = () => {
+        router.navigateTo(`/${page}`);
+    };
+});
+
+_.voice.listen(commands);
+```
+
+## User Experience
+
+### Visual Feedback
+
+Provide visual feedback when voice commands are active:
+
+```javascript
+// Show mic indicator
+const showMicIndicator = () => {
+    _('#micIndicator').addClass('active').fadeIn();
+};
+
+const hideMicIndicator = () => {
+    _('#micIndicator').removeClass('active').fadeOut();
+};
+
+// Show when voice starts
+_.voice.listen({
+    'hello': () => alert('Hi!')
+});
+showMicIndicator();
+
+// Show confirmation when command recognized
+document.addEventListener('voicecommand', (e) => {
+    _('#commandFeedback')
+        .text(`Recognized: "${e.detail.command}"`)
+        .fadeIn()
+        .delay(2000)
+        .fadeOut();
+});
+```
+
+### Help Command
+
+Implement a help command to show available commands:
+
+```javascript
+const availableCommands = {
+    'help': () => {
+        const commandList = Object.keys(availableCommands).join('<br>');
+        _('#helpModal')
+            .html(`<h3>Available Commands:</h3>${commandList}`)
+            .show();
+    },
+    'show menu': () => _('#menu').show(),
+    'hide menu': () => _('#menu').hide(),
+    'go home': () => router.navigateTo('/'),
+    'search': () => _('#search').focus()
+};
+
+_.voice.listen(availableCommands);
+```
+
+### Error Handling
+
+Handle recognition errors gracefully:
+
+```javascript
+_.voice.listen({
+    'my command': () => {
+        // Your action
+    }
+}, {
+    onError: (error) => {
+        if (error.error === 'no-speech') {
+            console.log('No speech detected');
+        } else if (error.error === 'not-allowed') {
+            alert('Microphone access denied');
+        } else {
+            console.error('Speech recognition error:', error);
+        }
+    },
+    onNoMatch: () => {
+        console.log('Command not recognized');
+    }
+});
+```
+
+## Browser Support
+
+Voice commands require the Web Speech API, which is supported in:
+
+- ✅ Chrome/Edge (full support)
+- ✅ Safari (partial support)
+- ⚠️ Firefox (limited support)
+- ❌ Internet Explorer (not supported)
+
+### Checking for Support
+
+Check if voice commands are available:
+
+```javascript
+if (_.voice.isSupported()) {
+    // Enable voice commands
+    _.voice.listen({ /* commands */ });
+} else {
+    // Show fallback UI
+    alert('Voice commands not supported in this browser');
+}
+```
+
+## Privacy & Security
+
+### Microphone Permissions
+
+Voice commands require microphone access. The browser will prompt users for permission when `_.voice.listen()` is first called.
+
+### Best Practices
+
+1. **Ask for permission explicitly** - Explain why you need microphone access
+2. **Provide visual indicators** - Show when the microphone is active
+3. **Allow disabling** - Let users turn off voice commands
+4. **Don't store audio** - YakaJS doesn't record or store audio data
+5. **Use HTTPS** - Web Speech API requires a secure context
+
+## Performance Tips
+
+### Optimize Commands
+
+Keep command lists focused:
+
+```javascript
+// Good: Specific, focused commands
+_.voice.listen({
+    'save': () => save(),
+    'cancel': () => cancel(),
+    'delete': () => deleteItem()
+});
+
+// Avoid: Too many similar commands
+// This can cause recognition issues
+```
+
+### Debounce Actions
+
+Prevent repeated triggers:
+
+```javascript
+let lastCommand = Date.now();
+
+_.voice.listen({
+    'scroll down': () => {
+        const now = Date.now();
+        if (now - lastCommand > 500) {  // 500ms debounce
+            window.scrollBy(0, 100);
+            lastCommand = now;
+        }
+    }
+});
+```
+
+## Testing
+
+### Manual Testing
+
+Test your voice commands:
+
+1. Open your app in a supported browser
+2. Click "Allow" when prompted for microphone access
+3. Speak clearly into your microphone
+4. Verify the correct action is triggered
+
+### Fallback Testing
+
+Always provide keyboard/mouse alternatives:
+
+```javascript
+// Voice command
+_.voice.listen({
+    'open menu': () => openMenu()
+});
+
+// Keyboard shortcut
+_('#menuButton').on('click', openMenu);
+document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key === 'm') openMenu();
+});
+```
+
+## Examples Gallery
+
+### Todo List
+
+```javascript
+_.voice.listen({
+    'add task': () => {
+        const task = prompt('What task?');
+        if (task) addTask(task);
+    },
+    'complete task': () => {
+        _('.task.selected').addClass('completed');
+    },
+    'delete task': () => {
+        _('.task.selected').remove();
+    },
+    'show completed': () => {
+        _('.task.completed').show();
+        _('.task:not(.completed)').hide();
+    },
+    'show all': () => {
+        _('.task').show();
+    }
+});
+```
+
+### Presentation Mode
+
+```javascript
+let currentSlide = 0;
+
+_.voice.listen({
+    'next slide': () => {
+        currentSlide++;
+        showSlide(currentSlide);
+    },
+    'previous slide': () => {
+        currentSlide--;
+        showSlide(currentSlide);
+    },
+    'first slide': () => {
+        currentSlide = 0;
+        showSlide(currentSlide);
+    },
+    'last slide': () => {
+        currentSlide = totalSlides - 1;
+        showSlide(currentSlide);
+    },
+    'start presentation': () => {
+        enterFullscreen();
+        currentSlide = 0;
+        showSlide(currentSlide);
+    }
+});
+```
+
+---
+
+Voice commands are a powerful accessibility feature and a unique selling point of YakaJS. Start experimenting with them today! 🎤
+
+For more information, see the [API Reference](/docs/yakajs-api-reference#voice-commands).
