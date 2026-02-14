@@ -1,0 +1,307 @@
+export const title = "Selectors";
+
+# Selectors
+
+YakaJS provides a powerful jQuery-like selector system for querying and manipulating DOM elements. The core selector function `_()` supports CSS selectors, context-based queries, and DOM element references.
+
+## Core Selector Function
+
+### `_(selector, context)`
+
+The primary way to select elements in YakaJS.
+
+**Parameters:**
+- `selector` (string | Element | NodeList | Array): CSS selector, DOM element, or collection
+- `context` (Element | string, optional): Context element or selector to limit search scope
+
+**Returns:** YakaJS collection object with chainable methods
+
+**Examples:**
+
+```javascript
+// Select by ID
+const header = _('#header');
+
+// Select by class
+const buttons = _('.btn');
+
+// Select by tag
+const paragraphs = _('p');
+
+// Select by attribute
+const required = _('[required]');
+const links = _('a[href^="https://"]');
+
+// Complex selectors
+const navLinks = _('nav > ul > li > a');
+const evenRows = _('tr:nth-child(even)');
+```
+
+## Context-Based Selection
+
+Limit your selection to a specific part of the DOM for better performance and specificity.
+
+```javascript
+// Select within a context element
+const menuItems = _('.menu-item', '#main-menu');
+
+// Using a DOM element as context
+const sidebar = document.getElementById('sidebar');
+const sidebarLinks = _('a', sidebar);
+
+// Nested context
+const container = _('#container');
+const buttons = _('.btn', container);
+```
+
+## Multiple Selectors
+
+Select multiple elements at once using comma-separated selectors.
+
+```javascript
+// Multiple selectors
+const elements = _('h1, h2, h3');
+const inputs = _('input, select, textarea');
+const media = _('img, video, audio');
+
+// Combine with context
+const headerElements = _('h1, h2, h3', '#content');
+```
+
+## Pseudo-Selectors
+
+YakaJS supports CSS pseudo-selectors for advanced queries.
+
+```javascript
+// First and last child
+const firstItem = _('li:first-child');
+const lastItem = _('li:last-child');
+
+// Nth child
+const oddRows = _('tr:nth-child(odd)');
+const every3rd = _('li:nth-child(3n)');
+
+// Empty elements
+const emptyDivs = _('div:empty');
+
+// Not selector
+const notDisabled = _('button:not(:disabled)');
+const notFirst = _('li:not(:first-child)');
+
+// Has selector
+const hasImage = _('div:has(img)');
+```
+
+## Special Selectors
+
+### Document and Window
+
+```javascript
+// Document
+_(document).ready(() => {
+  console.log('DOM ready!');
+});
+
+// Window
+_(window).on('resize', () => {
+  console.log('Window resized');
+});
+```
+
+### This Context
+
+```javascript
+// In event handlers, 'this' refers to the element
+_('.btn').on('click', function() {
+  _(this).addClass('clicked');
+});
+```
+
+## Working with Collections
+
+When you select elements, you get a YakaJS collection object.
+
+```javascript
+// Get the collection
+const items = _('.item');
+
+// Check if elements exist
+if (items.length > 0) {
+  console.log(`Found ${items.length} items`);
+}
+
+// Iterate over elements
+items.each((index, element) => {
+  console.log(`Item ${index}:`, element);
+});
+
+// Get specific element
+const firstItem = items.eq(0);
+const lastItem = items.eq(-1);
+
+// Get raw DOM element
+const domElement = items.get(0);
+```
+
+## Performance Tips
+
+### Cache Your Selectors
+
+```javascript
+// Bad: Re-query every time
+_('.btn').addClass('active');
+_('.btn').text('Click me');
+_('.btn').on('click', handleClick);
+
+// Good: Cache the selection
+const buttons = _('.btn');
+buttons.addClass('active');
+buttons.text('Click me');
+buttons.on('click', handleClick);
+```
+
+### Use Specific Selectors
+
+```javascript
+// Slower
+const items = _('div .item');
+
+// Faster (more specific)
+const items = _('#sidebar .item');
+
+// Fastest (ID first)
+const sidebar = _('#sidebar');
+const items = _('.item', sidebar);
+```
+
+### Limit Scope with Context
+
+```javascript
+// Searches entire document
+const links = _('a');
+
+// Only searches within nav
+const navLinks = _('a', '#nav');
+```
+
+## Selector Validation
+
+YakaJS validates selectors and handles errors gracefully.
+
+```javascript
+// Invalid selector returns empty collection
+const invalid = _(''); // Returns empty collection
+console.log(invalid.length); // 0
+
+// Safe mode prevents crashes
+_.safe(true);
+const result = _('invalid[[[selector'); // Won't throw error
+```
+
+## Chaining
+
+All selector operations return a YakaJS collection, enabling method chaining.
+
+```javascript
+_('.item')
+  .filter(':visible')
+  .addClass('active')
+  .find('.title')
+  .text('Updated Title')
+  .end()
+  .on('click', handleClick);
+```
+
+## Advanced Selection Patterns
+
+### Dynamic Selectors
+
+```javascript
+// Build selectors dynamically
+const type = 'success';
+const alerts = _(`.alert-${type}`);
+
+const id = 'user-123';
+const user = _(`#${id}`);
+
+// Data attributes
+const userId = '42';
+const element = _(`[data-user-id="${userId}"]`);
+```
+
+### Exists Check
+
+```javascript
+// Check if element exists
+if (_('#my-element').length) {
+  console.log('Element exists');
+}
+
+// Or use exists() method
+if (_('#my-element').exists()) {
+  console.log('Element exists');
+}
+```
+
+### Parent-Child Relationships
+
+```javascript
+// Direct children
+const directChildren = _('#parent > .child');
+
+// All descendants
+const allDescendants = _('#parent .child');
+
+// Adjacent siblings
+const nextSibling = _('.item + .item');
+
+// General siblings
+const allSiblings = _('.item ~ .item');
+```
+
+## Comparison with jQuery
+
+YakaJS selectors work almost identically to jQuery:
+
+| jQuery | YakaJS |
+|--------|--------|
+| `$('.class')` | `_('.class')` |
+| `$('#id')` | `_('#id')` |
+| `$('tag')` | `_('tag')` |
+| `$('.class', context)` | `_('.class', context)` |
+| `$(element)` | `_(element)` |
+
+## Browser Support
+
+YakaJS selectors use native `querySelectorAll` under the hood, supporting:
+- All modern browsers (Chrome, Firefox, Safari, Edge)
+- IE 9+ (with polyfills)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## Common Patterns
+
+```javascript
+// Select all buttons in a form
+const formButtons = _('button', '#my-form');
+
+// Select all external links
+const externalLinks = _('a[href^="http"]').filter(function() {
+  return this.hostname !== window.location.hostname;
+});
+
+// Select elements with data attributes
+const taggedElements = _('[data-tag]');
+
+// Select visible elements only
+const visibleItems = _('.item:visible');
+
+// Select elements by content
+const containsText = _('p:contains("search text")');
+```
+
+## Next Steps
+
+- [DOM Traversal](/docs/dom-traversal) - Navigate the DOM tree
+- [Element Manipulation](/docs/text-content) - Modify element content
+- [Attributes](/docs/attributes) - Work with element attributes
+- [CSS Classes](/docs/css-classes) - Manage CSS classes

@@ -29,7 +29,7 @@ export function BookPromo() {
         </div>
       </div>
       <p className="text-[0.815rem]/6 font-semibold text-sky-500 dark:text-sky-400">
-        From the creators of Tailwind CSS
+        From the creators of YakaJS
       </p>
       <p className="mt-1.5 text-[0.9375rem]/5 font-semibold text-gray-950 dark:text-white">
         Make your ideas look awesome, without relying on a designer.
@@ -75,7 +75,7 @@ export function CoursePromo() {
       <p className="text-[0.8125rem]/6 font-semibold text-sky-500 dark:text-sky-400">5-day mini-course</p>
       <p className="mt-1.5 text-base/5 font-semibold text-gray-950 dark:text-white">Build UIs that don’t suck.</p>
       <p className="mt-3 text-[0.8125rem]/5 text-gray-600 dark:text-gray-400">
-        Short, tactical video lessons from the creator of Tailwind CSS, delivered directly to your inbox every day for a
+        Short, tactical video lessons from the creator of YakaJS, delivered directly to your inbox every day for a
         week.
       </p>
       <p className="mt-4">

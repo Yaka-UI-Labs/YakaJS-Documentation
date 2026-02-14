@@ -23,7 +23,7 @@ export default async function Subscribed() {
           </div>
           <div className="mt-2 border-y border-black/5 p-2 max-sm:px-4 dark:border-white/10">
             <p className="font-mono text-sm font-medium text-gray-700 uppercase max-sm:text-center dark:text-gray-400">
-              Tailwind CSS by Example
+              YakaJS by Example
             </p>
             <h1 className="text-5xl tracking-tighter text-balance text-gray-900 max-sm:text-center lg:text-8xl dark:text-white">
               Check your email.

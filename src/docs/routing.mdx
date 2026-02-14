@@ -1,0 +1,681 @@
+export const title = "Routing & Navigation";
+export const description = "Build single-page applications with YakaJS's powerful SPA router - parameters, guards, and more";
+
+# Routing & Navigation
+
+Complete guide to building SPAs with YakaJS's built-in router. Simple, powerful, and feature-rich!
+
+## Getting Started
+
+### Create Router
+
+```javascript
+const router = _.createRouter({
+    mode: 'history',  // 'history' or 'hash'
+    base: '/',
+    routes: []
+});
+```
+
+### Basic Route
+
+```javascript
+router.addRoute('/', {
+    component: function() {
+        return '<h1>Home Page</h1>';
+    }
+});
+
+router.addRoute('/about', {
+    component: function() {
+        return '<h1>About Page</h1>';
+    }
+});
+
+// Initialize router
+router.init();
+```
+
+## Route Parameters
+
+### Dynamic Parameters
+
+```javascript
+router.addRoute('/user/:id', {
+    component: function(params) {
+        return `<h1>User ${params.id}</h1>`;
+    }
+});
+
+// Navigate to /user/123
+router.navigateTo('/user/123');
+```
+
+### Multiple Parameters
+
+```javascript
+router.addRoute('/post/:category/:id', {
+    component: function(params) {
+        return `
+            <h1>Post in ${params.category}</h1>
+            <p>ID: ${params.id}</p>
+        `;
+    }
+});
+
+// Navigate to /post/technology/42
+router.navigateTo('/post/technology/42');
+```
+
+### Optional Parameters
+
+```javascript
+router.addRoute('/product/:id/:variant?', {
+    component: function(params) {
+        const variant = params.variant || 'default';
+        return `<h1>Product ${params.id} - ${variant}</h1>`;
+    }
+});
+```
+
+## Query Strings
+
+### Parse Query Parameters
+
+```javascript
+router.addRoute('/search', {
+    component: function(params) {
+        // Access query parameters
+        const query = router.getQueryParams();
+        // { q: 'search term', page: '1', filter: 'active' }
+        
+        return `
+            <h1>Search Results</h1>
+            <p>Query: ${query.q}</p>
+            <p>Page: ${query.page || 1}</p>
+        `;
+    }
+});
+
+// Navigate with query string
+router.navigateTo('/search?q=javascript&page=2');
+```
+
+### Set Query Parameters
+
+```javascript
+// Add query parameters
+router.setQueryParam('filter', 'active');
+router.setQueryParam('sort', 'desc');
+
+// Set multiple at once
+router.setQueryParams({
+    filter: 'active',
+    sort: 'desc',
+    page: 2
+});
+
+// Remove query parameter
+router.removeQueryParam('filter');
+```
+
+## Navigation
+
+### Programmatic Navigation
+
+```javascript
+// Navigate to route
+router.navigateTo('/about');
+
+// Navigate with parameters
+router.navigateTo('/user/123');
+
+// Navigate with query string
+router.navigateTo('/search?q=test');
+
+// Navigate with replace (no history entry)
+router.navigateTo('/about', { replace: true });
+```
+
+### Browser Navigation
+
+```javascript
+// Go back
+router.back();
+
+// Go forward
+router.forward();
+
+// Go to specific history entry
+router.go(-2);  // Go back 2 pages
+router.go(1);   // Go forward 1 page
+```
+
+### Named Routes
+
+```javascript
+// Define named route
+router.addRoute('/user/:id', {
+    name: 'user-profile',
+    component: function(params) {
+        return `<h1>User ${params.id}</h1>`;
+    }
+});
+
+// Navigate by name
+router.navigateTo({ 
+    name: 'user-profile', 
+    params: { id: 123 } 
+});
+```
+
+## Route Guards
+
+### Before Each (Global Guard)
+
+```javascript
+router.beforeEach(async function(to, from, next) {
+    console.log('Navigating from', from, 'to', to);
+    
+    // Check authentication
+    const isAuthenticated = await checkAuth();
+    
+    if (to.path !== '/login' && !isAuthenticated) {
+        // Redirect to login
+        next('/login');
+    } else {
+        // Allow navigation
+        next();
+    }
+});
+```
+
+### After Each (Global Hook)
+
+```javascript
+router.afterEach(function(to, from) {
+    console.log('Navigation complete');
+    
+    // Update page title
+    document.title = to.meta.title || 'My App';
+    
+    // Track page view
+    analytics.trackPageView(to.path);
+    
+    // Scroll to top
+    window.scrollTo(0, 0);
+});
+```
+
+### Before Enter (Route Guard)
+
+```javascript
+router.addRoute('/admin', {
+    component: function() {
+        return '<h1>Admin Panel</h1>';
+    },
+    beforeEnter: async function(to, from, next) {
+        const isAdmin = await checkAdminRole();
+        
+        if (isAdmin) {
+            next();
+        } else {
+            next('/unauthorized');
+        }
+    }
+});
+```
+
+### Before Leave (Component Guard)
+
+```javascript
+router.addRoute('/edit', {
+    component: function() {
+        return '<h1>Edit Form</h1>';
+    },
+    beforeLeave: async function(to, from, next) {
+        if (hasUnsavedChanges()) {
+            const confirmed = confirm('You have unsaved changes. Leave anyway?');
+            if (confirmed) {
+                next();
+            } else {
+                next(false);  // Cancel navigation
+            }
+        } else {
+            next();
+        }
+    }
+});
+```
+
+## Route Metadata
+
+### Add Metadata
+
+```javascript
+router.addRoute('/admin', {
+    component: function() {
+        return '<h1>Admin</h1>';
+    },
+    meta: {
+        requiresAuth: true,
+        requiresAdmin: true,
+        title: 'Admin Panel',
+        layout: 'admin'
+    }
+});
+```
+
+### Use Metadata in Guards
+
+```javascript
+router.beforeEach(async function(to, from, next) {
+    if (to.meta.requiresAuth) {
+        const isAuth = await checkAuth();
+        if (!isAuth) {
+            next('/login');
+            return;
+        }
+    }
+    
+    if (to.meta.requiresAdmin) {
+        const isAdmin = await checkAdminRole();
+        if (!isAdmin) {
+            next('/forbidden');
+            return;
+        }
+    }
+    
+    next();
+});
+```
+
+## Nested Routes
+
+### Define Nested Routes
+
+```javascript
+router.addRoute('/users', {
+    component: function() {
+        return `
+            <h1>Users</h1>
+            <div id="user-content"></div>
+        `;
+    },
+    children: [
+        {
+            path: '',  // /users
+            component: function() {
+                return '<p>Select a user</p>';
+            }
+        },
+        {
+            path: ':id',  // /users/:id
+            component: function(params) {
+                return `<p>User ${params.id}</p>`;
+            }
+        },
+        {
+            path: ':id/edit',  // /users/:id/edit
+            component: function(params) {
+                return `<p>Edit user ${params.id}</p>`;
+            }
+        }
+    ]
+});
+```
+
+## 404 Not Found
+
+### Default 404 Handler
+
+```javascript
+router.notFound(function() {
+    return `
+        <h1>404 - Page Not Found</h1>
+        <p>The page you're looking for doesn't exist.</p>
+        <a href="/" onclick="router.navigateTo('/'); return false;">Go Home</a>
+    `;
+});
+```
+
+### Custom 404 Route
+
+```javascript
+router.addRoute('/404', {
+    component: function() {
+        return '<h1>Page Not Found</h1>';
+    }
+});
+
+// Redirect unknown routes to 404
+router.beforeEach(function(to, from, next) {
+    const routeExists = router.hasRoute(to.path);
+    if (!routeExists) {
+        next('/404');
+    } else {
+        next();
+    }
+});
+```
+
+## Link Handling
+
+### Route Links
+
+```html
+<!-- Use data-route attribute for SPA navigation -->
+<a href="/about" data-route>About</a>
+<a href="/user/123" data-route>User Profile</a>
+
+<script>
+// Intercept clicks on route links
+_(document).on('click', 'a[data-route]', function(e) {
+    e.preventDefault();
+    const path = _(this).attr('href');
+    router.navigateTo(path);
+});
+</script>
+```
+
+### Active Links
+
+```javascript
+// Update active link classes
+router.afterEach(function(to) {
+    _('a[data-route]').removeClass('active');
+    _(`a[href="${to.path}"]`).addClass('active');
+});
+```
+
+## Route Transitions
+
+### Page Transitions
+
+```javascript
+router.beforeEach(async function(to, from, next) {
+    // Fade out current page
+    await _('#app').fadeOut(200);
+    next();
+});
+
+router.afterEach(async function(to, from) {
+    // Fade in new page
+    await _('#app').fadeIn(200);
+});
+```
+
+### Loading States
+
+```javascript
+router.beforeEach(function(to, from, next) {
+    _('#loading').show();
+    next();
+});
+
+router.afterEach(function(to, from) {
+    _('#loading').hide();
+});
+```
+
+## Complete Example
+
+```javascript
+// Create router
+const router = _.createRouter({
+    mode: 'history',
+    base: '/'
+});
+
+// Define routes
+router.addRoute('/', {
+    name: 'home',
+    component: function() {
+        return `
+            <h1>Home Page</h1>
+            <p>Welcome to our app!</p>
+        `;
+    },
+    meta: { title: 'Home' }
+});
+
+router.addRoute('/about', {
+    name: 'about',
+    component: function() {
+        return `
+            <h1>About Us</h1>
+            <p>Learn more about our company.</p>
+        `;
+    },
+    meta: { title: 'About' }
+});
+
+router.addRoute('/user/:id', {
+    name: 'user-profile',
+    component: async function(params) {
+        // Fetch user data
+        const user = await _.get(`/api/users/${params.id}`);
+        
+        return `
+            <h1>${user.name}</h1>
+            <p>Email: ${user.email}</p>
+            <p>Role: ${user.role}</p>
+        `;
+    },
+    beforeEnter: async function(to, from, next) {
+        // Check if user exists
+        try {
+            await _.get(`/api/users/${to.params.id}`);
+            next();
+        } catch (error) {
+            next('/404');
+        }
+    },
+    meta: { 
+        requiresAuth: true,
+        title: 'User Profile'
+    }
+});
+
+router.addRoute('/admin', {
+    name: 'admin',
+    component: function() {
+        return '<h1>Admin Dashboard</h1>';
+    },
+    beforeEnter: async function(to, from, next) {
+        const isAdmin = await checkAdminRole();
+        if (isAdmin) {
+            next();
+        } else {
+            _.notify('Access denied', 'error');
+            next('/');
+        }
+    },
+    meta: { 
+        requiresAuth: true,
+        requiresAdmin: true,
+        title: 'Admin'
+    }
+});
+
+// Global guards
+router.beforeEach(async function(to, from, next) {
+    // Show loading
+    _('#loading').show();
+    
+    // Check authentication
+    if (to.meta.requiresAuth) {
+        const isAuth = await checkAuth();
+        if (!isAuth) {
+            _.notify('Please login first', 'warning');
+            next('/login');
+            return;
+        }
+    }
+    
+    next();
+});
+
+router.afterEach(function(to, from) {
+    // Hide loading
+    _('#loading').hide();
+    
+    // Update page title
+    document.title = to.meta.title + ' - My App';
+    
+    // Track page view
+    if (typeof gtag !== 'undefined') {
+        gtag('config', 'GA_MEASUREMENT_ID', {
+            page_path: to.path
+        });
+    }
+    
+    // Scroll to top
+    window.scrollTo(0, 0);
+    
+    // Update active links
+    _('a[data-route]').removeClass('active');
+    _(`a[href="${to.path}"]`).addClass('active');
+});
+
+// 404 handler
+router.notFound(function() {
+    return `
+        <div class="not-found">
+            <h1>404</h1>
+            <p>Page not found</p>
+            <a href="/" data-route>Go Home</a>
+        </div>
+    `;
+});
+
+// Handle route links
+_(document).on('click', 'a[data-route]', function(e) {
+    e.preventDefault();
+    router.navigateTo(_(this).attr('href'));
+});
+
+// Initialize router
+router.init();
+```
+
+## History Modes
+
+### History Mode (Clean URLs)
+
+```javascript
+const router = _.createRouter({
+    mode: 'history',
+    base: '/'
+});
+
+// URLs: /home, /about, /user/123
+```
+
+### Hash Mode (Legacy Support)
+
+```javascript
+const router = _.createRouter({
+    mode: 'hash'
+});
+
+// URLs: #/home, #/about, #/user/123
+```
+
+## Router API
+
+### Navigation Methods
+
+```javascript
+router.navigateTo(path)         // Navigate to path
+router.navigateTo(route)        // Navigate by route object
+router.back()                   // Go back
+router.forward()                // Go forward
+router.go(n)                    // Go n pages
+router.reload()                 // Reload current page
+```
+
+### Route Information
+
+```javascript
+router.getCurrentRoute()        // Get current route
+router.getRoutes()              // Get all routes
+router.hasRoute(path)           // Check if route exists
+router.getRoute(path)           // Get route by path
+router.getQueryParams()         // Get query parameters
+```
+
+### Route Management
+
+```javascript
+router.addRoute(path, config)   // Add route
+router.removeRoute(path)        // Remove route
+router.clearRoutes()            // Remove all routes
+```
+
+### Guards & Hooks
+
+```javascript
+router.beforeEach(fn)           // Global before guard
+router.afterEach(fn)            // Global after hook
+router.notFound(fn)             // 404 handler
+```
+
+## Best Practices
+
+1. **Use named routes** for flexibility:
+   ```javascript
+   router.navigateTo({ name: 'user', params: { id: 123 } });
+   ```
+
+2. **Validate params** in guards:
+   ```javascript
+   beforeEnter: async (to, from, next) => {
+       if (!isValidId(to.params.id)) next('/404');
+       else next();
+   }
+   ```
+
+3. **Handle async operations** in guards:
+   ```javascript
+   beforeEnter: async (to, from, next) => {
+       await fetchData();
+       next();
+   }
+   ```
+
+4. **Update document title**:
+   ```javascript
+   router.afterEach((to) => {
+       document.title = to.meta.title;
+   });
+   ```
+
+5. **Track page views**:
+   ```javascript
+   router.afterEach((to) => {
+       analytics.track(to.path);
+   });
+   ```
+
+6. **Use loading states**:
+   ```javascript
+   router.beforeEach((to, from, next) => {
+       _('#loading').show();
+       next();
+   });
+   ```
+
+7. **Scroll to top** on navigation:
+   ```javascript
+   router.afterEach(() => {
+       window.scrollTo(0, 0);
+   });
+   ```
+
+## Next Steps
+
+- Learn about [State Management](/docs/yakajs-state-management)
+- Explore [Reactivity & Signals](/docs/reactivity)
+- Master [Components](/docs/components)
+- Discover [AJAX Requests](/docs/ajax)

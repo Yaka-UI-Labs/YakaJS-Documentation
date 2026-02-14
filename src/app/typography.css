@@ -1,51 +1,51 @@
 .prose {
-  --prose-color: var(--color-gray-700);
-  --prose-heading-color: var(--color-gray-950);
-  --prose-strong-color: var(--color-gray-950);
-  --prose-link-color: var(--color-gray-950);
-  --prose-code-color: var(--color-gray-950);
-  --prose-marker-color: color-mix(in oklab, var(--color-gray-700) 25%, transparent);
-  --prose-link-underline-color: var(--color-sky-400);
-  --prose-th-borders: var(--color-gray-300);
-  --prose-td-borders: var(--color-gray-200);
-  --prose-hr-color: color-mix(in oklab, var(--color-gray-950) 5%, transparent);
-  --prose-blockquote-border-color: var(--color-gray-300);
+  --prose-color: var(--color-oatmeal-stone);
+  --prose-heading-color: #FFFFFF;
+  --prose-strong-color: var(--color-oatmeal-white);
+  --prose-link-color: var(--color-oatmeal-white);
+  --prose-code-color: var(--color-oatmeal-white);
+  --prose-marker-color: color-mix(in oklab, var(--color-oatmeal-stone) 25%, transparent);
+  --prose-link-underline-color: var(--color-oatmeal-white);
+  --prose-th-borders: var(--color-oatmeal-olive);
+  --prose-td-borders: var(--color-oatmeal-olive);
+  --prose-hr-color: color-mix(in oklab, var(--color-oatmeal-olive) 50%, transparent);
+  --prose-blockquote-border-color: var(--color-oatmeal-olive);
 
   &:where(.dark, .dark *) {
-    --prose-color: var(--color-gray-300);
-    --prose-heading-color: var(--color-white);
-    --prose-strong-color: var(--color-white);
-    --prose-link-color: var(--color-white);
-    --prose-code-color: var(--color-white);
-    --prose-marker-color: color-mix(in oklab, var(--color-gray-300) 35%, transparent);
-    --prose-link-underline-color: var(--color-sky-400);
-    --prose-th-borders: var(--color-gray-600);
-    --prose-td-borders: var(--color-gray-700);
-    --prose-hr-color: color-mix(in oklab, var(--color-white) 10%, transparent);
-    --prose-blockquote-border-color: var(--color-gray-600);
+    --prose-color: var(--color-oatmeal-stone);
+    --prose-heading-color: #FFFFFF;
+    --prose-strong-color: var(--color-oatmeal-white);
+    --prose-link-color: var(--color-oatmeal-white);
+    --prose-code-color: var(--color-oatmeal-white);
+    --prose-marker-color: color-mix(in oklab, var(--color-oatmeal-stone) 35%, transparent);
+    --prose-link-underline-color: var(--color-oatmeal-white);
+    --prose-th-borders: var(--color-oatmeal-olive);
+    --prose-td-borders: var(--color-oatmeal-olive);
+    --prose-hr-color: color-mix(in oklab, var(--color-oatmeal-olive) 50%, transparent);
+    --prose-blockquote-border-color: var(--color-oatmeal-olive);
   }
   @media (prefers-color-scheme: dark) {
     &:where(.system, .system *) {
-      --prose-color: var(--color-gray-300);
-      --prose-heading-color: var(--color-white);
-      --prose-strong-color: var(--color-white);
-      --prose-link-color: var(--color-white);
-      --prose-code-color: var(--color-white);
-      --prose-marker-color: color-mix(in oklab, var(--color-gray-300) 35%, transparent);
-      --prose-link-underline-color: var(--color-sky-400);
-      --prose-th-borders: var(--color-gray-600);
-      --prose-td-borders: var(--color-gray-700);
-      --prose-hr-color: color-mix(in oklab, var(--color-white) 10%, transparent);
-      --prose-blockquote-border-color: var(--color-gray-600);
+      --prose-color: var(--color-oatmeal-stone);
+      --prose-heading-color: #FFFFFF;
+      --prose-strong-color: var(--color-oatmeal-white);
+      --prose-link-color: var(--color-oatmeal-white);
+      --prose-code-color: var(--color-oatmeal-white);
+      --prose-marker-color: color-mix(in oklab, var(--color-oatmeal-stone) 35%, transparent);
+      --prose-link-underline-color: var(--color-oatmeal-white);
+      --prose-th-borders: var(--color-oatmeal-olive);
+      --prose-td-borders: var(--color-oatmeal-olive);
+      --prose-hr-color: color-mix(in oklab, var(--color-oatmeal-olive) 50%, transparent);
+      --prose-blockquote-border-color: var(--color-oatmeal-olive);
     }
   }
 
   color: var(--prose-color);
   font-size: var(--text-sm);
-  line-height: 2;
+  line-height: 1.75;
 
   *:where(:not(.not-prose, .not-prose *)) + *:where(:not(.not-prose, .not-prose *)) {
-    margin-top: calc(var(--spacing) * 6);
+    margin-top: calc(var(--spacing) * 4);
   }
 
   h2:where(:not(.not-prose, .not-prose *)) {
@@ -53,8 +53,8 @@
     line-height: calc(28 / 18);
     letter-spacing: -0.025em;
     color: var(--prose-code-color);
-    font-weight: var(--font-weight-semibold);
-    margin-top: calc(var(--spacing) * 20);
+    font-weight: 800; /* Extrabold for better visual hierarchy */
+    margin-top: calc(var(--spacing) * 12);
   }
 
   h2:has(+ h3):where(:not(.not-prose, .not-prose *)) {
@@ -72,20 +72,20 @@
     font-size: var(--text-base);
     line-height: calc(28 / 18);
     color: var(--prose-heading-color);
-    font-weight: var(--font-weight-semibold);
-    margin-top: calc(var(--spacing) * 16);
+    font-weight: 700; /* Bold for better visual hierarchy */
+    margin-top: calc(var(--spacing) * 10);
   }
 
   h2 + h3:where(:not(.not-prose, .not-prose *)) {
-    margin-top: calc(var(--spacing) * 6);
+    margin-top: calc(var(--spacing) * 4);
   }
 
   h4:where(:not(.not-prose, .not-prose *)) {
     font-size: var(--text-sm);
     line-height: calc(28 / 14);
     color: var(--prose-heading-color);
-    font-weight: var(--font-weight-semibold);
-    margin-top: calc(var(--spacing) * 12);
+    font-weight: 700; /* Bold for better visual hierarchy */
+    margin-top: calc(var(--spacing) * 8);
   }
 
   :is(h2, h3, h4):where(:not(.not-prose, .not-prose *)) {
@@ -199,29 +199,35 @@
     margin-top: 2em;
     margin-bottom: 2em;
     font-size: var(--text-sm);
-    line-height: 1.4;
+    line-height: 1.6;
+    border-collapse: collapse;
+    display: table;
   }
 
   thead:where(:not(.not-prose, .not-prose *)) {
-    border-bottom-width: 1px;
+    border-bottom-width: 2px;
     border-bottom-color: var(--prose-th-borders);
+    background-color: color-mix(in oklab, var(--color-oatmeal-card) 80%, transparent);
+  }
+
+  .dark thead:where(:not(.not-prose, .not-prose *)) {
+    background-color: color-mix(in oklab, var(--color-oatmeal-card) 60%, transparent);
   }
 
   thead th:where(:not(.not-prose, .not-prose *)) {
     color: var(--prose-heading-color);
     font-weight: 600;
     vertical-align: bottom;
-    padding-inline-end: 0.6em;
-    padding-bottom: 0.8em;
-    padding-inline-start: 0.6em;
+    padding: 0.8em 0.8em;
+    text-align: left;
   }
 
   thead th:first-child:where(:not(.not-prose, .not-prose *)) {
-    padding-inline-start: 0;
+    padding-inline-start: 1em;
   }
 
   thead th:last-child:where(:not(.not-prose, .not-prose *)) {
-    padding-inline-end: 0;
+    padding-inline-end: 1em;
   }
 
   tbody tr:where(:not(.not-prose, .not-prose *)) {
@@ -229,12 +235,29 @@
     border-bottom-color: var(--prose-td-borders);
   }
 
+  tbody tr:hover:where(:not(.not-prose, .not-prose *)) {
+    background-color: color-mix(in oklab, var(--color-oatmeal-olive) 30%, transparent);
+  }
+
+  .dark tbody tr:hover:where(:not(.not-prose, .not-prose *)) {
+    background-color: color-mix(in oklab, var(--color-oatmeal-olive) 40%, transparent);
+  }
+
   tbody tr:last-child:where(:not(.not-prose, .not-prose *)) {
     border-bottom-width: 0;
   }
 
   tbody td:where(:not(.not-prose, .not-prose *)) {
-    vertical-align: baseline;
+    vertical-align: top;
+    padding: 0.8em 0.8em;
+  }
+
+  tbody td:first-child:where(:not(.not-prose, .not-prose *)) {
+    padding-inline-start: 1em;
+  }
+
+  tbody td:last-child:where(:not(.not-prose, .not-prose *)) {
+    padding-inline-end: 1em;
   }
 
   tfoot:where(:not(.not-prose, .not-prose *)) {

@@ -76,21 +76,21 @@ const Hero: React.FC = () => {
       <GridContainer>
         <p className="max-w-(--breakpoint-md) px-2 text-lg/7 font-medium text-gray-600 max-sm:px-4 dark:text-gray-400">
           A powerful JavaScript library with intuitive syntax like{" "}
-          <span className="font-mono text-[1.0625rem] text-sky-500 dark:text-sky-400">@('#id')</span>,{" "}
-          <span className="font-mono text-[1.0625rem] text-sky-500 dark:text-sky-400">.addClass()</span>,{" "}
-          <span className="font-mono text-[1.0625rem] text-sky-500 dark:text-sky-400">.on('click')</span> and{" "}
-          <span className="font-mono text-[1.0625rem] text-sky-500 dark:text-sky-400">.animate()</span> that makes
+          <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">@('#id')</span>,{" "}
+          <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.addClass()</span>,{" "}
+          <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.on('click')</span> and{" "}
+          <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.animate()</span> that makes
           DOM manipulation and event handling simple and elegant.
         </p>
       </GridContainer>
       <GridContainer className="mt-10 px-4 sm:hidden">
-        <LinkButton href="docs/installation" className="z-1 w-full text-center">
+        <LinkButton href="docs/yakajs-getting-started" className="z-1 w-full text-center">
           Get started
         </LinkButton>
       </GridContainer>
       <GridContainer className="mt-4 sm:mt-10 sm:px-2">
         <div className="flex gap-4 max-sm:px-4">
-          <LinkButton href="docs/installation" className="z-1 max-sm:hidden">
+          <LinkButton href="docs/yakajs-getting-started" className="z-1 max-sm:hidden">
             Get started
           </LinkButton>
           <SearchButton className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-1 rounded-full px-4 py-2 text-left text-sm/6 text-gray-950/50 inset-ring inset-ring-gray-950/8 sm:w-80 dark:bg-white/5 dark:text-white/50 dark:inset-ring-white/15">
@@ -267,7 +267,7 @@ const Hero: React.FC = () => {
                         <span style={ELEMENT}>span</span>
                         <TypeWord
                           isTyping={isTyping}
-                          word={` class="font-medium text-sky-500"`}
+                          word={` class="font-medium text-yaka-accent"`}
                           step={3}
                           currentStep={step}
                           onNextStep={nextStep}
@@ -446,7 +446,7 @@ function Example({ step }: { step: number }) {
             layout="position"
             className={clsx(
               "text-gray-950 transition-colors duration-350 dark:text-white",
-              step > 3 ? "font-medium text-sky-500!" : null,
+              step > 3 ? "font-medium text-yaka-accent!" : null,
             )}
           >
             The Anti-Patterns

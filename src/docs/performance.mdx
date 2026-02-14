@@ -1,0 +1,490 @@
+export const title = "Performance Optimization";
+
+# Performance Optimization
+
+Learn how to optimize your YakaJS applications for maximum performance. This guide covers caching, debouncing, lazy loading, virtual scrolling, and other performance techniques.
+
+## Selector Caching
+
+Cache your DOM queries to avoid repeated lookups.
+
+```javascript
+// Bad: Query every time
+function updateUI() {
+  _('#header').text('New Title');
+  _('#header').addClass('active');
+  _('#header').on('click', handler);
+}
+
+// Good: Cache the selection
+const header = _('#header');
+function updateUI() {
+  header.text('New Title');
+  header.addClass('active');
+  header.on('click', handler);
+}
+```
+
+## Debouncing
+
+Limit how often a function can fire using `_.debounce()`.
+
+```javascript
+// Debounce search input
+_('#search').on('input', _.debounce(function() {
+  const query = _(this).val();
+  performSearch(query);
+}, 300)); // Wait 300ms after user stops typing
+
+// Debounce window resize
+_(window).on('resize', _.debounce(function() {
+  recalculateLayout();
+}, 250));
+
+// Debounce scroll events
+_(window).on('scroll', _.debounce(function() {
+  checkScrollPosition();
+}, 100));
+```
+
+## Throttling
+
+Ensure a function runs at most once per time period using `_.throttle()`.
+
+```javascript
+// Throttle scroll handler (max once per 100ms)
+_(window).on('scroll', _.throttle(function() {
+  updateScrollIndicator();
+}, 100));
+
+// Throttle mouse move
+_(document).on('mousemove', _.throttle(function(e) {
+  updateCursorPosition(e.pageX, e.pageY);
+}, 50));
+
+// Throttle resize
+_(window).on('resize', _.throttle(function() {
+  adjustLayout();
+}, 200));
+```
+
+## Debounce vs Throttle
+
+```javascript
+// Debounce: Wait for pause in events
+// Use for: Search input, form validation, save buttons
+_.debounce(fn, 300);
+
+// Throttle: Limit execution rate
+// Use for: Scroll, resize, mouse move
+_.throttle(fn, 100);
+```
+
+## Virtual Scrolling
+
+Render only visible items in large lists for better performance.
+
+```javascript
+// Create virtual scroll container
+const virtualList = _('#large-list').virtualScroll({
+  itemHeight: 50,        // Height of each item
+  items: 10000,          // Total number of items
+  renderItem: function(index) {
+    return `<div class="item">Item ${index + 1}</div>`;
+  },
+  buffer: 5              // Extra items to render above/below viewport
+});
+
+// Update items dynamically
+virtualList.update({
+  items: 20000,
+  renderItem: function(index) {
+    return `<div class="item">Updated Item ${index + 1}</div>`;
+  }
+});
+```
+
+### Virtual Scroll Options
+
+```javascript
+_('#list').virtualScroll({
+  itemHeight: 60,          // Fixed height per item
+  items: 5000,             // Total items
+  container: window,       // Scroll container (default: element itself)
+  buffer: 10,              // Buffer items (default: 5)
+  threshold: 0,            // Load threshold in pixels
+  renderItem: function(index, data) {
+    return `<div>${data[index].name}</div>`;
+  },
+  onScroll: function(startIndex, endIndex) {
+    console.log(`Showing items ${startIndex} to ${endIndex}`);
+  }
+});
+```
+
+## Lazy Loading
+
+Load images and content only when needed.
+
+### Image Lazy Loading
+
+```javascript
+// Enable lazy loading for images
+_('img[data-src]').lazyLoad({
+  threshold: 200,        // Load 200px before entering viewport
+  effect: 'fadeIn',      // Fade in when loaded
+  placeholder: 'data:image/svg+xml,...' // Placeholder image
+});
+
+// Manual lazy loading
+_('img[data-src]').each(function() {
+  const img = _(this);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        img.attr('src', img.attr('data-src'));
+        img.removeAttr('data-src');
+        observer.disconnect();
+      }
+    });
+  });
+  observer.observe(this);
+});
+```
+
+### Content Lazy Loading
+
+```javascript
+// Load content when scrolled into view
+_('.lazy-content').lazyLoad({
+  load: function(element) {
+    const url = _(element).attr('data-url');
+    _().ajax({
+      url: url,
+      method: 'GET',
+      success: function(data) {
+        _(element).html(data);
+      }
+    });
+  }
+});
+```
+
+## Batch DOM Updates
+
+Minimize reflows by batching DOM changes.
+
+```javascript
+// Bad: Multiple reflows
+_('#container').append('<div>1</div>');
+_('#container').append('<div>2</div>');
+_('#container').append('<div>3</div>');
+
+// Good: Single reflow
+const items = ['<div>1</div>', '<div>2</div>', '<div>3</div>'];
+_('#container').append(items.join(''));
+
+// Best: Use document fragment
+const fragment = document.createDocumentFragment();
+for (let i = 0; i < 100; i++) {
+  const div = document.createElement('div');
+  div.textContent = `Item ${i}`;
+  fragment.appendChild(div);
+}
+_('#container').append(fragment);
+```
+
+## Event Delegation
+
+Use event delegation for better performance with dynamic content.
+
+```javascript
+// Bad: Bind to each item (slow with many items)
+_('.item').on('click', handleClick);
+
+// Good: Delegate to container (fast, works with dynamic items)
+_('#container').on('click', '.item', handleClick);
+
+// Delegation with multiple selectors
+_('#app').on('click', '.btn, .link, .card', function(e) {
+  console.log('Clicked:', _(this).attr('class'));
+});
+```
+
+## Request Batching
+
+Batch multiple AJAX requests for better performance.
+
+```javascript
+// Bad: Multiple individual requests
+users.forEach(user => {
+  _().ajax({ url: `/api/users/${user.id}`, method: 'GET' });
+});
+
+// Good: Single batched request
+const userIds = users.map(u => u.id);
+_().ajax({
+  url: '/api/users/batch',
+  method: 'POST',
+  data: { ids: userIds },
+  success: function(usersData) {
+    // Handle all users at once
+  }
+});
+```
+
+## Memoization
+
+Cache function results to avoid repeated calculations.
+
+```javascript
+// Memoize expensive calculations
+const memoize = function(fn) {
+  const cache = {};
+  return function(...args) {
+    const key = JSON.stringify(args);
+    if (key in cache) return cache[key];
+    const result = fn.apply(this, args);
+    cache[key] = result;
+    return result;
+  };
+};
+
+// Use memoization
+const expensiveCalc = memoize(function(n) {
+  console.log('Calculating...');
+  return n * n * n;
+});
+
+console.log(expensiveCalc(5)); // Calculates
+console.log(expensiveCalc(5)); // Returns cached
+```
+
+## Animation Performance
+
+Optimize animations for smooth 60fps performance.
+
+```javascript
+// Use CSS transforms instead of top/left
+_('#element').animate({
+  transform: 'translateX(100px)', // Hardware accelerated
+  duration: 300
+});
+
+// Avoid animating properties that trigger reflow
+// Bad (triggers reflow)
+_('#element').animate({ width: '200px', height: '300px' });
+
+// Good (GPU accelerated)
+_('#element').animate({ transform: 'scale(1.5)' });
+
+// Use requestAnimationFrame for custom animations
+function smoothScroll() {
+  const start = window.pageYOffset;
+  const target = 1000;
+  const duration = 1000;
+  const startTime = performance.now();
+  
+  function animate(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easeProgress = progress * (2 - progress); // Ease out
+    
+    window.scrollTo(0, start + (target - start) * easeProgress);
+    
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    }
+  }
+  
+  requestAnimationFrame(animate);
+}
+```
+
+## Memory Management
+
+Prevent memory leaks and optimize memory usage.
+
+```javascript
+// Clean up event listeners
+const element = _('#element');
+element.on('click', handler);
+
+// Later, remove when done
+element.off('click', handler);
+
+// Remove all event listeners
+element.off();
+
+// Clean up when removing elements
+_('#container').find('.item').each(function() {
+  _(this).off(); // Remove all event listeners
+}).remove();
+
+// Clear references to prevent memory leaks
+let cachedData = null;
+function cleanup() {
+  cachedData = null;
+  _(window).off('resize', handleResize);
+}
+```
+
+## Resource Preloading
+
+Preload resources for faster subsequent loads.
+
+```javascript
+// Preload images
+function preloadImages(urls) {
+  urls.forEach(url => {
+    const img = new Image();
+    img.src = url;
+  });
+}
+
+preloadImages([
+  '/images/hero.jpg',
+  '/images/logo.png',
+  '/images/background.jpg'
+]);
+
+// Prefetch API data
+_().ajax({
+  url: '/api/data',
+  method: 'GET',
+  priority: 'high',
+  cache: true
+});
+```
+
+## Code Splitting
+
+Load code only when needed.
+
+```javascript
+// Dynamic import for features
+async function loadFeature() {
+  const module = await import('./feature.js');
+  module.initialize();
+}
+
+// Load on user interaction
+_('#advanced-button').on('click', async function() {
+  _(this).text('Loading...');
+  await loadFeature();
+  _(this).text('Feature Loaded!');
+});
+```
+
+## Measuring Performance
+
+Use YakaJS performance utilities to measure and optimize.
+
+```javascript
+// Measure execution time
+const start = performance.now();
+performComplexOperation();
+const end = performance.now();
+console.log(`Operation took ${end - start}ms`);
+
+// Use performance mark API
+performance.mark('operation-start');
+performComplexOperation();
+performance.mark('operation-end');
+performance.measure('operation', 'operation-start', 'operation-end');
+
+// Log performance metrics
+const measure = performance.getEntriesByName('operation')[0];
+console.log(`Duration: ${measure.duration}ms`);
+```
+
+## Best Practices
+
+### 1. Minimize DOM Access
+
+```javascript
+// Bad
+for (let i = 0; i < 100; i++) {
+  _('#list').append(`<li>Item ${i}</li>`);
+}
+
+// Good
+let html = '';
+for (let i = 0; i < 100; i++) {
+  html += `<li>Item ${i}</li>`;
+}
+_('#list').html(html);
+```
+
+### 2. Use Efficient Selectors
+
+```javascript
+// Slow
+_('div .item .title');
+
+// Fast
+_('#container .item .title');
+
+// Fastest
+_('#container').find('.item').find('.title');
+```
+
+### 3. Avoid Layout Thrashing
+
+```javascript
+// Bad: Causes multiple reflows
+_('.item').each(function() {
+  const height = _(this).height(); // Read
+  _(this).css('margin-top', height); // Write
+});
+
+// Good: Batch reads, then writes
+const heights = [];
+_('.item').each(function() {
+  heights.push(_(this).height()); // All reads
+});
+_('.item').each(function(i) {
+  _(this).css('margin-top', heights[i]); // All writes
+});
+```
+
+### 4. Debounce Expensive Operations
+
+```javascript
+// Search with debounce
+_('#search').on('input', _.debounce(function() {
+  performExpensiveSearch(_(this).val());
+}, 300));
+```
+
+### 5. Use Virtual Scrolling for Large Lists
+
+```javascript
+// For lists with 1000+ items
+_('#large-list').virtualScroll({
+  itemHeight: 50,
+  items: 10000,
+  renderItem: (i) => `<div>Item ${i}</div>`
+});
+```
+
+## Performance Checklist
+
+- ✅ Cache DOM selections
+- ✅ Use event delegation
+- ✅ Debounce/throttle event handlers
+- ✅ Batch DOM updates
+- ✅ Use virtual scrolling for large lists
+- ✅ Lazy load images and content
+- ✅ Minimize reflows and repaints
+- ✅ Clean up event listeners
+- ✅ Use CSS transforms for animations
+- ✅ Preload critical resources
+- ✅ Measure and optimize bottlenecks
+
+## Next Steps
+
+- [Virtual Scroll](/docs/virtual-scroll) - Deep dive into virtual scrolling
+- [Lazy Loading](/docs/lazy-loading) - Advanced lazy loading techniques
+- [Utilities](/docs/utilities) - Debounce, throttle, and more helpers
+- [Best Practices](/docs/best-practices) - More optimization tips

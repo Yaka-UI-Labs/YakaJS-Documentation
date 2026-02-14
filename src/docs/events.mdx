@@ -1,0 +1,611 @@
+export const title = "Events & Event Handling";
+export const description = "Master event handling in YakaJS - from simple clicks to complex custom events";
+
+# Events & Event Handling
+
+Complete guide to handling user interactions and custom events with YakaJS.
+
+## Basic Event Handling
+
+### `.on(event, selector, handler)`
+
+Attach event handlers to elements with optional event delegation.
+
+```javascript
+// Simple event handler
+_('#button').on('click', function(e) {
+    console.log('Button clicked!');
+});
+
+// Event delegation (for dynamic elements)
+_('#container').on('click', '.item', function(e) {
+    console.log('Item clicked:', this);
+});
+
+// Multiple events
+_('#element').on('mouseenter mouseleave', function(e) {
+    _(this).toggleClass('hover');
+});
+```
+
+**Parameters:**
+- `event` (String): Event name(s), space-separated
+- `selector` (String, optional): Selector for event delegation
+- `handler` (Function): Event handler function
+
+**Returns:** YakaJS object for chaining
+
+### `.off(event, selector, handler)`
+
+Remove event handlers.
+
+```javascript
+// Remove all handlers
+_('#button').off('click');
+
+// Remove specific handler
+_('#button').off('click', myHandler);
+
+// Remove delegated handler
+_('#container').off('click', '.item');
+
+// Remove all events
+_('#element').off();
+```
+
+### `.one(event, selector, handler)`
+
+Attach handler that runs only once.
+
+```javascript
+_('#button').one('click', function() {
+    console.log('This will only run once!');
+});
+
+// With event delegation
+_('#container').one('click', '.item', function() {
+    console.log('First item click only');
+});
+```
+
+## Click Events
+
+### `.click(handler)`
+
+Shorthand for click events.
+
+```javascript
+_('#button').click(function(e) {
+    console.log('Clicked!');
+});
+
+// Trigger click
+_('#button').click();  // Triggers click programmatically
+```
+
+### `.dblclick(handler)`
+
+Double-click events.
+
+```javascript
+_('#element').dblclick(function(e) {
+    console.log('Double clicked!');
+});
+```
+
+## Mouse Events
+
+### Mouse Enter/Leave
+
+```javascript
+_('#element').on('mouseenter', function() {
+    _(this).addClass('hover');
+});
+
+_('#element').on('mouseleave', function() {
+    _(this).removeClass('hover');
+});
+```
+
+### Hover
+
+```javascript
+_('#element').hover(
+    function() {
+        // Mouse enter
+        _(this).addClass('hover');
+    },
+    function() {
+        // Mouse leave
+        _(this).removeClass('hover');
+    }
+);
+```
+
+### Mouse Move
+
+```javascript
+_('#canvas').on('mousemove', function(e) {
+    console.log('Mouse at:', e.clientX, e.clientY);
+});
+```
+
+### Context Menu
+
+```javascript
+_('#element').on('contextmenu', function(e) {
+    e.preventDefault();  // Prevent default context menu
+    showCustomMenu(e.clientX, e.clientY);
+});
+```
+
+## Keyboard Events
+
+### Key Events
+
+```javascript
+// Key down
+_(document).on('keydown', function(e) {
+    console.log('Key pressed:', e.key);
+    
+    if (e.key === 'Enter') {
+        console.log('Enter pressed!');
+    }
+});
+
+// Key up
+_('#input').on('keyup', function(e) {
+    console.log('Current value:', _(this).val());
+});
+
+// Key press
+_('#input').on('keypress', function(e) {
+    console.log('Character:', e.key);
+});
+```
+
+### Keyboard Shortcuts
+
+```javascript
+_(document).on('keydown', function(e) {
+    // Ctrl+S
+    if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        saveDocument();
+    }
+    
+    // Ctrl+K (Command Palette)
+    if (e.ctrlKey && e.key === 'k') {
+        e.preventDefault();
+        _.commandPalette();
+    }
+});
+```
+
+## Form Events
+
+### Submit
+
+```javascript
+_('#form').on('submit', function(e) {
+    e.preventDefault();  // Prevent form submission
+    
+    const data = {
+        name: _('#name').val(),
+        email: _('#email').val()
+    };
+    
+    console.log('Form data:', data);
+});
+```
+
+### Change
+
+```javascript
+// Input change
+_('#input').on('change', function() {
+    console.log('New value:', _(this).val());
+});
+
+// Select change
+_('#select').on('change', function() {
+    const selected = _(this).val();
+    console.log('Selected:', selected);
+});
+```
+
+### Input (Real-time)
+
+```javascript
+_('#search').on('input', function() {
+    const query = _(this).val();
+    searchResults(query);
+});
+```
+
+### Focus & Blur
+
+```javascript
+_('#input').on('focus', function() {
+    _(this).addClass('focused');
+});
+
+_('#input').on('blur', function() {
+    _(this).removeClass('focused');
+});
+```
+
+## Touch Events
+
+### Touch Events
+
+```javascript
+_('#element').on('touchstart', function(e) {
+    console.log('Touch started');
+});
+
+_('#element').on('touchmove', function(e) {
+    console.log('Touch moving');
+});
+
+_('#element').on('touchend', function(e) {
+    console.log('Touch ended');
+});
+```
+
+### Swipe Detection
+
+YakaJS includes built-in swipe detection:
+
+```javascript
+_('#element').swipe({
+    left: function() {
+        console.log('Swiped left!');
+    },
+    right: function() {
+        console.log('Swiped right!');
+    },
+    up: function() {
+        console.log('Swiped up!');
+    },
+    down: function() {
+        console.log('Swiped down!');
+    },
+    threshold: 50  // Minimum distance in pixels
+});
+```
+
+## Scroll Events
+
+### Scroll Handling
+
+```javascript
+_(window).on('scroll', function() {
+    const scrollTop = _(window).scrollTop();
+    console.log('Scroll position:', scrollTop);
+    
+    if (scrollTop > 100) {
+        _('#header').addClass('scrolled');
+    }
+});
+
+// Debounced scroll (better performance)
+_(window).on('scroll', _.debounce(function() {
+    console.log('Scrolled!');
+}, 200));
+```
+
+### Scroll to Element
+
+```javascript
+_('#scroll-button').click(function() {
+    _('html, body').animate({
+        scrollTop: _('#target').offset().top
+    }, 500);
+});
+```
+
+## Window Events
+
+### Resize
+
+```javascript
+_(window).on('resize', _.debounce(function() {
+    console.log('Window resized:', window.innerWidth, window.innerHeight);
+}, 250));
+```
+
+### Load
+
+```javascript
+_(window).on('load', function() {
+    console.log('All resources loaded!');
+});
+```
+
+### Before Unload
+
+```javascript
+_(window).on('beforeunload', function(e) {
+    e.preventDefault();
+    e.returnValue = 'Are you sure you want to leave?';
+    return 'Are you sure you want to leave?';
+});
+```
+
+## Custom Events
+
+### Trigger Custom Events
+
+```javascript
+// Trigger custom event
+_('#element').trigger('myCustomEvent');
+
+// Trigger with data
+_('#element').trigger('myCustomEvent', { 
+    data: 'value',
+    count: 42
+});
+
+// Trigger namespace event
+_('#element').trigger('click.myNamespace');
+```
+
+### Listen to Custom Events
+
+```javascript
+_('#element').on('myCustomEvent', function(e, data) {
+    console.log('Custom event triggered!', data);
+});
+```
+
+### Event Namespaces
+
+```javascript
+// Add namespaced events
+_('#element').on('click.myNamespace', handler1);
+_('#element').on('click.myNamespace', handler2);
+
+// Remove all events in namespace
+_('#element').off('.myNamespace');
+```
+
+## Event Delegation
+
+Event delegation allows you to handle events on dynamically added elements:
+
+```javascript
+// Traditional way - won't work for dynamic elements
+_('.item').on('click', function() {
+    console.log('Clicked!');
+});
+
+// Delegation way - works for current AND future elements
+_('#container').on('click', '.item', function() {
+    console.log('Clicked!', this);
+});
+```
+
+**Benefits:**
+- Works with dynamically added elements
+- Better performance for many elements
+- Single event handler instead of many
+
+### Complex Delegation
+
+```javascript
+// Multiple delegated events
+_('#app').on({
+    'click .button': function() {
+        console.log('Button clicked');
+    },
+    'mouseenter .item': function() {
+        _(this).addClass('hover');
+    },
+    'mouseleave .item': function() {
+        _(this).removeClass('hover');
+    }
+});
+```
+
+## Event Object
+
+The event object contains useful information:
+
+```javascript
+_('#element').on('click', function(e) {
+    e.type              // Event type: 'click'
+    e.target            // Element that triggered event
+    e.currentTarget     // Element with handler attached
+    e.preventDefault()  // Prevent default action
+    e.stopPropagation() // Stop event bubbling
+    
+    // Mouse position
+    e.clientX, e.clientY  // Relative to viewport
+    e.pageX, e.pageY      // Relative to document
+    e.screenX, e.screenY  // Relative to screen
+    
+    // Keyboard modifiers
+    e.ctrlKey   // Ctrl key pressed
+    e.shiftKey  // Shift key pressed
+    e.altKey    // Alt key pressed
+    e.metaKey   // Meta/Command key pressed
+    
+    // Keyboard
+    e.key       // Key value: 'Enter', 'a', etc.
+    e.code      // Physical key code: 'KeyA', 'Enter'
+    e.keyCode   // Numeric key code (deprecated)
+    
+    // Mouse buttons
+    e.button    // 0: left, 1: middle, 2: right
+    e.buttons   // Bitmask of pressed buttons
+});
+```
+
+## Debouncing & Throttling
+
+### Debounce
+
+Execute handler only after events stop firing for a specified time:
+
+```javascript
+// Search as user types (with delay)
+_('#search').on('input', _.debounce(function() {
+    const query = _(this).val();
+    performSearch(query);
+}, 300));  // Wait 300ms after user stops typing
+```
+
+### Throttle
+
+Execute handler at most once per specified time period:
+
+```javascript
+// Scroll handler that runs max once per 100ms
+_(window).on('scroll', _.throttle(function() {
+    updateScrollPosition();
+}, 100));
+```
+
+## Performance Optimization
+
+### Remove Event Handlers
+
+Always remove event handlers when elements are removed to prevent memory leaks:
+
+```javascript
+// Store reference to handler
+function myHandler(e) {
+    console.log('Clicked!');
+}
+
+// Add handler
+_('#element').on('click', myHandler);
+
+// Later: remove handler
+_('#element').off('click', myHandler);
+
+// Or remove all handlers before removing element
+_('#element').off().remove();
+```
+
+### Use Delegation for Dynamic Content
+
+```javascript
+// GOOD: Single handler for all items
+_('#container').on('click', '.item', function() {
+    console.log('Item clicked');
+});
+
+// BAD: Handler for each item
+_('.item').each(function() {
+    _(this).on('click', function() {
+        console.log('Item clicked');
+    });
+});
+```
+
+## Common Patterns
+
+### Toggle on Click
+
+```javascript
+_('#toggle').click(function() {
+    _('#menu').toggle();
+    _(this).toggleClass('active');
+});
+```
+
+### Confirm Before Action
+
+```javascript
+_('#delete').click(function(e) {
+    if (!confirm('Are you sure?')) {
+        e.preventDefault();
+        return false;
+    }
+    // Proceed with deletion
+});
+```
+
+### Prevent Double Submission
+
+```javascript
+_('#form').one('submit', function(e) {
+    e.preventDefault();
+    
+    _(this).find('button[type="submit"]')
+        .prop('disabled', true)
+        .text('Submitting...');
+    
+    // Submit form data
+    submitFormData();
+});
+```
+
+### Outside Click Detection
+
+```javascript
+// Close menu when clicking outside
+_(document).on('click', function(e) {
+    if (!_(e.target).closest('#menu').length) {
+        _('#menu').hide();
+    }
+});
+```
+
+### Escape Key to Close
+
+```javascript
+_(document).on('keydown', function(e) {
+    if (e.key === 'Escape') {
+        _('#modal').hide();
+        _('#menu').hide();
+    }
+});
+```
+
+## Event Best Practices
+
+1. **Use event delegation** for dynamic content:
+   ```javascript
+   _('#container').on('click', '.item', handler);
+   ```
+
+2. **Debounce expensive operations**:
+   ```javascript
+   _(window).on('resize', _.debounce(handler, 250));
+   ```
+
+3. **Clean up event handlers**:
+   ```javascript
+   _('#element').off().remove();
+   ```
+
+4. **Prevent default when needed**:
+   ```javascript
+   _('a').on('click', function(e) {
+       e.preventDefault();
+   });
+   ```
+
+5. **Use namespaces for plugin events**:
+   ```javascript
+   _('#element').on('click.myPlugin', handler);
+   ```
+
+6. **Cache event target lookups**:
+   ```javascript
+   _('#container').on('click', '.item', function(e) {
+       const $item = _(this);  // Cache reference
+       $item.addClass('active');
+       $item.find('.icon').show();
+   });
+   ```
+
+## Next Steps
+
+- Learn about [AJAX & HTTP Requests](/docs/ajax)
+- Explore [Forms & Validation](/docs/forms)
+- Master [Animations](/docs/yakajs-animations)
+- Discover [Touch & Gestures](/docs/mobile-gestures)

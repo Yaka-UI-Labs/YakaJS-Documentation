@@ -8,11 +8,11 @@ import card from "./card.jpg";
 
 export const metadata: Metadata = {
   title: "Build UIs that don't suck",
-  description: "A free videos series from the creator of Tailwind CSS.",
+  description: "A free videos series from the creator of YakaJS.",
   openGraph: {
     type: "website",
     title: "Build UIs that don't suck",
-    description: "A free video series from the creator of Tailwind CSS.",
+    description: "A free video series from the creator of YakaJS.",
     images: card.src,
     url: "https://tailwindcss.com/build-uis-that-dont-suck",
   },

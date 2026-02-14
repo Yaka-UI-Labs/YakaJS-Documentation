@@ -1,0 +1,621 @@
+export const title = "DOM Manipulation & Selectors";
+export const description = "Master DOM manipulation with YakaJS - select, modify, and control elements with ease";
+
+# DOM Manipulation & Selectors
+
+Complete guide to selecting and manipulating DOM elements with YakaJS.
+
+## Core Selector
+
+### `_(selector, context)`
+
+The main YakaJS function for selecting and manipulating DOM elements. Works exactly like jQuery's `$()` but with more power!
+
+```javascript
+_('#myId')              // Select by ID
+_('.myClass')           // Select by class
+_('div')                // Select by tag name
+_('[data-role="nav"]')  // Select by attribute
+_('<div>Hello</div>')   // Create new elements
+_(document.ready)       // DOM ready callback
+```
+
+**Parameters:**
+- `selector` (String|Element|Array|Function): The selector, element(s), or callback
+- `context` (Element, optional): Context element to search within
+
+**Returns:** YakaJS object for chaining
+
+### Multiple Selectors
+
+```javascript
+_('div, p, span')       // Multiple selectors
+_('.class1.class2')     // Elements with both classes
+_('div > .child')       // Direct children
+_('div .descendant')    // All descendants
+```
+
+## Text Content
+
+### `.text(value)`
+
+Get or set the text content of elements.
+
+```javascript
+// Get text
+const text = _('#element').text();
+
+// Set text
+_('#element').text('New text content');
+
+// Get text from multiple elements (returns array)
+const texts = _('p').text();  // ['text1', 'text2', ...]
+```
+
+**Parameters:**
+- `value` (String, optional): Text to set
+
+**Returns:** 
+- Without parameter: String or Array of strings
+- With parameter: YakaJS object for chaining
+
+## HTML Content
+
+### `.html(value, sanitize)`
+
+Get or set the HTML content of elements with optional XSS protection.
+
+```javascript
+// Get HTML
+const html = _('#element').html();
+
+// Set HTML
+_('#element').html('<p>New HTML</p>');
+
+// Set with XSS protection (recommended for user input!)
+_('#element').html(userInput, true);  // Sanitizes dangerous tags
+```
+
+**Parameters:**
+- `value` (String, optional): HTML to set
+- `sanitize` (Boolean, optional): Enable XSS protection (default: false)
+
+**Returns:**
+- Without parameter: String
+- With parameter: YakaJS object for chaining
+
+**Security Note:** Always use `sanitize: true` when setting HTML from user input!
+
+## Attributes
+
+### `.attr(name, value)`
+
+Get or set element attributes.
+
+```javascript
+// Get attribute
+const href = _('a').attr('href');
+
+// Set single attribute
+_('img').attr('src', 'photo.jpg');
+
+// Set multiple attributes
+_('input').attr({
+    type: 'text',
+    placeholder: 'Enter name',
+    'data-id': '123'
+});
+
+// Remove attribute
+_('div').attr('data-temp', null);
+```
+
+### `.removeAttr(name)`
+
+Remove an attribute from elements.
+
+```javascript
+_('#element').removeAttr('disabled');
+_('img').removeAttr('data-loading');
+```
+
+### `.data(key, value)`
+
+Get or set data attributes (data-*).
+
+```javascript
+// Set data
+_('#user').data('id', 42);          // Sets data-id="42"
+_('#user').data('role', 'admin');   // Sets data-role="admin"
+
+// Get data
+const userId = _('#user').data('id');        // Returns 42
+const userRole = _('#user').data('role');    // Returns 'admin'
+
+// Get all data attributes
+const allData = _('#user').data();  // { id: 42, role: 'admin' }
+```
+
+## CSS Classes
+
+### `.addClass(className)`
+
+Add one or more classes to elements.
+
+```javascript
+_('#element').addClass('active');
+_('#element').addClass('active highlight');
+_('.items').addClass('visible');
+```
+
+### `.removeClass(className)`
+
+Remove one or more classes from elements.
+
+```javascript
+_('#element').removeClass('active');
+_('#element').removeClass('active highlight');
+_('.items').removeClass('hidden');
+
+// Remove all classes
+_('#element').removeClass();
+```
+
+### `.toggleClass(className, state)`
+
+Toggle one or more classes on elements.
+
+```javascript
+_('#menu').toggleClass('open');
+_('#theme').toggleClass('dark');
+
+// Force add or remove
+_('#element').toggleClass('active', true);   // Always add
+_('#element').toggleClass('active', false);  // Always remove
+```
+
+### `.hasClass(className)`
+
+Check if element has a class.
+
+```javascript
+if (_('#menu').hasClass('open')) {
+    console.log('Menu is open!');
+}
+```
+
+## CSS Styles
+
+### `.css(property, value)`
+
+Get or set CSS styles.
+
+```javascript
+// Get style
+const color = _('#element').css('color');
+
+// Set single style
+_('#element').css('color', 'red');
+
+// Set multiple styles
+_('#box').css({
+    width: '200px',
+    height: '200px',
+    backgroundColor: '#3498db',
+    border: '2px solid #2980b9'
+});
+```
+
+### `.show()` / `.hide()`
+
+Show or hide elements.
+
+```javascript
+_('#element').show();   // Sets display to element's default
+_('#element').hide();   // Sets display to none
+```
+
+### `.toggle()`
+
+Toggle element visibility.
+
+```javascript
+_('#menu').toggle();  // Shows if hidden, hides if visible
+```
+
+## Element Properties
+
+### `.val(value)`
+
+Get or set form element values.
+
+```javascript
+// Get value
+const inputValue = _('#name').val();
+
+// Set value
+_('#name').val('John Doe');
+_('#email').val('john@example.com');
+
+// Clear value
+_('#search').val('');
+```
+
+### `.prop(property, value)`
+
+Get or set element properties.
+
+```javascript
+// Get property
+const isChecked = _('#checkbox').prop('checked');
+
+// Set property
+_('#checkbox').prop('checked', true);
+_('#input').prop('disabled', false);
+
+// Set multiple properties
+_('#element').prop({
+    checked: true,
+    disabled: false
+});
+```
+
+## DOM Traversal
+
+### `.find(selector)`
+
+Find descendants matching selector.
+
+```javascript
+_('#container').find('.item');
+_('ul').find('li.active');
+```
+
+### `.parent()`
+
+Get the parent element.
+
+```javascript
+_('#child').parent();
+_('.item').parent();  // Gets parents of all .item elements
+```
+
+### `.children(selector)`
+
+Get child elements, optionally filtered by selector.
+
+```javascript
+_('#list').children();        // All children
+_('#list').children('.item'); // Only .item children
+```
+
+### `.siblings(selector)`
+
+Get sibling elements.
+
+```javascript
+_('#active').siblings();
+_('#tab1').siblings('.tab');
+```
+
+### `.next()` / `.prev()`
+
+Get next or previous sibling.
+
+```javascript
+_('#current').next();   // Next sibling
+_('#current').prev();   // Previous sibling
+```
+
+### `.closest(selector)`
+
+Get the closest ancestor matching selector.
+
+```javascript
+_('#button').closest('.container');
+_('.item').closest('[data-parent]');
+```
+
+## Element Creation & Insertion
+
+### `.append(content)` / `.prepend(content)`
+
+Insert content at the end or beginning.
+
+```javascript
+_('#list').append('<li>New item</li>');
+_('#list').prepend('<li>First item</li>');
+
+// Append element
+_('#container').append(_('<div>').addClass('box'));
+```
+
+### `.after(content)` / `.before(content)`
+
+Insert content after or before elements.
+
+```javascript
+_('#element').after('<p>After element</p>');
+_('#element').before('<p>Before element</p>');
+```
+
+### `.appendTo(target)` / `.prependTo(target)`
+
+Append or prepend to target elements.
+
+```javascript
+_('<li>New</li>').appendTo('#list');
+_('<div>Header</div>').prependTo('#container');
+```
+
+## Element Removal
+
+### `.remove()`
+
+Remove elements from the DOM.
+
+```javascript
+_('#temp-element').remove();
+_('.old-items').remove();
+```
+
+### `.empty()`
+
+Remove all child nodes.
+
+```javascript
+_('#container').empty();  // Removes all children, keeps the container
+```
+
+### `.detach()`
+
+Remove elements but keep data and events.
+
+```javascript
+const element = _('#element').detach();  // Remove but keep in memory
+// ... later ...
+_('#container').append(element);  // Re-add with events intact
+```
+
+## Element Cloning
+
+### `.clone(withEvents)`
+
+Create a deep copy of elements.
+
+```javascript
+// Clone without events
+const clone = _('#template').clone();
+_('#container').append(clone);
+
+// Clone with events
+const cloneWithEvents = _('#template').clone(true);
+_('#container').append(cloneWithEvents);
+```
+
+## Element Dimensions
+
+### `.width()` / `.height()`
+
+Get or set element dimensions.
+
+```javascript
+// Get dimensions
+const width = _('#box').width();
+const height = _('#box').height();
+
+// Set dimensions
+_('#box').width(200);
+_('#box').height(150);
+```
+
+### `.innerWidth()` / `.innerHeight()`
+
+Get dimensions including padding.
+
+```javascript
+const innerWidth = _('#box').innerWidth();
+const innerHeight = _('#box').innerHeight();
+```
+
+### `.outerWidth()` / `.outerHeight()`
+
+Get dimensions including padding and border.
+
+```javascript
+const outerWidth = _('#box').outerWidth();
+const outerHeight = _('#box').outerHeight();
+
+// Include margin
+const outerWidthWithMargin = _('#box').outerWidth(true);
+```
+
+## Element Position
+
+### `.offset()`
+
+Get element position relative to document.
+
+```javascript
+const position = _('#element').offset();
+console.log(position.top, position.left);
+```
+
+### `.position()`
+
+Get element position relative to offset parent.
+
+```javascript
+const position = _('#element').position();
+console.log(position.top, position.left);
+```
+
+### `.scrollTop()` / `.scrollLeft()`
+
+Get or set scroll position.
+
+```javascript
+// Get scroll position
+const scrollTop = _('#container').scrollTop();
+
+// Set scroll position
+_('#container').scrollTop(100);
+_('#container').scrollLeft(50);
+
+// Scroll to top
+_('#container').scrollTop(0);
+```
+
+## Element State
+
+### `.is(selector)`
+
+Check if element matches selector.
+
+```javascript
+if (_('#element').is('.active')) {
+    console.log('Element is active');
+}
+
+if (_('#checkbox').is(':checked')) {
+    console.log('Checkbox is checked');
+}
+```
+
+### `.index()`
+
+Get the index of element among siblings.
+
+```javascript
+const index = _('#item3').index();  // Returns 2 (0-based)
+```
+
+## Collection Methods
+
+### `.each(callback)`
+
+Iterate over matched elements.
+
+```javascript
+_('.item').each(function(index, element) {
+    console.log(`Item ${index}:`, element);
+    _(element).addClass('processed');
+});
+```
+
+### `.map(callback)`
+
+Create array from matched elements.
+
+```javascript
+const ids = _('.item').map(function(index, element) {
+    return _(element).data('id');
+});
+```
+
+### `.filter(selector|callback)`
+
+Filter matched elements.
+
+```javascript
+// Filter by selector
+_('.item').filter('.active');
+
+// Filter by function
+_('.item').filter(function(index, element) {
+    return _(element).data('id') > 5;
+});
+```
+
+### `.first()` / `.last()`
+
+Get first or last element.
+
+```javascript
+_('.item').first();  // First item
+_('.item').last();   // Last item
+```
+
+### `.eq(index)`
+
+Get element at specific index.
+
+```javascript
+_('.item').eq(0);   // First item
+_('.item').eq(2);   // Third item
+_('.item').eq(-1);  // Last item
+```
+
+### `.get(index)`
+
+Get raw DOM element(s).
+
+```javascript
+const element = _('#element').get(0);  // Raw DOM element
+const allElements = _('.item').get();  // Array of raw DOM elements
+```
+
+## Chaining Examples
+
+One of YakaJS's most powerful features is method chaining:
+
+```javascript
+_('#element')
+    .addClass('active')
+    .css('color', 'red')
+    .attr('data-state', 'ready')
+    .text('Hello World')
+    .fadeIn(300);
+```
+
+## Safe Mode
+
+Use `.safe()` to prevent errors when elements don't exist:
+
+```javascript
+// Traditional way - crashes if element doesn't exist
+_('#nonexistent').hide();  // ERROR!
+
+// Safe mode - silently fails
+_('#nonexistent').safe().hide().fadeIn().bounce();  // No error!
+
+// Enable debug mode for warnings
+_.debug = true;
+_('#nonexistent').safe().hide();  // Logs: "Warning: No elements found"
+```
+
+## Best Practices
+
+1. **Cache selectors** for better performance:
+   ```javascript
+   const $container = _('#container');
+   $container.addClass('active');
+   $container.css('color', 'red');
+   ```
+
+2. **Use safe mode** for optional elements:
+   ```javascript
+   _('#optional-element').safe().hide();
+   ```
+
+3. **Sanitize user input** when setting HTML:
+   ```javascript
+   _('#content').html(userInput, true);  // XSS protection
+   ```
+
+4. **Chain methods** for cleaner code:
+   ```javascript
+   _('#element').addClass('active').fadeIn().css('color', 'red');
+   ```
+
+5. **Use context** to improve performance:
+   ```javascript
+   $('.item', '#container');  // Searches only within #container
+   ```
+
+## Next Steps
+
+- Learn about [Event Handling](/docs/events)
+- Explore [Animations](/docs/yakajs-animations)
+- Master [AJAX Requests](/docs/ajax)
+- Discover [Performance Tips](/docs/performance)

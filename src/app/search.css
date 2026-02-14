@@ -12,7 +12,7 @@
   width: 100vw;
   cursor: auto;
   flex-direction: column;
-  background-color: color-mix(in oklab, var(--color-black) 20%, transparent);
+  background-color: color-mix(in oklab, var(--color-yaka-darkest) 20%, transparent);
   padding: calc(var(--spacing) * 4);
   --tw-backdrop-blur: blur(var(--blur-sm));
   -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,)
@@ -32,12 +32,12 @@
   }
 
   .dark & {
-    background-color: color-mix(in oklab, var(--color-gray-900) 80%, transparent);
+    background-color: color-mix(in oklab, var(--color-yaka-dark) 80%, transparent);
   }
 
   @media (prefers-color-scheme: dark) {
     .system & {
-      background-color: color-mix(in oklab, var(--color-gray-900) 80%, transparent);
+      background-color: color-mix(in oklab, var(--color-yaka-dark) 80%, transparent);
     }
   }
 }
@@ -79,16 +79,16 @@
   min-height: 0;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
-  background: white;
+  background: var(--color-yaka-lightest);
 
   .dark & {
-    background: var(--color-gray-800);
+    background: var(--color-yaka-dark);
     box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.05);
   }
 
   @media (prefers-color-scheme: dark) {
     .system & {
-      background: var(--color-gray-800);
+      background: var(--color-yaka-dark);
       box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.05);
     }
   }

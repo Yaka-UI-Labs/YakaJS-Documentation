@@ -111,7 +111,11 @@ export async function generateTableOfContentsFromMarkdown(markdown: string) {
 export function getSectionAndTitleBySlug(slug: string): { section: string; title: string } | null {
   let currentPath = `/docs/${slug}`;
   for (let [section, entries] of Object.entries(index)) {
-    for (let [title, path, children] of entries) {
+    for (let entry of entries) {
+      const title = entry[0];
+      const path = entry[1];
+      const children = (entry as any)[2] as readonly [string, string][] | undefined;
+      
       if (path === currentPath) {
         return { section, title };
       }

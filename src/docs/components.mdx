@@ -1,0 +1,672 @@
+export const title = "Components & UI Elements";
+export const description = "Build beautiful UIs with YakaJS components - modals, tooltips, tabs, dropdowns, and more";
+
+# Components & UI Elements
+
+Complete guide to using YakaJS UI components. Beautiful, accessible, and easy to use!
+
+## Modals
+
+### Basic Modal
+
+```javascript
+// Create and show modal
+_.modal({
+    title: 'Welcome!',
+    content: '<p>Welcome to our application!</p>',
+    size: 'md',  // sm, md, lg, xl
+    buttons: [
+        {
+            text: 'Close',
+            class: 'btn-secondary',
+            action: function(modal) {
+                modal.close();
+            }
+        },
+        {
+            text: 'OK',
+            class: 'btn-primary',
+            action: function(modal) {
+                console.log('OK clicked');
+                modal.close();
+            }
+        }
+    ]
+});
+```
+
+### Confirmation Modal
+
+```javascript
+_.modal.confirm({
+    title: 'Delete Item?',
+    content: 'Are you sure you want to delete this item? This action cannot be undone.',
+    confirmText: 'Delete',
+    cancelText: 'Cancel',
+    confirmClass: 'btn-danger',
+    onConfirm: function() {
+        // Delete item
+        console.log('Item deleted');
+    },
+    onCancel: function() {
+        console.log('Cancelled');
+    }
+});
+```
+
+### Alert Modal
+
+```javascript
+_.modal.alert({
+    title: 'Success!',
+    content: 'Your changes have been saved.',
+    buttonText: 'OK',
+    type: 'success'  // success, warning, error, info
+});
+```
+
+### Custom Modal
+
+```javascript
+const modal = _.modal({
+    title: 'Custom Modal',
+    content: `
+        <form id="modal-form">
+            <input type="text" name="name" placeholder="Name">
+            <input type="email" name="email" placeholder="Email">
+        </form>
+    `,
+    buttons: [
+        {
+            text: 'Submit',
+            action: function(modal) {
+                const data = _('#modal-form').serializeObject();
+                console.log('Form data:', data);
+                modal.close();
+            }
+        }
+    ],
+    onClose: function() {
+        console.log('Modal closed');
+    }
+});
+```
+
+## Tooltips
+
+### Basic Tooltip
+
+```javascript
+// Add tooltip to element
+_('#button').tooltip('This is a tooltip');
+
+// With options
+_('#button').tooltip({
+    content: 'Detailed tooltip content',
+    position: 'top',  // top, bottom, left, right
+    trigger: 'hover', // hover, click, focus
+    delay: 200
+});
+```
+
+### HTML Tooltip
+
+```javascript
+_('#element').tooltip({
+    content: '<strong>Bold text</strong><br>With HTML!',
+    html: true
+});
+```
+
+### Dynamic Tooltip
+
+```javascript
+_('.item').tooltip({
+    content: function() {
+        return 'Item: ' + _(this).data('id');
+    }
+});
+```
+
+## Dropdown
+
+### Basic Dropdown
+
+```javascript
+_('#dropdown-button').dropdown({
+    items: [
+        { text: 'Action 1', action: () => console.log('Action 1') },
+        { text: 'Action 2', action: () => console.log('Action 2') },
+        { divider: true },
+        { text: 'Delete', action: () => console.log('Delete'), class: 'text-danger' }
+    ],
+    position: 'bottom-left'  // bottom-left, bottom-right, top-left, top-right
+});
+```
+
+### Dropdown Menu from HTML
+
+```html
+<div class="dropdown">
+    <button class="dropdown-toggle">Menu</button>
+    <ul class="dropdown-menu">
+        <li><a href="#">Action 1</a></li>
+        <li><a href="#">Action 2</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Delete</a></li>
+    </ul>
+</div>
+
+<script>
+_('.dropdown-toggle').click(function() {
+    _(this).next('.dropdown-menu').toggle();
+});
+
+// Close on outside click
+_(document).click(function(e) {
+    if (!_(e.target).closest('.dropdown').length) {
+        _('.dropdown-menu').hide();
+    }
+});
+</script>
+```
+
+## Tabs
+
+### Basic Tabs
+
+```javascript
+_('#tabs').tabs({
+    active: 0,  // Initially active tab
+    onChange: function(index) {
+        console.log('Tab changed to:', index);
+    }
+});
+```
+
+### Tabs from HTML
+
+```html
+<div id="tabs">
+    <ul class="tab-list">
+        <li class="tab active">Tab 1</li>
+        <li class="tab">Tab 2</li>
+        <li class="tab">Tab 3</li>
+    </ul>
+    
+    <div class="tab-content">
+        <div class="tab-pane active">Content 1</div>
+        <div class="tab-pane">Content 2</div>
+        <div class="tab-pane">Content 3</div>
+    </div>
+</div>
+
+<script>
+_('.tab').click(function() {
+    const index = _(this).index();
+    
+    _('.tab').removeClass('active');
+    _(this).addClass('active');
+    
+    _('.tab-pane').removeClass('active');
+    _('.tab-pane').eq(index).addClass('active');
+});
+</script>
+```
+
+## Accordion
+
+### Basic Accordion
+
+```javascript
+_('#accordion').accordion({
+    multiple: false,  // Allow multiple panels open
+    collapsible: true // Allow all panels closed
+});
+```
+
+### Accordion from HTML
+
+```html
+<div id="accordion">
+    <div class="accordion-item">
+        <div class="accordion-header">Section 1</div>
+        <div class="accordion-content">
+            Content for section 1
+        </div>
+    </div>
+    
+    <div class="accordion-item">
+        <div class="accordion-header">Section 2</div>
+        <div class="accordion-content">
+            Content for section 2
+        </div>
+    </div>
+</div>
+
+<script>
+_('.accordion-header').click(function() {
+    const $content = _(this).next('.accordion-content');
+    
+    // Close other panels
+    _('.accordion-content').not($content).slideUp();
+    
+    // Toggle current panel
+    $content.slideToggle();
+});
+</script>
+```
+
+## Carousel
+
+### Basic Carousel
+
+```javascript
+_('#carousel').carousel({
+    autoPlay: true,
+    interval: 5000,  // 5 seconds
+    loop: true,
+    dots: true,
+    arrows: true,
+    transition: 'slide'  // slide, fade
+});
+```
+
+### Carousel from HTML
+
+```html
+<div id="carousel" class="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="image1.jpg" alt="Slide 1">
+        </div>
+        <div class="carousel-item">
+            <img src="image2.jpg" alt="Slide 2">
+        </div>
+        <div class="carousel-item">
+            <img src="image3.jpg" alt="Slide 3">
+        </div>
+    </div>
+    
+    <button class="carousel-prev">&lt;</button>
+    <button class="carousel-next">&gt;</button>
+    
+    <div class="carousel-dots"></div>
+</div>
+
+<script>
+const carousel = {
+    current: 0,
+    total: _('.carousel-item').length,
+    
+    next() {
+        this.goto((this.current + 1) % this.total);
+    },
+    
+    prev() {
+        this.goto((this.current - 1 + this.total) % this.total);
+    },
+    
+    goto(index) {
+        _('.carousel-item').removeClass('active');
+        _('.carousel-item').eq(index).addClass('active');
+        this.current = index;
+        this.updateDots();
+    },
+    
+    updateDots() {
+        _('.carousel-dot').removeClass('active');
+        _('.carousel-dot').eq(this.current).addClass('active');
+    }
+};
+
+_('.carousel-next').click(() => carousel.next());
+_('.carousel-prev').click(() => carousel.prev());
+
+// Auto-play
+setInterval(() => carousel.next(), 5000);
+</script>
+```
+
+## Notifications
+
+### Toast Notifications
+
+```javascript
+// Success notification
+_.notify('Changes saved successfully!', 'success');
+
+// Error notification
+_.notify('An error occurred!', 'error');
+
+// Warning notification
+_.notify('Please review your input', 'warning');
+
+// Info notification
+_.notify('New updates available', 'info');
+
+// Custom notification
+_.notify({
+    message: 'Custom notification',
+    type: 'success',
+    duration: 5000,  // 5 seconds
+    position: 'top-right',  // top-right, top-left, bottom-right, bottom-left
+    closable: true
+});
+```
+
+## Badges
+
+### Badge HTML
+
+```html
+<span class="badge">New</span>
+<span class="badge badge-primary">5</span>
+<span class="badge badge-success">Active</span>
+<span class="badge badge-danger">Error</span>
+<span class="badge badge-warning">Warning</span>
+```
+
+### Dynamic Badges
+
+```javascript
+// Update badge count
+_('#notifications-badge').text(count);
+
+// Show/hide badge
+if (count > 0) {
+    _('#notifications-badge').show();
+} else {
+    _('#notifications-badge').hide();
+}
+```
+
+## Buttons
+
+### Button States
+
+```javascript
+// Loading state
+_('#button').loading(true);
+_('#button').html('<span class="spinner"></span> Loading...');
+
+// Disabled state
+_('#button').prop('disabled', true);
+
+// Success state
+_('#button').addClass('btn-success').text('✓ Saved');
+```
+
+### Button Groups
+
+```html
+<div class="btn-group">
+    <button class="btn">Left</button>
+    <button class="btn active">Center</button>
+    <button class="btn">Right</button>
+</div>
+
+<script>
+_('.btn-group .btn').click(function() {
+    _('.btn-group .btn').removeClass('active');
+    _(this).addClass('active');
+});
+</script>
+```
+
+## Progress Bars
+
+### Basic Progress
+
+```javascript
+// Set progress
+_('#progress').css('width', '75%');
+_('#progress-text').text('75%');
+
+// Animated progress
+function updateProgress(value) {
+    _('#progress').animate({ width: value + '%' }, 500);
+    _('#progress-text').text(value + '%');
+}
+
+updateProgress(75);
+```
+
+### Progress Bar HTML
+
+```html
+<div class="progress">
+    <div class="progress-bar" id="progress" style="width: 0%">
+        <span id="progress-text">0%</span>
+    </div>
+</div>
+```
+
+## Spinners
+
+### Loading Spinners
+
+```html
+<!-- CSS Spinner -->
+<div class="spinner"></div>
+
+<!-- With text -->
+<div class="spinner-container">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+</div>
+```
+
+```javascript
+// Show/hide spinner
+_('#loading-spinner').show();
+
+// Hide after loading
+_.get('/api/data').finally(() => {
+    _('#loading-spinner').hide();
+});
+```
+
+## Popover
+
+### Basic Popover
+
+```javascript
+_('#element').popover({
+    title: 'Popover Title',
+    content: 'Popover content goes here',
+    position: 'top',
+    trigger: 'click'
+});
+```
+
+### HTML Popover
+
+```javascript
+_('#element').popover({
+    title: 'User Info',
+    content: `
+        <div class="user-card">
+            <img src="avatar.jpg" alt="Avatar">
+            <h4>John Doe</h4>
+            <p>john@example.com</p>
+        </div>
+    `,
+    html: true,
+    width: 300
+});
+```
+
+## Context Menu
+
+### Custom Context Menu
+
+```javascript
+_('#element').on('contextmenu', function(e) {
+    e.preventDefault();
+    
+    _.contextMenu({
+        x: e.pageX,
+        y: e.pageY,
+        items: [
+            { text: 'Copy', icon: '📋', action: () => copyText() },
+            { text: 'Paste', icon: '📄', action: () => pasteText() },
+            { divider: true },
+            { text: 'Delete', icon: '🗑️', action: () => deleteItem(), class: 'danger' }
+        ]
+    });
+});
+```
+
+## Breadcrumbs
+
+### Breadcrumb Navigation
+
+```html
+<nav class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="separator">›</span>
+    <a href="/category">Category</a>
+    <span class="separator">›</span>
+    <span class="current">Current Page</span>
+</nav>
+```
+
+```javascript
+// Generate breadcrumbs dynamically
+function generateBreadcrumbs(path) {
+    const parts = path.split('/').filter(Boolean);
+    const breadcrumbs = ['<a href="/">Home</a>'];
+    
+    let currentPath = '';
+    parts.forEach((part, index) => {
+        currentPath += '/' + part;
+        if (index === parts.length - 1) {
+            breadcrumbs.push(`<span class="current">${part}</span>`);
+        } else {
+            breadcrumbs.push(`<a href="${currentPath}">${part}</a>`);
+        }
+    });
+    
+    return breadcrumbs.join(' <span class="separator">›</span> ');
+}
+
+_('#breadcrumb').html(generateBreadcrumbs(window.location.pathname));
+```
+
+## Pagination
+
+### Basic Pagination
+
+```javascript
+function renderPagination(current, total) {
+    let html = '';
+    
+    // Previous button
+    html += `<button class="page-btn" ${current === 1 ? 'disabled' : ''} data-page="${current - 1}">‹</button>`;
+    
+    // Page numbers
+    for (let i = 1; i <= total; i++) {
+        if (i === 1 || i === total || (i >= current - 2 && i <= current + 2)) {
+            html += `<button class="page-btn ${i === current ? 'active' : ''}" data-page="${i}">${i}</button>`;
+        } else if (i === current - 3 || i === current + 3) {
+            html += '<span class="ellipsis">...</span>';
+        }
+    }
+    
+    // Next button
+    html += `<button class="page-btn" ${current === total ? 'disabled' : ''} data-page="${current + 1}">›</button>`;
+    
+    _('#pagination').html(html);
+}
+
+// Handle page clicks
+_('#pagination').on('click', '.page-btn', function() {
+    if (!_(this).prop('disabled')) {
+        const page = parseInt(_(this).data('page'));
+        loadPage(page);
+        renderPagination(page, totalPages);
+    }
+});
+```
+
+## Stepper
+
+### Multi-step Form
+
+```javascript
+let currentStep = 1;
+const totalSteps = 3;
+
+function showStep(step) {
+    _('.step').hide();
+    _(`#step${step}`).show();
+    
+    _('.step-indicator').removeClass('active completed');
+    for (let i = 1; i < step; i++) {
+        _(`.step-indicator[data-step="${i}"]`).addClass('completed');
+    }
+    _(`.step-indicator[data-step="${step}"]`).addClass('active');
+    
+    _('#prevBtn').prop('disabled', step === 1);
+    _('#nextBtn').text(step === totalSteps ? 'Finish' : 'Next');
+}
+
+_('#nextBtn').click(function() {
+    if (currentStep < totalSteps) {
+        currentStep++;
+        showStep(currentStep);
+    } else {
+        // Submit form
+        submitForm();
+    }
+});
+
+_('#prevBtn').click(function() {
+    if (currentStep > 1) {
+        currentStep--;
+        showStep(currentStep);
+    }
+});
+```
+
+## Component Best Practices
+
+1. **Clean up components** when removing:
+   ```javascript
+   modal.destroy();  // Remove event listeners and DOM
+   ```
+
+2. **Use event delegation** for dynamic components:
+   ```javascript
+   _(document).on('click', '.modal-close', function() {
+       _(this).closest('.modal').hide();
+   });
+   ```
+
+3. **Make components accessible**:
+   ```html
+   <button aria-label="Close modal" aria-expanded="true">
+   ```
+
+4. **Provide keyboard navigation**:
+   ```javascript
+   _(document).on('keydown', function(e) {
+       if (e.key === 'Escape') _.modal.close();
+   });
+   ```
+
+5. **Handle mobile touch events**:
+   ```javascript
+   _('#carousel').swipe({
+       left: () => carousel.next(),
+       right: () => carousel.prev()
+   });
+   ```
+
+## Next Steps
+
+- Learn about [Animations](/docs/yakajs-animations)
+- Explore [Virtual Scroll](/docs/virtual-scroll)
+- Master [Drag & Drop](/docs/drag-drop)
+- Discover [Mobile Gestures](/docs/mobile-gestures)

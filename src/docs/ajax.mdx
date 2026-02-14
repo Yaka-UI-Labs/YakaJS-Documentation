@@ -1,0 +1,671 @@
+export const title = "AJAX & HTTP Requests";
+export const description = "Master HTTP requests with YakaJS - from simple GET requests to complex file uploads";
+
+# AJAX & HTTP Requests
+
+Complete guide to making HTTP requests with YakaJS. Simple, powerful, and modern!
+
+## Basic Requests
+
+### `_.get(url, data, success, dataType)`
+
+Make GET requests to fetch data.
+
+```javascript
+// Simple GET request
+_.get('/api/users', function(data) {
+    console.log('Users:', data);
+});
+
+// With query parameters
+_.get('/api/users', { role: 'admin' }, function(data) {
+    console.log('Admin users:', data);
+});
+
+// Expecting JSON
+_.get('/api/users', null, function(data) {
+    console.log('Users:', data);
+}, 'json');
+```
+
+**Parameters:**
+- `url` (String): Request URL
+- `data` (Object, optional): Query parameters
+- `success` (Function, optional): Success callback
+- `dataType` (String, optional): Expected response type ('json', 'text', 'xml')
+
+**Returns:** Promise
+
+### `_.post(url, data, success, dataType)`
+
+Make POST requests to send data.
+
+```javascript
+// POST with form data
+_.post('/api/users', {
+    name: 'John Doe',
+    email: 'john@example.com'
+}, function(response) {
+    console.log('User created:', response);
+});
+
+// POST with JSON
+_.post('/api/users', 
+    JSON.stringify({ name: 'John' }),
+    function(response) {
+        console.log('Success:', response);
+    },
+    'json'
+);
+```
+
+### Promises
+
+All AJAX methods return promises:
+
+```javascript
+// Using promises
+_.get('/api/users')
+    .then(data => {
+        console.log('Users:', data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+// Async/await
+async function fetchUsers() {
+    try {
+        const data = await _.get('/api/users');
+        console.log('Users:', data);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+```
+
+## Advanced Requests
+
+### `_.ajax(options)`
+
+Full-featured AJAX with all options.
+
+```javascript
+_.ajax({
+    url: '/api/users',
+    method: 'GET',
+    data: { role: 'admin' },
+    dataType: 'json',
+    headers: {
+        'X-Custom-Header': 'value'
+    },
+    timeout: 5000,
+    beforeSend: function(xhr) {
+        console.log('Sending request...');
+    },
+    success: function(data, status, xhr) {
+        console.log('Success:', data);
+    },
+    error: function(xhr, status, error) {
+        console.error('Error:', error);
+    },
+    complete: function(xhr, status) {
+        console.log('Request complete');
+    }
+});
+```
+
+**Options:**
+- `url` (String): Request URL
+- `method` (String): HTTP method (GET, POST, PUT, DELETE, etc.)
+- `data` (Object|String): Request data
+- `dataType` (String): Response type ('json', 'text', 'xml', 'html')
+- `contentType` (String): Request content type
+- `headers` (Object): Custom headers
+- `timeout` (Number): Timeout in milliseconds
+- `cache` (Boolean): Enable/disable caching
+- `async` (Boolean): Async request (default: true)
+- `beforeSend` (Function): Called before request
+- `success` (Function): Success callback
+- `error` (Function): Error callback
+- `complete` (Function): Always called after request
+
+### With Promise
+
+```javascript
+_.ajax({
+    url: '/api/users',
+    method: 'POST',
+    data: { name: 'John' },
+    dataType: 'json'
+})
+.then(data => {
+    console.log('Success:', data);
+})
+.catch(error => {
+    console.error('Error:', error);
+});
+```
+
+## HTTP Methods
+
+### PUT Request
+
+```javascript
+// Update user
+_.ajax({
+    url: '/api/users/123',
+    method: 'PUT',
+    data: {
+        name: 'John Updated',
+        email: 'john.updated@example.com'
+    },
+    success: function(data) {
+        console.log('User updated:', data);
+    }
+});
+```
+
+### DELETE Request
+
+```javascript
+// Delete user
+_.ajax({
+    url: '/api/users/123',
+    method: 'DELETE',
+    success: function(data) {
+        console.log('User deleted:', data);
+    }
+});
+```
+
+### PATCH Request
+
+```javascript
+// Partial update
+_.ajax({
+    url: '/api/users/123',
+    method: 'PATCH',
+    data: { email: 'newemail@example.com' },
+    success: function(data) {
+        console.log('User patched:', data);
+    }
+});
+```
+
+## Request Features
+
+### Automatic CSRF Protection
+
+YakaJS automatically includes CSRF tokens:
+
+```javascript
+// Set CSRF token (usually from meta tag or cookie)
+_.csrf.setToken('your-csrf-token');
+
+// All POST/PUT/DELETE requests include the token automatically
+_.post('/api/data', { foo: 'bar' });  // CSRF token auto-included!
+```
+
+### Custom Headers
+
+```javascript
+_.ajax({
+    url: '/api/users',
+    headers: {
+        'Authorization': 'Bearer ' + token,
+        'X-Custom-Header': 'value'
+    }
+});
+```
+
+### Request Timeout
+
+```javascript
+_.ajax({
+    url: '/api/slow-endpoint',
+    timeout: 5000,  // 5 seconds
+    error: function(xhr, status, error) {
+        if (status === 'timeout') {
+            console.log('Request timed out!');
+        }
+    }
+});
+```
+
+### Retry Failed Requests
+
+```javascript
+function fetchWithRetry(url, maxRetries = 3) {
+    let retries = 0;
+    
+    function attempt() {
+        return _.get(url)
+            .catch(error => {
+                if (retries < maxRetries) {
+                    retries++;
+                    console.log(`Retry ${retries}/${maxRetries}...`);
+                    return attempt();
+                }
+                throw error;
+            });
+    }
+    
+    return attempt();
+}
+
+// Usage
+fetchWithRetry('/api/users', 3)
+    .then(data => console.log('Success:', data))
+    .catch(error => console.error('Failed after retries:', error));
+```
+
+## Form Serialization
+
+### Serialize Form Data
+
+```javascript
+// Serialize form to URL-encoded string
+const data = _('#myForm').serialize();
+console.log(data);  // "name=John&email=john@example.com"
+
+// Post serialized form
+_.post('/api/submit', _('#myForm').serialize());
+```
+
+### Serialize to Object
+
+```javascript
+// Serialize form to object
+const data = _('#myForm').serializeObject();
+console.log(data);  // { name: 'John', email: 'john@example.com' }
+
+// Post as JSON
+_.ajax({
+    url: '/api/submit',
+    method: 'POST',
+    data: JSON.stringify(_('#myForm').serializeObject()),
+    contentType: 'application/json'
+});
+```
+
+## File Upload
+
+### Simple File Upload
+
+```javascript
+<form id="uploadForm">
+    <input type="file" name="file" id="fileInput">
+    <button type="submit">Upload</button>
+</form>
+
+<script>
+_('#uploadForm').on('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    _.ajax({
+        url: '/api/upload',
+        method: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            console.log('File uploaded:', response);
+        }
+    });
+});
+</script>
+```
+
+### Upload with Progress
+
+```javascript
+_.ajax({
+    url: '/api/upload',
+    method: 'POST',
+    data: formData,
+    contentType: false,
+    processData: false,
+    xhr: function() {
+        const xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener('progress', function(e) {
+            if (e.lengthComputable) {
+                const percent = (e.loaded / e.total) * 100;
+                _('#progress').css('width', percent + '%');
+                _('#progress-text').text(Math.round(percent) + '%');
+            }
+        });
+        return xhr;
+    },
+    success: function(response) {
+        console.log('Upload complete:', response);
+    }
+});
+```
+
+### Multiple Files
+
+```javascript
+<input type="file" id="files" multiple>
+
+<script>
+_('#files').on('change', function(e) {
+    const formData = new FormData();
+    const files = e.target.files;
+    
+    for (let i = 0; i < files.length; i++) {
+        formData.append('files[]', files[i]);
+    }
+    
+    _.ajax({
+        url: '/api/upload-multiple',
+        method: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            console.log('Files uploaded:', response);
+        }
+    });
+});
+</script>
+```
+
+## Response Handling
+
+### JSON Response
+
+```javascript
+_.get('/api/users', function(data) {
+    console.log('Users:', data);
+    
+    data.forEach(user => {
+        _('#userList').append(`<li>${user.name}</li>`);
+    });
+});
+```
+
+### HTML Response
+
+```javascript
+_.ajax({
+    url: '/api/widget',
+    dataType: 'html',
+    success: function(html) {
+        _('#container').html(html);
+    }
+});
+```
+
+### XML Response
+
+```javascript
+_.ajax({
+    url: '/api/data.xml',
+    dataType: 'xml',
+    success: function(xml) {
+        _(xml).find('item').each(function() {
+            const title = _(this).find('title').text();
+            console.log(title);
+        });
+    }
+});
+```
+
+## Error Handling
+
+### Handle Errors
+
+```javascript
+_.ajax({
+    url: '/api/users',
+    success: function(data) {
+        console.log('Success:', data);
+    },
+    error: function(xhr, status, error) {
+        console.error('Error:', error);
+        console.log('Status:', xhr.status);
+        console.log('Response:', xhr.responseText);
+        
+        // Handle specific errors
+        if (xhr.status === 404) {
+            alert('Resource not found');
+        } else if (xhr.status === 500) {
+            alert('Server error');
+        }
+    }
+});
+```
+
+### Promise Error Handling
+
+```javascript
+_.get('/api/users')
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        
+        if (error.status === 401) {
+            // Unauthorized - redirect to login
+            window.location.href = '/login';
+        }
+    });
+```
+
+## Loading States
+
+### Show/Hide Loading Indicator
+
+```javascript
+function fetchData() {
+    _('#loading').show();
+    _('#content').hide();
+    
+    _.get('/api/data')
+        .then(data => {
+            _('#content').html(renderData(data)).show();
+        })
+        .catch(error => {
+            _('#content').html('Error loading data').show();
+        })
+        .finally(() => {
+            _('#loading').hide();
+        });
+}
+```
+
+### Button Loading State
+
+```javascript
+_('#submitBtn').click(function() {
+    const $btn = _(this);
+    
+    $btn.prop('disabled', true)
+        .html('<span class="spinner"></span> Loading...');
+    
+    _.post('/api/submit', { data: 'value' })
+        .then(response => {
+            $btn.html('✓ Success');
+            setTimeout(() => {
+                $btn.html('Submit').prop('disabled', false);
+            }, 2000);
+        })
+        .catch(error => {
+            $btn.html('✗ Error').prop('disabled', false);
+        });
+});
+```
+
+## Advanced Patterns
+
+### Polling
+
+```javascript
+function pollAPI() {
+    _.get('/api/status')
+        .then(data => {
+            if (data.status === 'complete') {
+                console.log('Task complete!');
+            } else {
+                // Poll again in 2 seconds
+                setTimeout(pollAPI, 2000);
+            }
+        });
+}
+
+pollAPI();
+```
+
+### Parallel Requests
+
+```javascript
+Promise.all([
+    _.get('/api/users'),
+    _.get('/api/posts'),
+    _.get('/api/comments')
+])
+.then(([users, posts, comments]) => {
+    console.log('All data loaded:', { users, posts, comments });
+})
+.catch(error => {
+    console.error('Error loading data:', error);
+});
+```
+
+### Sequential Requests
+
+```javascript
+async function loadData() {
+    try {
+        const user = await _.get('/api/user/123');
+        const posts = await _.get(`/api/user/${user.id}/posts`);
+        const comments = await _.get(`/api/posts/${posts[0].id}/comments`);
+        
+        console.log('All data:', { user, posts, comments });
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+```
+
+### Request Caching
+
+```javascript
+const cache = {};
+
+function getCachedData(url) {
+    if (cache[url]) {
+        console.log('Using cached data');
+        return Promise.resolve(cache[url]);
+    }
+    
+    return _.get(url).then(data => {
+        cache[url] = data;
+        return data;
+    });
+}
+
+// Usage
+getCachedData('/api/users').then(data => {
+    console.log('Users:', data);
+});
+```
+
+### Request Queuing
+
+```javascript
+class RequestQueue {
+    constructor(maxConcurrent = 3) {
+        this.queue = [];
+        this.active = 0;
+        this.maxConcurrent = maxConcurrent;
+    }
+    
+    add(url) {
+        return new Promise((resolve, reject) => {
+            this.queue.push({ url, resolve, reject });
+            this.process();
+        });
+    }
+    
+    process() {
+        if (this.active >= this.maxConcurrent || this.queue.length === 0) {
+            return;
+        }
+        
+        const { url, resolve, reject } = this.queue.shift();
+        this.active++;
+        
+        _.get(url)
+            .then(resolve)
+            .catch(reject)
+            .finally(() => {
+                this.active--;
+                this.process();
+            });
+    }
+}
+
+// Usage
+const queue = new RequestQueue(3);
+
+for (let i = 1; i <= 10; i++) {
+    queue.add(`/api/item/${i}`)
+        .then(data => console.log(`Item ${i}:`, data));
+}
+```
+
+## Best Practices
+
+1. **Always handle errors**:
+   ```javascript
+   _.get('/api/data')
+       .then(handleSuccess)
+       .catch(handleError);
+   ```
+
+2. **Use CSRF protection** for POST/PUT/DELETE:
+   ```javascript
+   _.csrf.setToken(token);
+   ```
+
+3. **Show loading states**:
+   ```javascript
+   _('#loading').show();
+   _.get('/api/data').finally(() => _('#loading').hide());
+   ```
+
+4. **Sanitize responses** when inserting into DOM:
+   ```javascript
+   _.get('/api/html').then(html => {
+       _('#content').html(html, true);  // Sanitize!
+   });
+   ```
+
+5. **Use timeouts** for slow endpoints:
+   ```javascript
+   _.ajax({ url: '/api/slow', timeout: 5000 });
+   ```
+
+6. **Cache expensive requests**:
+   ```javascript
+   const cached = await getCachedData('/api/heavy');
+   ```
+
+7. **Debounce search requests**:
+   ```javascript
+   _('#search').on('input', _.debounce(function() {
+       _.get('/api/search', { q: _(this).val() });
+   }, 300));
+   ```
+
+## Next Steps
+
+- Learn about [Forms & Validation](/docs/forms)
+- Explore [Security Features](/docs/security)
+- Master [WebSockets](/docs/websockets)
+- Discover [State Management](/docs/yakajs-state-management)

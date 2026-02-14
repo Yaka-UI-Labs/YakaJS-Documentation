@@ -60,8 +60,8 @@ export async function CodeExample({
             className={clsx(
               "absolute z-10 transition duration-150 group-hover/code-block:opacity-100",
               filename
-                ? "-top-1 right-0 text-white/50 hover:text-white/75"
-                : "top-2 right-2 rounded border border-black/15 bg-black/50 text-white/75 opacity-0 backdrop-blur-md hover:text-white",
+                ? "-top-1 right-0 text-oatmeal-stone/50 hover:text-oatmeal-white/75"
+                : "top-2 right-2 rounded border border-oatmeal-olive bg-oatmeal-card/50 text-oatmeal-white/75 opacity-0 backdrop-blur-md hover:text-oatmeal-white",
             )}
             value={stripShikiComments(example.code)}
           />
@@ -74,10 +74,10 @@ export async function CodeExample({
 
 export function CodeExampleWrapper({ className, children }: { className?: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-xl bg-gray-950 in-data-stack:mt-0 in-data-stack:rounded-none in-[figure]:-mx-1 in-[figure]:-mb-1 in-data-stack:[:first-child>&]:rounded-t-xl in-data-stack:[:first-child>&]:*:rounded-t-xl in-data-stack:[:last-child>&]:rounded-b-xl in-data-stack:[:last-child>&]:*:rounded-b-xl">
+    <div className="rounded-xl bg-oatmeal-card in-data-stack:mt-0 in-data-stack:rounded-none in-[figure]:-mx-1 in-[figure]:-mb-1 in-data-stack:[:first-child>&]:rounded-t-xl in-data-stack:[:first-child>&]:*:rounded-t-xl in-data-stack:[:last-child>&]:rounded-b-xl in-data-stack:[:last-child>&]:*:rounded-b-xl">
       <div
         className={clsx(
-          "rounded-xl p-1 text-sm scheme-dark in-data-stack:rounded-none dark:bg-white/5 dark:inset-ring dark:inset-ring-white/10 in-data-stack:dark:inset-ring-0",
+          "rounded-xl p-1 text-sm scheme-dark in-data-stack:rounded-none dark:bg-oatmeal-card/50 dark:inset-ring dark:inset-ring-oatmeal-olive in-data-stack:dark:inset-ring-0",
           className,
         )}
       >
@@ -109,10 +109,10 @@ export function CodeExampleGroup({
   return (
     <div>
       <TabGroup className="not-prose">
-        <div className="rounded-xl bg-gray-950 in-[figure]:-mx-1 in-[figure]:-mb-1">
+        <div className="rounded-xl bg-oatmeal-card in-[figure]:-mx-1 in-[figure]:-mb-1">
           <div
             className={clsx(
-              "rounded-xl p-1 text-sm scheme-dark dark:bg-white/5 dark:inset-ring dark:inset-ring-white/10",
+              "rounded-xl p-1 text-sm scheme-dark dark:bg-oatmeal-card/50 dark:inset-ring dark:inset-ring-oatmeal-olive",
               className,
             )}
           >
@@ -120,7 +120,7 @@ export function CodeExampleGroup({
               {filenames.map((filename) => (
                 <Tab
                   key={filename}
-                  className="hover:*:text-white/85 aria-selected:*:font-medium aria-selected:*:text-white"
+                  className="hover:*:text-oatmeal-white/85 aria-selected:*:font-medium aria-selected:*:text-oatmeal-white"
                 >
                   <CodeExampleFilename filename={filename} />
                 </Tab>
@@ -206,7 +206,7 @@ export function RawHighlightedCode({
 }
 
 function CodeExampleFilename({ filename }: { filename: string }) {
-  return <div className="px-3 pt-0.5 pb-1.5 text-xs/5 text-gray-400 dark:text-white/50">{filename}</div>;
+  return <div className="px-3 pt-0.5 pb-1.5 text-xs/5 text-oatmeal-stone dark:text-oatmeal-white/50">{filename}</div>;
 }
 
 const highlighter = await createHighlighter({
