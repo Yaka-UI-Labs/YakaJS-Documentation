@@ -76,22 +76,23 @@ export function Header(props: React.PropsWithChildren) {
 
   return (
     <div className="bg-oatmeal-card/95 backdrop-blur-lg border-b border-oatmeal-olive dark:bg-oatmeal-card/95 dark:backdrop-blur-xl dark:border-oatmeal-olive">
-      <div className="flex h-14 items-center justify-between gap-8 px-4 sm:px-6">
-        <div className="flex items-center gap-4">
-          <Link
-            href="/"
-            className="shrink-0"
-            aria-label="Home"
-            onContextMenu={(evt) => {
-              evt.preventDefault();
-              router.push("/brand");
-            }}
-          >
-            <Logo className="h-5 text-white dark:text-white" />
-          </Link>
-          <VersionPicker />
-        </div>
-        <div className="flex items-center gap-6 max-md:hidden">
+      <div className="mx-auto max-w-8xl">
+        <div className="flex h-14 items-center justify-between gap-8 px-6 md:px-8 lg:px-12">
+          <div className="flex items-center gap-4">
+            <Link
+              href="/"
+              className="shrink-0"
+              aria-label="Home"
+              onContextMenu={(evt) => {
+                evt.preventDefault();
+                router.push("/brand");
+              }}
+            >
+              <Logo className="h-5 text-white dark:text-white" />
+            </Link>
+            <VersionPicker />
+          </div>
+          <div className="flex items-center gap-6 max-md:hidden">
           <SearchButton className="inline-flex items-center gap-1 rounded-full bg-oatmeal-white/10 px-2 py-1 inset-ring inset-ring-oatmeal-white/20 dark:bg-oatmeal-white/5 dark:inset-ring-oatmeal-white/10">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -162,8 +163,8 @@ export function Header(props: React.PropsWithChildren) {
           <Link href="https://github.com/Yaka-UI-Labs/YakaJS" aria-label="GitHub repository">
             <GitHubLogo className="size-5 fill-yaka-lightest/80 dark:fill-yaka-light hover:fill-yaka-accent" />
           </Link>
-        </div>
-        <div className="flex items-center gap-2.5 md:hidden">
+          </div>
+          <div className="flex items-center gap-2.5 md:hidden">
           <SearchButton aria-label="Search" className="inline-grid size-7 place-items-center rounded-md">
             <svg viewBox="0 0 16 16" fill="currentColor" className="size-4">
               <path
