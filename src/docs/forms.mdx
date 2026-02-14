@@ -1,0 +1,560 @@
+export const title = "Forms & Validation";
+export const description = "Build powerful forms with built-in validation, real-time feedback, and 15+ validation rules";
+
+# Forms & Validation
+
+Complete guide to building and validating forms with YakaJS. Easy, powerful, and secure!
+
+## Form Basics
+
+### Getting Form Values
+
+```javascript
+// Get single input value
+const name = _('#name').val();
+const email = _('#email').val();
+
+// Get all form values as object
+const formData = _('#myForm').serializeObject();
+// { name: 'John', email: 'john@example.com', age: '25' }
+
+// Get as URL-encoded string
+const queryString = _('#myForm').serialize();
+// "name=John&email=john@example.com&age=25"
+```
+
+### Setting Form Values
+
+```javascript
+// Set single value
+_('#name').val('John Doe');
+_('#email').val('john@example.com');
+
+// Set checkbox
+_('#newsletter').prop('checked', true);
+
+// Set radio button
+_('input[name="gender"][value="male"]').prop('checked', true);
+
+// Set select
+_('#country').val('US');
+```
+
+## Form Validation
+
+### Basic Validation
+
+```javascript
+const result = _('#myForm').validate({
+    name: {
+        required: true,
+        minLength: 3,
+        maxLength: 50,
+        requiredMessage: 'Name is required',
+        minLengthMessage: 'Name must be at least 3 characters'
+    },
+    email: {
+        required: true,
+        email: true,
+        requiredMessage: 'Email is required',
+        emailMessage: 'Please enter a valid email'
+    },
+    age: {
+        required: true,
+        number: true,
+        min: 18,
+        max: 100,
+        numberMessage: 'Age must be a number',
+        minMessage: 'You must be at least 18 years old'
+    }
+});
+
+if (result.valid) {
+    console.log('Form is valid!');
+    // Submit form
+} else {
+    console.log('Errors:', result.errors);
+    // Display errors
+}
+```
+
+### Validation Rules
+
+YakaJS includes 15+ built-in validation rules:
+
+#### Required
+
+```javascript
+{
+    required: true,
+    requiredMessage: 'This field is required'
+}
+```
+
+#### Email
+
+```javascript
+{
+    email: true,
+    emailMessage: 'Please enter a valid email address'
+}
+```
+
+#### URL
+
+```javascript
+{
+    url: true,
+    urlMessage: 'Please enter a valid URL'
+}
+```
+
+#### Number
+
+```javascript
+{
+    number: true,
+    numberMessage: 'Please enter a valid number'
+}
+```
+
+#### Integer
+
+```javascript
+{
+    integer: true,
+    integerMessage: 'Please enter a whole number'
+}
+```
+
+#### Min/Max Length
+
+```javascript
+{
+    minLength: 8,
+    maxLength: 20,
+    minLengthMessage: 'Password must be at least 8 characters',
+    maxLengthMessage: 'Password must be at most 20 characters'
+}
+```
+
+#### Min/Max Value
+
+```javascript
+{
+    min: 18,
+    max: 100,
+    minMessage: 'You must be at least 18',
+    maxMessage: 'You must be at most 100'
+}
+```
+
+#### Pattern (Regex)
+
+```javascript
+{
+    pattern: /^[A-Za-z0-9]+$/,
+    patternMessage: 'Only letters and numbers allowed'
+}
+```
+
+#### Phone
+
+```javascript
+{
+    phone: true,
+    phoneMessage: 'Please enter a valid phone number'
+}
+```
+
+#### Credit Card
+
+```javascript
+{
+    creditCard: true,
+    creditCardMessage: 'Please enter a valid credit card number'
+}
+```
+
+#### Date
+
+```javascript
+{
+    date: true,
+    dateMessage: 'Please enter a valid date'
+}
+```
+
+#### Match (Confirm Field)
+
+```javascript
+{
+    match: '#password',
+    matchMessage: 'Passwords do not match'
+}
+```
+
+#### Alpha (Letters Only)
+
+```javascript
+{
+    alpha: true,
+    alphaMessage: 'Only letters allowed'
+}
+```
+
+#### Alphanumeric
+
+```javascript
+{
+    alphanumeric: true,
+    alphanumericMessage: 'Only letters and numbers allowed'
+}
+```
+
+#### Custom Validator
+
+```javascript
+{
+    custom: function(value) {
+        return value.includes('@company.com');
+    },
+    customMessage: 'Email must be from @company.com'
+}
+```
+
+## Real-time Validation
+
+### Validate on Blur
+
+```javascript
+_('#email').on('blur', function() {
+    const result = _('#myForm').validate({
+        email: {
+            required: true,
+            email: true
+        }
+    });
+    
+    if (!result.valid && result.errors.email) {
+        _(this).addClass('error');
+        _('#email-error').text(result.errors.email[0]).show();
+    } else {
+        _(this).removeClass('error');
+        _('#email-error').hide();
+    }
+});
+```
+
+### Validate on Input
+
+```javascript
+_('#password').on('input', _.debounce(function() {
+    const password = _(this).val();
+    const strength = calculatePasswordStrength(password);
+    
+    _('#strength').text(strength.label)
+        .removeClass()
+        .addClass('strength-' + strength.level);
+}, 300));
+```
+
+### Inline Validation
+
+```javascript
+_('#myForm input, #myForm select, #myForm textarea').on('blur', function() {
+    validateField(_(this).attr('name'));
+});
+
+function validateField(fieldName) {
+    const rules = getValidationRules();  // Your validation rules
+    
+    const result = _('#myForm').validate({
+        [fieldName]: rules[fieldName]
+    });
+    
+    const $field = _(`[name="${fieldName}"]`);
+    const $error = $field.next('.error-message');
+    
+    if (!result.valid && result.errors[fieldName]) {
+        $field.addClass('is-invalid');
+        $error.text(result.errors[fieldName][0]).show();
+    } else {
+        $field.removeClass('is-invalid').addClass('is-valid');
+        $error.hide();
+    }
+}
+```
+
+## Complete Form Example
+
+```javascript
+// HTML
+<form id="registerForm">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" class="form-control">
+        <span class="error-message"></span>
+    </div>
+    
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" class="form-control">
+        <span class="error-message"></span>
+    </div>
+    
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-control">
+        <span class="error-message"></span>
+    </div>
+    
+    <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control">
+        <span class="error-message"></span>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+
+// JavaScript
+const validationRules = {
+    username: {
+        required: true,
+        minLength: 3,
+        maxLength: 20,
+        alphanumeric: true,
+        requiredMessage: 'Username is required',
+        minLengthMessage: 'Username must be at least 3 characters',
+        alphanumericMessage: 'Username can only contain letters and numbers'
+    },
+    email: {
+        required: true,
+        email: true,
+        requiredMessage: 'Email is required',
+        emailMessage: 'Please enter a valid email address'
+    },
+    password: {
+        required: true,
+        minLength: 8,
+        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
+        requiredMessage: 'Password is required',
+        minLengthMessage: 'Password must be at least 8 characters',
+        patternMessage: 'Password must contain uppercase, lowercase, number, and special character'
+    },
+    confirmPassword: {
+        required: true,
+        match: '#password',
+        requiredMessage: 'Please confirm your password',
+        matchMessage: 'Passwords do not match'
+    }
+};
+
+// Form submission
+_('#registerForm').on('submit', function(e) {
+    e.preventDefault();
+    
+    const result = _(this).validate(validationRules);
+    
+    if (result.valid) {
+        // Clear previous errors
+        _('.error-message').hide();
+        _('.form-control').removeClass('is-invalid is-valid');
+        
+        // Submit form
+        const formData = _(this).serializeObject();
+        
+        _('#registerForm button[type="submit"]')
+            .prop('disabled', true)
+            .text('Registering...');
+        
+        _.post('/api/register', formData)
+            .then(response => {
+                _.notify('Registration successful!', 'success');
+                window.location.href = '/dashboard';
+            })
+            .catch(error => {
+                _.notify('Registration failed. Please try again.', 'error');
+            })
+            .finally(() => {
+                _('#registerForm button[type="submit"]')
+                    .prop('disabled', false)
+                    .text('Register');
+            });
+    } else {
+        // Display errors
+        Object.keys(result.errors).forEach(field => {
+            const $field = _(`[name="${field}"]`);
+            const $error = $field.next('.error-message');
+            
+            $field.addClass('is-invalid');
+            $error.text(result.errors[field][0]).show();
+        });
+        
+        // Focus first error field
+        _('.is-invalid').first().focus();
+    }
+});
+
+// Real-time validation
+_('#registerForm input').on('blur', function() {
+    const fieldName = _(this).attr('name');
+    
+    if (validationRules[fieldName]) {
+        const result = _('#registerForm').validate({
+            [fieldName]: validationRules[fieldName]
+        });
+        
+        const $field = _(this);
+        const $error = $field.next('.error-message');
+        
+        if (!result.valid && result.errors[fieldName]) {
+            $field.addClass('is-invalid').removeClass('is-valid');
+            $error.text(result.errors[fieldName][0]).show();
+        } else {
+            $field.removeClass('is-invalid').addClass('is-valid');
+            $error.hide();
+        }
+    }
+});
+```
+
+## Form Utilities
+
+### Disable/Enable Form
+
+```javascript
+// Disable entire form
+_('#myForm').prop('disabled', true);
+_('#myForm input, #myForm button, #myForm select').prop('disabled', true);
+
+// Enable form
+_('#myForm input, #myForm button, #myForm select').prop('disabled', false);
+```
+
+### Reset Form
+
+```javascript
+// Reset form (HTML5 way)
+_('#myForm')[0].reset();
+
+// Clear form values
+_('#myForm input[type="text"], #myForm textarea').val('');
+_('#myForm input[type="checkbox"], #myForm input[type="radio"]').prop('checked', false);
+_('#myForm select').val('');
+```
+
+### Pre-fill Form
+
+```javascript
+const userData = {
+    name: 'John Doe',
+    email: 'john@example.com',
+    country: 'US'
+};
+
+Object.keys(userData).forEach(key => {
+    _(`[name="${key}"]`).val(userData[key]);
+});
+```
+
+## Custom Validators
+
+### Create Custom Validator
+
+```javascript
+_.validator.add('strongPassword', function(value) {
+    // Must contain uppercase, lowercase, number, and special char
+    const hasUpper = /[A-Z]/.test(value);
+    const hasLower = /[a-z]/.test(value);
+    const hasNumber = /\d/.test(value);
+    const hasSpecial = /[@$!%*?&]/.test(value);
+    
+    return hasUpper && hasLower && hasNumber && hasSpecial;
+});
+
+// Use it
+_('#myForm').validate({
+    password: {
+        required: true,
+        strongPassword: true,
+        strongPasswordMessage: 'Password must be strong'
+    }
+});
+```
+
+### Async Validator
+
+```javascript
+_('#username').on('blur', async function() {
+    const username = _(this).val();
+    
+    if (username.length < 3) return;
+    
+    _('#username-checking').show();
+    
+    try {
+        const response = await _.get('/api/check-username', { username });
+        
+        if (response.available) {
+            _('#username').addClass('is-valid').removeClass('is-invalid');
+            _('#username-message').text('Username is available!').show();
+        } else {
+            _('#username').addClass('is-invalid').removeClass('is-valid');
+            _('#username-message').text('Username is taken').show();
+        }
+    } catch (error) {
+        console.error('Error checking username:', error);
+    } finally {
+        _('#username-checking').hide();
+    }
+});
+```
+
+## Form Best Practices
+
+1. **Validate on submit AND blur**:
+   ```javascript
+   _('#form').on('submit', validateForm);
+   _('#form input').on('blur', validateField);
+   ```
+
+2. **Show clear error messages**:
+   ```javascript
+   $error.text(result.errors[field][0]).show();
+   ```
+
+3. **Disable submit button during submission**:
+   ```javascript
+   $submitBtn.prop('disabled', true);
+   ```
+
+4. **Sanitize data before submission**:
+   ```javascript
+   const clean = _.security.sanitizeHtml(userInput);
+   ```
+
+5. **Focus first error field**:
+   ```javascript
+   _('.is-invalid').first().focus();
+   ```
+
+6. **Provide real-time feedback**:
+   ```javascript
+   _('#input').on('input', _.debounce(validate, 300));
+   ```
+
+7. **Use appropriate input types**:
+   ```html
+   <input type="email">  <!-- For emails -->
+   <input type="tel">    <!-- For phones -->
+   <input type="number"> <!-- For numbers -->
+   ```
+
+## Next Steps
+
+- Learn about [AJAX & HTTP](/docs/ajax)
+- Explore [Security Features](/docs/security)
+- Master [Components](/docs/components)
+- Discover [File Uploads](/docs/ajax#file-upload)
