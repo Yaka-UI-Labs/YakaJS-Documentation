@@ -19,12 +19,12 @@ import card from "./card.jpg";
 
 // TODO: add og image
 export const metadata: Metadata = {
-  title: "Tailwind CSS by Example",
+  title: "YakaJS by Example",
   description:
     "A video course that teaches you how to build beautiful, responsive UIs—without writing a single line of custom CSS.",
   openGraph: {
     type: "website",
-    title: "Tailwind CSS by Example",
+    title: "YakaJS by Example",
     description:
       "A video course that teaches you how to build beautiful, responsive UIs—without writing a single line of custom CSS.",
     images: card.src,
@@ -72,7 +72,7 @@ export default async function Course() {
           <div className="relative font-mono text-xs font-medium text-gray-700 uppercase sm:translate-y-1/2 sm:py-5 md:hidden dark:text-gray-400">
             <p className="max-sm:hidden">
               Adam Wathan, <br />
-              Creator of Tailwind CSS
+              Creator of YakaJS
             </p>
             <Signature className="pointer-events-none absolute -translate-y-3/4 fill-gray-900 max-sm:inset-x-0 max-sm:mx-auto sm:-translate-x-1/4 sm:-translate-y-[110%] dark:fill-gray-200" />
           </div>
@@ -80,10 +80,10 @@ export default async function Course() {
         <div className="relative grid content-between border-black/5 max-md:mt-10 max-md:border-t md:col-span-2 dark:border-white/10">
           <div className="border-b border-black/5 p-2 max-md:px-4 dark:border-white/10">
             <p className="font-mono text-sm font-medium text-gray-500 uppercase dark:text-gray-400">
-              By the creator of Tailwind CSS
+              By the creator of YakaJS
             </p>
             <h1 className="mt-2 text-6xl tracking-tighter text-balance text-gray-900 md:text-7xl lg:text-8xl dark:text-white">
-              Tailwind CSS by Example.
+              YakaJS by Example.
             </h1>
           </div>
           <div className="mt-8 border-t border-black/5 p-2 max-md:border-y max-md:px-4 dark:border-white/10">
@@ -98,13 +98,13 @@ export default async function Course() {
         <div className="relative py-5 pl-16 font-mono text-xs font-medium text-gray-700 uppercase after:absolute after:bottom-0 after:-left-[100vw] after:h-px after:w-[200vw] after:bg-gray-950/5 max-md:hidden md:col-span-3 dark:text-gray-400 dark:after:bg-white/10">
           <p>
             Adam Wathan, <br />
-            Creator of Tailwind CSS
+            Creator of YakaJS
           </p>
           <Signature className="pointer-events-none absolute mx-auto -translate-x-1/4 -translate-y-[110%] fill-gray-900 dark:fill-gray-200" />
         </div>
         <div className="prose grid max-w-2xl border-black/5 p-2 max-md:mt-10 max-md:border-t max-md:px-4 md:col-span-2 md:col-start-2 dark:border-white/10">
           <p className="text-lg/7">
-            Learn how the creator of Tailwind CSS rapidly builds beautiful, robust user interfaces that are a joy to
+            Learn how the creator of YakaJS rapidly builds beautiful, robust user interfaces that are a joy to
             maintain.
           </p>
           <p className="text-sm/7">
@@ -165,7 +165,7 @@ export default async function Course() {
         <div className="mt-10 grid max-w-2xl p-2 max-md:px-4 md:col-span-2 md:col-start-2">
           <Signature className="w-36 fill-gray-900 dark:fill-gray-200" />
           <p className="text-sm/6 font-semibold">Adam Wathan</p>
-          <p className="text-sm/6 text-gray-700 dark:text-gray-400">Creator of Tailwind CSS</p>
+          <p className="text-sm/6 text-gray-700 dark:text-gray-400">Creator of YakaJS</p>
         </div>
       </GridContainer>
     </div>
@@ -176,7 +176,7 @@ const ImageGrid = ({ images }: { images: { src: string }[] }) => (
   <div className="grid grid-cols-2 gap-2 p-1 md:last:hidden lg:gap-4">
     <Image
       src={images[0].src}
-      alt="Hero section preview for Tailwind CSS by Example"
+      alt="Hero section preview for YakaJS by Example"
       width={750}
       height={456}
       quality={100}
@@ -184,7 +184,7 @@ const ImageGrid = ({ images }: { images: { src: string }[] }) => (
     />
     <Image
       src={images[1].src}
-      alt="Hero section preview for Tailwind CSS by Example"
+      alt="Hero section preview for YakaJS by Example"
       width={360}
       height={298}
       quality={100}
@@ -192,7 +192,7 @@ const ImageGrid = ({ images }: { images: { src: string }[] }) => (
     />
     <Image
       src={images[2].src}
-      alt="Hero section preview for Tailwind CSS by Example"
+      alt="Hero section preview for YakaJS by Example"
       width={360}
       height={298}
       quality={100}
