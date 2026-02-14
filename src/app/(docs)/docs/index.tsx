@@ -10,6 +10,7 @@ export default {
     ["Forms & Validation", "/docs/forms"],
     ["Animations", "/docs/yakajs-animations"],
     ["Components & UI Elements", "/docs/components"],
+    ["Utilities & Helpers", "/docs/utilities"],
   ] as const,
   "Advanced Features": [
     ["State Management", "/docs/yakajs-state-management"],

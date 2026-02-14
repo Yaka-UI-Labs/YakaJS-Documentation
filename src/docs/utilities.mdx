@@ -1,0 +1,490 @@
+export const title = "Utilities & Helper Functions";
+export const description = "Essential utility functions for common programming tasks - debounce, throttle, array manipulation, and more";
+
+# Utilities & Helper Functions
+
+YakaJS includes a comprehensive collection of utility functions for common programming tasks, making your code cleaner and more efficient.
+
+## Safe Mode
+
+### `_.safe()`
+
+Enable safe mode to prevent crashes when elements don't exist. Perfect for dynamic content and conditional rendering.
+
+```javascript
+// Without safe mode - throws error if element missing
+_('#nonexistent').hide();  // Error!
+
+// With safe mode - fails gracefully
+_('#nonexistent').safe().hide().fadeIn();  // No error!
+
+// Perfect for dynamic content
+const userId = getCurrentUser();
+_(`#user-${userId}`).safe().addClass('active');
+
+// Chain multiple operations safely
+_('#maybe-exists')
+    .safe()
+    .addClass('highlighted')
+    .fadeIn(300)
+    .css('color', 'red');
+```
+
+**Returns:** YakaJS object for chaining
+
+**Use Cases:**
+- Working with dynamically loaded content
+- Optional UI elements
+- User-specific features
+- A/B testing scenarios
+
+## Performance Utilities
+
+### `_.debounce(fn, delay)`
+
+Debounce function calls to limit execution frequency. Perfect for search inputs and resize handlers.
+
+```javascript
+// Search as user types (with delay)
+const searchProducts = _.debounce(function(query) {
+    _.get('/api/search', { q: query })
+        .then(results => displayResults(results));
+}, 300);  // Wait 300ms after user stops typing
+
+_('#search').on('input', function() {
+    searchProducts(_(this).val());
+});
+
+// Window resize handler
+const handleResize = _.debounce(function() {
+    console.log('Window resized to:', window.innerWidth);
+    adjustLayout();
+}, 250);
+
+_(window).on('resize', handleResize);
+```
+
+**Parameters:**
+- `fn` (Function) - Function to debounce
+- `delay` (Number) - Delay in milliseconds
+
+**Returns:** Debounced function
+
+**How it works:** Waits until the specified time has passed since the last call before executing.
+
+### `_.throttle(fn, limit)`
+
+Throttle function calls to execute at most once per time period. Perfect for scroll handlers.
+
+```javascript
+// Scroll handler (max once per 100ms)
+const handleScroll = _.throttle(function() {
+    const scrollTop = _(window).scrollTop();
+    console.log('Scroll position:', scrollTop);
+    
+    if (scrollTop > 100) {
+        _('#back-to-top').fadeIn();
+    } else {
+        _('#back-to-top').fadeOut();
+    }
+}, 100);
+
+_(window).on('scroll', handleScroll);
+
+// Mouse move tracker
+const trackMouse = _.throttle(function(e) {
+    console.log('Mouse at:', e.clientX, e.clientY);
+}, 50);
+
+_(document).on('mousemove', trackMouse);
+```
+
+**Parameters:**
+- `fn` (Function) - Function to throttle
+- `limit` (Number) - Minimum time between calls (ms)
+
+**Returns:** Throttled function
+
+**How it works:** Ensures function is called at most once per specified time period, even if triggered multiple times.
+
+## Array Utilities
+
+### `_.chunk(array, size)`
+
+Split array into chunks of specified size.
+
+```javascript
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const chunks = _.chunk(numbers, 3);
+// [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+// Paginate items
+const items = getItems();  // 100 items
+const pages = _.chunk(items, 10);  // 10 pages of 10 items each
+
+pages.forEach((page, index) => {
+    console.log(`Page ${index + 1}:`, page);
+});
+```
+
+**Parameters:**
+- `array` (Array) - Array to split
+- `size` (Number) - Chunk size
+
+**Returns:** Array of arrays
+
+### `_.uniq(array)`
+
+Remove duplicate values from array.
+
+```javascript
+const numbers = [1, 2, 2, 3, 3, 3, 4];
+const unique = _.uniq(numbers);
+// [1, 2, 3, 4]
+
+// Remove duplicate user IDs
+const userIds = [101, 102, 101, 103, 102];
+const uniqueIds = _.uniq(userIds);
+// [101, 102, 103]
+
+// Works with objects (by reference)
+const items = [{id: 1}, {id: 2}, {id: 1}];
+const uniqueItems = _.uniq(items);
+```
+
+**Parameters:**
+- `array` (Array) - Array with potential duplicates
+
+**Returns:** Array with unique values
+
+### `_.flatten(array, depth)`
+
+Flatten nested arrays.
+
+```javascript
+const nested = [1, [2, 3], [4, [5, 6]]];
+const flat = _.flatten(nested);
+// [1, 2, 3, 4, [5, 6]]
+
+// Deep flatten
+const deepFlat = _.flatten(nested, Infinity);
+// [1, 2, 3, 4, 5, 6]
+
+// Flatten one level
+const shallow = _.flatten([[1, 2], [3, 4]], 1);
+// [1, 2, 3, 4]
+```
+
+**Parameters:**
+- `array` (Array) - Nested array
+- `depth` (Number, optional) - Depth to flatten (default: 1)
+
+**Returns:** Flattened array
+
+## Object Utilities
+
+### `_.extend(target, ...sources)`
+
+Merge objects (shallow copy).
+
+```javascript
+const defaults = { color: 'blue', size: 'medium' };
+const options = { size: 'large', weight: 'bold' };
+
+const merged = _.extend({}, defaults, options);
+// { color: 'blue', size: 'large', weight: 'bold' }
+
+// Merge into target
+const config = { theme: 'dark' };
+_.extend(config, { language: 'en', timezone: 'UTC' });
+// config is now { theme: 'dark', language: 'en', timezone: 'UTC' }
+```
+
+**Parameters:**
+- `target` (Object) - Target object (modified)
+- `sources` (Object[]) - Source objects to merge
+
+**Returns:** Target object
+
+### `_.deepClone(object)`
+
+Create deep copy of object.
+
+```javascript
+const original = {
+    user: {
+        name: 'John',
+        address: {
+            city: 'New York',
+            zip: '10001'
+        }
+    },
+    items: [1, 2, 3]
+};
+
+const copy = _.deepClone(original);
+copy.user.address.city = 'Boston';
+
+console.log(original.user.address.city);  // 'New York' (unchanged)
+console.log(copy.user.address.city);      // 'Boston'
+```
+
+**Parameters:**
+- `object` (Object) - Object to clone
+
+**Returns:** Deep copy of object
+
+## String Utilities
+
+### `_.capitalize(string)`
+
+Capitalize first letter of string.
+
+```javascript
+_.capitalize('hello world');  // 'Hello world'
+_.capitalize('HELLO');        // 'HELLO'
+_.capitalize('hello');        // 'Hello'
+```
+
+### `_.truncate(string, length, suffix)`
+
+Truncate string to specified length.
+
+```javascript
+const text = 'This is a very long text that needs truncation';
+_.truncate(text, 20);  // 'This is a very long...'
+_.truncate(text, 20, '…');  // 'This is a very long…'
+
+// Product descriptions
+const description = getProductDescription();
+_('#preview').text(_.truncate(description, 100));
+```
+
+**Parameters:**
+- `string` (String) - String to truncate
+- `length` (Number) - Maximum length
+- `suffix` (String, optional) - Suffix to add (default: '...')
+
+**Returns:** Truncated string
+
+### `_.slugify(string)`
+
+Convert string to URL-friendly slug.
+
+```javascript
+_.slugify('Hello World!');           // 'hello-world'
+_.slugify('YakaJS is AWESOME!!!');   // 'yakajs-is-awesome'
+_.slugify('  Multiple   Spaces  ');  // 'multiple-spaces'
+
+// Create URL from title
+const title = 'Getting Started with YakaJS';
+const url = `/blog/${_.slugify(title)}`;
+// '/blog/getting-started-with-yakajs'
+```
+
+**Parameters:**
+- `string` (String) - String to slugify
+
+**Returns:** URL-friendly slug
+
+## Number Utilities
+
+### `_.random(min, max)`
+
+Generate random number in range.
+
+```javascript
+_.random(1, 10);      // Random number between 1-10
+_.random(0, 100);     // Random number between 0-100
+_.random(5, 5);       // Always returns 5
+
+// Random color
+const r = _.random(0, 255);
+const g = _.random(0, 255);
+const b = _.random(0, 255);
+const color = `rgb(${r}, ${g}, ${b})`;
+
+// Random delay
+const delay = _.random(100, 500);
+setTimeout(doSomething, delay);
+```
+
+**Parameters:**
+- `min` (Number) - Minimum value (inclusive)
+- `max` (Number) - Maximum value (inclusive)
+
+**Returns:** Random number
+
+### `_.clamp(number, min, max)`
+
+Clamp number to range.
+
+```javascript
+_.clamp(5, 0, 10);    // 5
+_.clamp(-5, 0, 10);   // 0 (clamped to min)
+_.clamp(15, 0, 10);   // 10 (clamped to max)
+
+// Keep value in bounds
+const volume = _.clamp(userVolume, 0, 100);
+const progress = _.clamp(percentage, 0, 100);
+```
+
+**Parameters:**
+- `number` (Number) - Number to clamp
+- `min` (Number) - Minimum value
+- `max` (Number) - Maximum value
+
+**Returns:** Clamped number
+
+## URL Utilities
+
+### `_.param(object)`
+
+Convert object to URL query string.
+
+```javascript
+const params = {
+    search: 'yakajs',
+    page: 2,
+    sort: 'date'
+};
+
+const query = _.param(params);
+// 'search=yakajs&page=2&sort=date'
+
+// Build URL
+const url = `/api/search?${_.param({ q: 'test', limit: 10 })}`;
+// '/api/search?q=test&limit=10'
+```
+
+**Parameters:**
+- `object` (Object) - Object to serialize
+
+**Returns:** URL query string
+
+### `_.deparam(string)`
+
+Parse URL query string to object.
+
+```javascript
+const query = 'search=yakajs&page=2&sort=date';
+const params = _.deparam(query);
+// { search: 'yakajs', page: '2', sort: 'date' }
+
+// Parse current URL
+const currentParams = _.deparam(window.location.search.slice(1));
+```
+
+**Parameters:**
+- `string` (String) - Query string to parse
+
+**Returns:** Object with parameters
+
+## Type Checking
+
+### `_.isArray(value)`
+
+Check if value is an array.
+
+```javascript
+_.isArray([1, 2, 3]);      // true
+_.isArray('string');       // false
+_.isArray({});             // false
+_.isArray(null);           // false
+```
+
+### `_.isObject(value)`
+
+Check if value is an object.
+
+```javascript
+_.isObject({});            // true
+_.isObject([]);            // false (arrays excluded)
+_.isObject(null);          // false
+_.isObject(new Date());    // true
+```
+
+### `_.isFunction(value)`
+
+Check if value is a function.
+
+```javascript
+_.isFunction(() => {});            // true
+_.isFunction(function() {});       // true
+_.isFunction('string');            // false
+```
+
+### `_.isString(value)`, `_.isNumber(value)`, `_.isBoolean(value)`
+
+Type checking utilities.
+
+```javascript
+_.isString('hello');       // true
+_.isNumber(42);            // true
+_.isBoolean(true);         // true
+```
+
+## Timing Utilities
+
+### `_.delay(fn, wait, ...args)`
+
+Execute function after delay.
+
+```javascript
+_.delay(function() {
+    console.log('Executed after 2 seconds');
+}, 2000);
+
+// With arguments
+_.delay(function(name) {
+    console.log('Hello, ' + name);
+}, 1000, 'John');
+
+// Animation sequence
+_.delay(() => _('#box1').fadeIn(), 0);
+_.delay(() => _('#box2').fadeIn(), 500);
+_.delay(() => _('#box3').fadeIn(), 1000);
+```
+
+**Parameters:**
+- `fn` (Function) - Function to execute
+- `wait` (Number) - Delay in milliseconds
+- `args` (Any) - Arguments to pass to function
+
+**Returns:** Timeout ID
+
+## Best Practices
+
+1. **Use debounce for search inputs:**
+   ```javascript
+   const search = _.debounce(performSearch, 300);
+   ```
+
+2. **Use throttle for scroll handlers:**
+   ```javascript
+   const scroll = _.throttle(handleScroll, 100);
+   ```
+
+3. **Enable safe mode for dynamic content:**
+   ```javascript
+   _('#dynamic-element').safe().show();
+   ```
+
+4. **Cache computed values:**
+   ```javascript
+   const uniqueItems = _.uniq(items);
+   ```
+
+5. **Use type checking before operations:**
+   ```javascript
+   if (_.isArray(data)) {
+       data.forEach(processItem);
+   }
+   ```
+
+## Next Steps
+
+- [Performance Optimization](/docs/performance) - Virtual scroll, lazy loading
+- [Storage](/docs/storage) - LocalStorage and IndexedDB helpers
+- [Security](/docs/security) - Input sanitization and XSS protection
+- [Premium Features](/docs/premium-features) - Eye tracking, rich editor, tours
