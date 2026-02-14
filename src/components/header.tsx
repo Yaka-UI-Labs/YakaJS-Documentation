@@ -8,7 +8,7 @@ import { useState } from "react";
 import { IconButton } from "./icon-button";
 import { SearchButton } from "./search";
 
-function Logo(props: React.ComponentProps<"div">) {
+function Logo(props: React.ComponentProps<"img">) {
   return (
     <img 
       src="/yaka-icon-only.svg" 
