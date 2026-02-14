@@ -148,11 +148,12 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <link rel="icon" type="image/svg+xml" href="/yaka-icon-only.svg" />
         <link rel="apple-touch-icon" sizes="180x180" href={v("/favicons/apple-touch-icon.png")} />
         <link rel="icon" type="image/png" sizes="32x32" href={v("/favicons/favicon-32x32.png")} />
         <link rel="icon" type="image/png" sizes="16x16" href={v("/favicons/favicon-16x16.png")} />
         <link rel="manifest" href={v("/favicons/site.webmanifest")} />
-        <link rel="mask-icon" href={v("/favicons/safari-pinned-tab.svg")} color="#38bdf8" />
+        <link rel="mask-icon" href="/yaka-icon-only.svg" color="#E7E5E4" />
         <link rel="shortcut icon" href={v("/favicons/favicon.ico")} />
         <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/feeds/feed.xml" />
         <link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="/feeds/atom.xml" />
