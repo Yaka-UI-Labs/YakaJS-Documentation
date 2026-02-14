@@ -34,8 +34,8 @@ export default function PartnersSection({ sponsors }: { sponsors: Sponsor[] }) {
 
       <GridContainer>
         <p className="max-w-(--breakpoint-md) px-2 text-base/7 text-gray-600 max-sm:px-4 dark:text-gray-400">
-          Tailwind is supported by incredible partners and sponsors who make it possible for a team of talented
-          designers and engineers to maintain the framework full-time.
+          YakaJS is supported by incredible partners and sponsors who make it possible for a team of talented
+          developers to maintain the library and create amazing features.
         </p>
       </GridContainer>
 

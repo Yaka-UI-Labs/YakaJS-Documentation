@@ -25,8 +25,8 @@ export default function ExplainerSection() {
           <span className="text-purple-300" aria-hidden="true">
             ≈
           </span>
-          <span aria-label="Tailwind CSS"> tailwindcss </span>
-          <span className="text-purple-300">v4.0.0</span>
+          <span aria-label="YakaJS"> yakajs </span>
+          <span className="text-purple-300">v1.1.0</span>
         </React.Fragment>,
         <span key="2"></span>,
         <React.Fragment key="3">
@@ -127,9 +127,9 @@ export default function ExplainerSection() {
 
       <GridContainer>
         <p className="max-w-(--breakpoint-md) px-2 text-base/7 text-gray-600 max-sm:px-4 dark:text-gray-400">
-          Tailwind automatically removes all unused CSS when building for production, which means your final CSS bundle
-          is the smallest it could possibly be. In fact, most Tailwind projects ship less than 10kB of CSS to the
-          client.
+          YakaJS automatically optimizes your code with intelligent batching and efficient DOM operations, which means
+          your applications run smoothly and efficiently. In fact, most YakaJS projects ship just 151KB of JavaScript
+          to the client with 150+ features included.
         </p>
       </GridContainer>
 
@@ -212,7 +212,7 @@ function HtmlFile({ className }: { className?: string }) {
           <head>
             <meta charset="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>Tailwind CSS</title>
+            <title>YakaJS</title>
             <link rel="stylesheet" href="/build.css" />
           </head>
           <body>
