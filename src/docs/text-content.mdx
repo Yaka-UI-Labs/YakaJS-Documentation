@@ -1,0 +1,324 @@
+export const title = "Text Content";
+
+# Text Content
+
+Learn how to get and set text content of elements in YakaJS. The `.text()` method provides a simple way to work with plain text, automatically handling encoding and multiple elements.
+
+## Getting Text Content
+
+### `.text()`
+
+Get the text content of the first element in the collection.
+
+**Returns:** String containing the text content
+
+**Examples:**
+
+```javascript
+// Get text from a single element
+const heading = _('#title').text();
+console.log(heading); // "Welcome to YakaJS"
+
+// Get text from first element in collection
+const firstParagraph = _('p').text();
+console.log(firstParagraph); // Text from first <p>
+
+// Get text from nested elements
+const articleText = _('#article').text();
+// Returns all text content, including nested elements
+```
+
+## Setting Text Content
+
+### `.text(value)`
+
+Set the text content of all elements in the collection.
+
+**Parameters:**
+- `value` (string | number | function): Text to set or function returning text
+
+**Returns:** YakaJS collection (for chaining)
+
+**Examples:**
+
+```javascript
+// Set simple text
+_('#title').text('New Title');
+
+// Set text on multiple elements
+_('.price').text('$99.99');
+
+// Set text with numbers
+_('#count').text(42);
+
+// Clear text
+_('#message').text('');
+```
+
+## Setting Text with a Function
+
+Pass a function to set text based on current content or index.
+
+```javascript
+// Function receives (index, currentText)
+_('.item').text(function(index, currentText) {
+  return `Item ${index + 1}: ${currentText}`;
+});
+
+// Add prefix to all paragraphs
+_('p').text(function(i, text) {
+  return `Note: ${text}`;
+});
+
+// Transform text
+_('.uppercase').text(function(i, text) {
+  return text.toUpperCase();
+});
+```
+
+## Text vs HTML
+
+The `.text()` method handles only plain text and automatically escapes HTML.
+
+```javascript
+// Set text (HTML is escaped)
+_('#content').text('<strong>Bold</strong>');
+// Result: <div id="content">&lt;strong&gt;Bold&lt;/strong&gt;</div>
+
+// To set HTML, use .html() instead
+_('#content').html('<strong>Bold</strong>');
+// Result: <div id="content"><strong>Bold</strong></div>
+```
+
+## Working with Multiple Elements
+
+```javascript
+// Get text from first element
+const firstText = _('p').text();
+
+// Set text on all elements
+_('p').text('Same text for all paragraphs');
+
+// Set different text for each element
+_('li').text(function(index) {
+  return `List item #${index + 1}`;
+});
+
+// Iterate to handle each individually
+_('.item').each(function(index, element) {
+  _(element).text(`Item ${index}`);
+});
+```
+
+## Text Manipulation Patterns
+
+### Append Text
+
+```javascript
+// Append to existing text
+const current = _('#message').text();
+_('#message').text(current + ' - Updated');
+
+// Using function
+_('#message').text(function(i, text) {
+  return text + ' - Updated';
+});
+```
+
+### Prepend Text
+
+```javascript
+// Prepend to existing text
+_('#message').text(function(i, text) {
+  return 'Important: ' + text;
+});
+```
+
+### Replace Text
+
+```javascript
+// Replace part of text
+_('p').text(function(i, text) {
+  return text.replace('old', 'new');
+});
+
+// Replace with regex
+_('.code').text(function(i, text) {
+  return text.replace(/\d+/g, 'X');
+});
+```
+
+### Transform Text
+
+```javascript
+// Uppercase all
+_('.uppercase').text(function(i, text) {
+  return text.toUpperCase();
+});
+
+// Capitalize first letter
+_('.capitalize').text(function(i, text) {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+});
+
+// Trim whitespace
+_('p').text(function(i, text) {
+  return text.trim();
+});
+```
+
+## Special Characters
+
+YakaJS automatically handles special characters and encoding.
+
+```javascript
+// Special characters are preserved
+_('#content').text('Price: $99 & free shipping');
+
+// Unicode characters work
+_('#unicode').text('😊 Hello 世界');
+
+// Newlines are preserved in text
+_('#multiline').text('Line 1\nLine 2\nLine 3');
+
+// Quotes are safe
+_('#quote').text("It's a 'great' day!");
+```
+
+## Empty vs Undefined
+
+```javascript
+// Check for empty text
+const text = _('#element').text();
+if (text === '') {
+  console.log('Element has no text');
+}
+
+// Check if element exists
+if (_('#element').length === 0) {
+  console.log('Element does not exist');
+}
+
+// Setting undefined or null clears text
+_('#content').text(undefined); // Clears text
+_('#content').text(null);      // Clears text
+```
+
+## Performance Tips
+
+### Cache Selections
+
+```javascript
+// Bad: Multiple queries
+_('#title').text('New Title');
+_('#title').addClass('active');
+_('#title').on('click', handler);
+
+// Good: Cache selection
+const title = _('#title');
+title.text('New Title');
+title.addClass('active');
+title.on('click', handler);
+```
+
+### Batch Updates
+
+```javascript
+// Bad: Individual updates
+_('.item').each(function(i) {
+  _(this).text(`Item ${i}`);
+});
+
+// Good: Single update
+_('.item').text(function(i) {
+  return `Item ${i}`;
+});
+```
+
+## Real-World Examples
+
+### Update Counter
+
+```javascript
+let count = 0;
+_('#increment').on('click', function() {
+  count++;
+  _('#counter').text(count);
+});
+```
+
+### Live Search Results Count
+
+```javascript
+_('#search').on('input', function() {
+  const query = _(this).val();
+  const results = _('.item').filter(function() {
+    return _(this).text().toLowerCase().includes(query.toLowerCase());
+  });
+  _('#result-count').text(`Found ${results.length} results`);
+});
+```
+
+### Dynamic Loading Message
+
+```javascript
+const messages = ['Loading', 'Loading.', 'Loading..', 'Loading...'];
+let index = 0;
+
+setInterval(() => {
+  _('#loading').text(messages[index++ % messages.length]);
+}, 500);
+```
+
+### Form Validation Message
+
+```javascript
+_('#email').on('blur', function() {
+  const email = _(this).val();
+  if (!email.includes('@')) {
+    _('#error').text('Please enter a valid email address');
+  } else {
+    _('#error').text('');
+  }
+});
+```
+
+### Character Counter
+
+```javascript
+_('#comment').on('input', function() {
+  const length = _(this).val().length;
+  const remaining = 280 - length;
+  _('#char-count').text(`${remaining} characters remaining`);
+});
+```
+
+### Dynamic Greeting
+
+```javascript
+const hour = new Date().getHours();
+let greeting;
+
+if (hour < 12) greeting = 'Good morning';
+else if (hour < 18) greeting = 'Good afternoon';
+else greeting = 'Good evening';
+
+_('#greeting').text(`${greeting}!`);
+```
+
+## Comparison with jQuery
+
+YakaJS `.text()` works identically to jQuery:
+
+| jQuery | YakaJS |
+|--------|--------|
+| `$('#el').text()` | `_('#el').text()` |
+| `$('#el').text('New')` | `_('#el').text('New')` |
+| `$('.cls').text(fn)` | `_('.cls').text(fn)` |
+
+## Next Steps
+
+- [HTML Content](/docs/html-content) - Set HTML content with `.html()`
+- [Attributes](/docs/attributes) - Work with element attributes
+- [CSS Classes](/docs/css-classes) - Manage CSS classes
+- [Element Properties](/docs/element-properties) - Set element properties
