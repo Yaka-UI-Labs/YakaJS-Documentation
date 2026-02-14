@@ -44,12 +44,15 @@
 
 :root {
   color-scheme: light dark;
+  background-color: #4A4840; /* Darker brown body background */
 }
 .dark {
   color-scheme: dark;
+  background-color: #2C2B20; /* Dark brown body background */
 }
 .light {
   color-scheme: light;
+  background-color: #4A4840; /* Darker brown body background */
 }
 
 @variant dark {
