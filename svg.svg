@@ -255,7 +255,30 @@
   <path fill="#FFFFFF" id="svg_252"/>
   <path fill="#FFFFFF" id="svg_253"/>
   <path fill="#FFFFFF" id="svg_254"/>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="'Outfit'" font-size="80" stroke-width="10" id="svg_255" y="293.8" x="193.79998" stroke="null" fill="#ffffff">YakaJS</text>
- </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400">
+
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'Outfit';
+        src: url('Outfit-Regular.woff2') format('woff2');
+      }
+      .title {
+        font-family: 'Outfit', sans-serif;
+        font-weight: bold;
+      }
+    </style>
+  </defs>
+
+  <text class="title"
+        x="193.8"
+        y="293.8"
+        font-size="80"
+        fill="#ffffff"
+        stroke-width="10"
+        style="cursor: move;">
+    YakaJS
+  </text>
 
 </svg>
+
