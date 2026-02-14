@@ -31,7 +31,7 @@ export default function ExplainerSection() {
         <span key="2"></span>,
         <React.Fragment key="3">
           <span>Done in </span>
-          <span className="text-sky-300">12ms</span>
+          <span className="text-yaka-accent">12ms</span>
         </React.Fragment>,
       ],
     },
@@ -40,7 +40,7 @@ export default function ExplainerSection() {
       terminal: [
         <React.Fragment key="4">
           <span>Done in </span>
-          <span className="text-sky-300">668µs</span>
+          <span className="text-yaka-accent">668µs</span>
         </React.Fragment>,
       ],
     },
@@ -49,16 +49,16 @@ export default function ExplainerSection() {
       terminal: [
         <React.Fragment key="5">
           <span>Done in </span>
-          <span className="text-sky-300">425µs</span>
+          <span className="text-yaka-accent">425µs</span>
         </React.Fragment>,
       ],
     },
     {
-      class: "bg-blue-500",
+      class: "bg-yaka-accent",
       terminal: [
         <React.Fragment key="6">
           <span>Done in </span>
-          <span className="text-sky-300">451µs</span>
+          <span className="text-yaka-accent">451µs</span>
         </React.Fragment>,
       ],
     },
@@ -67,7 +67,7 @@ export default function ExplainerSection() {
       terminal: [
         <React.Fragment key="7">
           <span>Done in </span>
-          <span className="text-sky-300">940µs</span>
+          <span className="text-yaka-accent">940µs</span>
         </React.Fragment>,
       ],
     },
@@ -76,7 +76,7 @@ export default function ExplainerSection() {
       terminal: [
         <React.Fragment key="7">
           <span>Done in </span>
-          <span className="text-sky-300">2ms</span>
+          <span className="text-yaka-accent">2ms</span>
         </React.Fragment>,
       ],
     },
@@ -85,16 +85,16 @@ export default function ExplainerSection() {
       terminal: [
         <React.Fragment key="8">
           <span>Done in </span>
-          <span className="text-sky-300">1ms</span>
+          <span className="text-yaka-accent">1ms</span>
         </React.Fragment>,
       ],
     },
     {
-      class: "hover:bg-blue-400",
+      class: "hover:bg-yaka-accent",
       terminal: [
         <React.Fragment key="9">
           <span>Done in </span>
-          <span className="text-sky-300">993µs</span>
+          <span className="text-yaka-accent">993µs</span>
         </React.Fragment>,
       ],
     },
@@ -111,7 +111,7 @@ export default function ExplainerSection() {
       </div>
 
       <GridContainer className="2xl:before:hidden 2xl:after:hidden">
-        <CategoryHeader className="text-sky-500 dark:text-sky-400">How it works</CategoryHeader>
+        <CategoryHeader className="text-yaka-accent dark:text-yaka-accent">How it works</CategoryHeader>
       </GridContainer>
 
       <GridContainer>

@@ -18,12 +18,12 @@ export function DarkMode() {
       >
         <motion.div
           style={{ x }}
-          className="absolute inset-x-1/2 inset-y-0 z-10 h-screen w-1 -translate-x-1/2 bg-sky-400"
+          className="absolute inset-x-1/2 inset-y-0 z-10 h-screen w-1 -translate-x-1/2 bg-yaka-accent"
         />
         <div ref={constraintsRef}>
           <motion.div
             title="Drag to resize"
-            className="absolute inset-1/2 z-10 flex size-10 shrink-0 -translate-1/2 cursor-ew-resize items-center justify-center rounded-full bg-sky-500"
+            className="absolute inset-1/2 z-10 flex size-10 shrink-0 -translate-1/2 cursor-ew-resize items-center justify-center rounded-full bg-yaka-accent"
             drag="x"
             dragElastic={0}
             dragMomentum={false}
@@ -49,7 +49,7 @@ export function DarkMode() {
                 strokeLinejoin="round"
               />
             </svg>
-            <div className="absolute inset-1 rounded-full bg-sky-500 not-in-data-dragging:animate-ping" />
+            <div className="absolute inset-1 rounded-full bg-yaka-accent not-in-data-dragging:animate-ping" />
           </motion.div>
         </div>
 

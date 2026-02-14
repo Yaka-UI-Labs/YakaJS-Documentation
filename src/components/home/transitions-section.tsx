@@ -40,7 +40,7 @@ export function TransitionsSection() {
           </p>
           <div className="@container relative grid grid-cols-[auto_1fr_auto] items-center px-4 sm:px-5">
             <motion.div
-              className="absolute size-8 rounded-lg bg-sky-400 shadow-lg shadow-sky-400/50 transition-none sm:size-10"
+              className="absolute size-8 rounded-lg bg-yaka-accent shadow-lg shadow-yaka-accent/50 transition-none sm:size-10"
               variants={variants}
               animate="end"
               transition={{ ease: "linear", repeat: Infinity, duration: 0.75, repeatDelay: 1.5, repeatType: "mirror" }}

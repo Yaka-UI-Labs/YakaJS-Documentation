@@ -40,7 +40,7 @@ export function TabButton(
       break;
 
     default:
-      activeStyles = "dark:data-selected:text-blue-500 data-selected:bg-blue-500/5 data-selected:text-blue-600";
+      activeStyles = "dark:data-selected:text-yaka-accent data-selected:bg-yaka-accent/5 data-selected:text-yaka-accent-dark";
       break;
   }
   return (

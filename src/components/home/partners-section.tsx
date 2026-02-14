@@ -15,7 +15,7 @@ export default function PartnersSection({ sponsors }: { sponsors: Sponsor[] }) {
       </div>
 
       <GridContainer className="2xl:before:hidden 2xl:after:hidden">
-        <CategoryHeader className="text-sky-500 dark:text-sky-400">Sponsors</CategoryHeader>
+        <CategoryHeader className="text-yaka-accent dark:text-yaka-accent">Sponsors</CategoryHeader>
       </GridContainer>
 
       <GridContainer>
