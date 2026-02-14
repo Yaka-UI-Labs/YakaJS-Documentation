@@ -10,49 +10,52 @@
   --font-mono--font-feature-settings: "ss02", "zero";
   --font-ubuntu-mono: var(--font-ubuntu-mono);
   
-  /* Dark Yellow/Beige Color Palette */
-  --color-yaka-darkest: #1E1C16;
-  --color-yaka-dark: #2C2B20;
-  --color-yaka-darker: #3A3830;
-  --color-yaka-medium: #4A4840;
-  --color-yaka-medium-light: #5A5850;
-  --color-yaka-light-medium: #7A7870;
-  --color-yaka-light-medium-2: #8A8880;
-  --color-yaka-light: #B5B6AE;
-  --color-yaka-light-2: #C5C6BE;
-  --color-yaka-lighter: #D0D2CA;
-  --color-yaka-lighter-2: #E0E2DA;
-  --color-yaka-lightest: #F0F2EA;
-  --color-yaka-accent: #C8B888;
-  --color-yaka-accent-dark: #A89868;
+  /* Oatmeal Color Palette */
+  --color-oatmeal-black: #0B0A08;
+  --color-oatmeal-card: #141311;
+  --color-oatmeal-white: #E7E5E4;
+  --color-oatmeal-stone: #A8A29E;
+  --color-oatmeal-olive: #2B2922;
+  
+  /* Yaka aliases for compatibility */
+  --color-yaka-darkest: #0B0A08;
+  --color-yaka-dark: #141311;
+  --color-yaka-darker: #2B2922;
+  --color-yaka-medium: #A8A29E;
+  --color-yaka-medium-light: #A8A29E;
+  --color-yaka-light: #E7E5E4;
+  --color-yaka-lighter: #E7E5E4;
+  --color-yaka-lightest: #FFFFFF;
+  --color-yaka-accent: #E7E5E4;
+  --color-yaka-accent-dark: #A8A29E;
 }
 
 @theme {
   --animate-flash-code: flash-code 2s forwards;
 
-  /* This uses --color-sky-500 but it's inlined because of a bug in chrome */
   @keyframes flash-code {
     0% {
-      background-color: oklch(0.685 0.169 237.323 / 10%);
+      background-color: rgba(231, 229, 228, 0.1);
     }
 
     100% {
-      background-color: oklch(0.685 0.169 237.323 / 0%);
+      background-color: rgba(231, 229, 228, 0);
     }
   }
 }
 
 :root {
   color-scheme: light dark;
-  background-color: #4A4840; /* Darker brown body background */
+  background-color: #0B0A08; /* Oatmeal black - primary background */
+  color: #A8A29E; /* Oatmeal stone - body text */
 }
 .dark {
   color-scheme: dark;
-  background-color: #2C2B20; /* Dark brown body background */
+  background-color: #0B0A08; /* Oatmeal black - primary background */
 }
 .light {
   color-scheme: light;
-  background-color: #4A4840; /* Darker brown body background */
+  background-color: #0B0A08; /* Oatmeal black - primary background */
 }
 
 @variant dark {
@@ -79,7 +82,7 @@
   }
 }
 
-/* Minimal Custom Scrollbar - Dark Yellow/Beige Theme */
+/* Minimal Custom Scrollbar - Oatmeal Theme */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -90,30 +93,30 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #B5B6AE;
+  background: #A8A29E; /* Oatmeal stone */
   border-radius: 3px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: #5A5850;
+  background: #2B2922; /* Oatmeal olive */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8A8880;
+  background: #E7E5E4; /* Oatmeal white */
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: #7A7870;
+  background: #A8A29E; /* Oatmeal stone */
 }
 
 /* Firefox scrollbar - minimal */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #B5B6AE transparent;
+  scrollbar-color: #A8A29E transparent;
 }
 
 .dark * {
-  scrollbar-color: #5A5850 transparent;
+  scrollbar-color: #2B2922 transparent;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

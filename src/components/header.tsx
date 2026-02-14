@@ -11,10 +11,10 @@ import { SearchButton } from "./search";
 function Logo(props: React.ComponentProps<"svg">) {
   return (
     <div className="flex items-center gap-2">
-      <svg viewBox="0 0 80 80" fill="none" {...props} className={`${props.className} w-8 h-8`}>
+      <svg viewBox="0 0 80 80" fill="none" {...props} className={`${props.className} w-8 h-8 flex-shrink-0`}>
         <path d="m57,50c-0.19336,0.82242 -0.38672,1.64484 -0.58594,2.49219c-0.54451,2.33437 -1.08183,4.67043 -1.61328,7.00781c-0.46334,2.02514 -0.93856,4.04779 -1.44531,6.0625c-1.74854,7.44703 -1.53796,14.83369 -1.35547,22.4375c3.42579,-3.1754 3.42579,-3.1754 6,-7c0.66,0 1.32,0 2,0c0,-0.66 0,-1.32 0,-2c0.66,0 1.32,0 2,0c0.495,-1.485 0.495,-1.485 1,-3c3.44444,-3 3.44444,-3 6,-3c0.33,-0.66 0.66,-1.32 1,-2c2.28516,-0.41406 2.28516,-0.41406 5.0625,-0.625c0.9191,-0.07477 1.8382,-0.14953 2.78516,-0.22656c0.71027,-0.04899 1.42054,-0.09797 2.15234,-0.14844c1.53842,3.07684 0.33688,5.89993 -0.375,9.125c-2.04216,9.78348 -2.76239,18.86054 -2.625,28.875z" fill="currentColor"/>
       </svg>
-      <span className="text-base font-semibold">YakaJS</span>
+      <span className="text-base font-semibold leading-none flex items-center">YakaJS</span>
     </div>
   );
 }
@@ -73,7 +73,7 @@ export function Header(props: React.PropsWithChildren) {
   let router = useRouter();
 
   return (
-    <div className="bg-yaka-darker/80 backdrop-blur-lg border-b border-yaka-medium/20 dark:bg-yaka-darker/90 dark:backdrop-blur-xl dark:border-yaka-medium/10">
+    <div className="bg-oatmeal-card/95 backdrop-blur-lg border-b border-oatmeal-olive dark:bg-oatmeal-card/95 dark:backdrop-blur-xl dark:border-oatmeal-olive">
       <div className="flex h-14 items-center justify-between gap-8 px-4 sm:px-6">
         <div className="flex items-center gap-4">
           <Link
@@ -85,12 +85,12 @@ export function Header(props: React.PropsWithChildren) {
               router.push("/brand");
             }}
           >
-            <Logo className="h-5 text-yaka-lightest dark:text-yaka-lightest" />
+            <Logo className="h-5 text-white dark:text-white" />
           </Link>
           <VersionPicker />
         </div>
         <div className="flex items-center gap-6 max-md:hidden">
-          <SearchButton className="inline-flex items-center gap-1 rounded-full bg-yaka-lightest/10 px-2 py-1 inset-ring inset-ring-yaka-lightest/20 dark:bg-yaka-lightest/5 dark:inset-ring-yaka-lightest/10">
+          <SearchButton className="inline-flex items-center gap-1 rounded-full bg-oatmeal-white/10 px-2 py-1 inset-ring inset-ring-oatmeal-white/20 dark:bg-oatmeal-white/5 dark:inset-ring-oatmeal-white/10">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
