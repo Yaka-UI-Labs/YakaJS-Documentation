@@ -27,7 +27,7 @@ function TopNav() {
   return (
     <ul className="flex flex-col gap-2">
       <li>
-        <TopNavLink href="/docs/installation" aria-current="page">
+        <TopNavLink href="/docs/yakajs-getting-started" aria-current="page">
           <svg viewBox="0 0 16 16" fill="none">
             <path
               data-highlight
