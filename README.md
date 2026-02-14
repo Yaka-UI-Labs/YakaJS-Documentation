@@ -1,6 +1,6 @@
-# Tailwind CSS Documentation
+# YakaJS Documentation
 
-Tailwind CSS uses [Next.js](https://nextjs.org/) for its documentation.
+YakaJS uses [Next.js](https://nextjs.org/) for its documentation.
 
 To run the project locally, first install the dependencies:
 
@@ -16,4 +16,4 @@ pnpm run dev
 
 ## License
 
-This project is not licensed under an open-source license and is the intellectual property of Tailwind Labs Inc. The source is available only as an educational resource and to accept fixes for minor mistakes.
+This project is released under the MIT license. YakaJS is a next-generation JavaScript library that provides a powerful, jQuery-like API with modern features.

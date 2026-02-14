@@ -63,7 +63,7 @@ const Hero: React.FC = () => {
       </div>
       <GridContainer>
         <h1 className="px-2 text-4xl tracking-tighter text-balance max-lg:font-medium max-sm:px-4 sm:text-5xl lg:text-6xl xl:text-8xl">
-          Rapidly build modern websites without ever leaving your HTML.
+          Next-Gen JavaScript Library - More powerful than jQuery, simpler to write.
         </h1>
       </GridContainer>
       <div
@@ -75,12 +75,12 @@ const Hero: React.FC = () => {
       </div>
       <GridContainer>
         <p className="max-w-(--breakpoint-md) px-2 text-lg/7 font-medium text-gray-600 max-sm:px-4 dark:text-gray-400">
-          A utility-first CSS framework packed with classes like{" "}
-          <span className="font-mono text-[1.0625rem] text-sky-500 dark:text-sky-400">flex</span>,{" "}
-          <span className="font-mono text-[1.0625rem] text-sky-500 dark:text-sky-400">pt-4</span>,{" "}
-          <span className="font-mono text-[1.0625rem] text-sky-500 dark:text-sky-400">text-center</span> and{" "}
-          <span className="font-mono text-[1.0625rem] text-sky-500 dark:text-sky-400">rotate-90</span> that can be
-          composed to build any design, directly in your markup.
+          A powerful JavaScript library with intuitive syntax like{" "}
+          <span className="font-mono text-[1.0625rem] text-sky-500 dark:text-sky-400">@('#id')</span>,{" "}
+          <span className="font-mono text-[1.0625rem] text-sky-500 dark:text-sky-400">.addClass()</span>,{" "}
+          <span className="font-mono text-[1.0625rem] text-sky-500 dark:text-sky-400">.on('click')</span> and{" "}
+          <span className="font-mono text-[1.0625rem] text-sky-500 dark:text-sky-400">.animate()</span> that makes
+          DOM manipulation and event handling simple and elegant.
         </p>
       </GridContainer>
       <GridContainer className="mt-10 px-4 sm:hidden">

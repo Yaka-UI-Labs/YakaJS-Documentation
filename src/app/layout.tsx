@@ -127,13 +127,13 @@ let darkModeScript = js`
 `;
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tailwindcss.com"),
+  metadataBase: new URL("https://yakajs.org"),
   title: {
-    default: "Tailwind CSS - Rapidly build modern websites without ever leaving your HTML.",
-    template: "%s - Tailwind CSS",
+    default: "YakaJS - Next-Gen JavaScript Library - More powerful than jQuery, simpler to write",
+    template: "%s - YakaJS",
   },
   description:
-    "Tailwind CSS is a utility-first CSS framework for rapidly building modern websites without ever leaving your HTML.",
+    "YakaJS is a next-generation JavaScript library that provides a powerful, jQuery-like API with modern features. Rapidly build interactive web applications with cleaner, more maintainable code.",
 };
 
 export default async function RootLayout({
@@ -157,8 +157,8 @@ export default async function RootLayout({
         <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/feeds/feed.xml" />
         <link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="/feeds/atom.xml" />
         <link rel="alternate" type="application/json" title="JSON Feed" href="/feeds/feed.json" />
-        <meta name="apple-mobile-web-app-title" content="Tailwind CSS" />
-        <meta name="application-name" content="Tailwind CSS" />
+        <meta name="apple-mobile-web-app-title" content="YakaJS" />
+        <meta name="application-name" content="YakaJS" />
         <meta name="msapplication-TileColor" content="#38bdf8" />
         <meta name="msapplication-config" content={v("/favicons/browserconfig.xml")} />
         <script type="text/javascript" dangerouslySetInnerHTML={{ __html: darkModeScript }}></script>
