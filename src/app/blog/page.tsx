@@ -50,13 +50,13 @@ export default async function Blog() {
         {posts.map(({ meta, slug }, index) => (
           <Fragment key={slug}>
             <GridContainer className="col-span-3 grid grid-cols-subgrid divide-x divide-gray-950/5 dark:divide-white/10">
-              <div className="px-2 font-mono text-sm/6 font-medium tracking-widest text-gray-500 uppercase max-lg:hidden">
+              <div className="px-2 text-left font-mono text-sm/6 font-medium tracking-widest text-gray-500 uppercase max-lg:hidden">
                 {formatDate(meta.date)}
               </div>
               <div className="max-lg:hidden" />
-              <div className="text-md px-2">
+              <div className="text-md px-2 text-left">
                 <div className="max-w-(--container-2xl)">
-                  <div className="mb-4 font-mono text-sm/6 font-medium tracking-widest text-gray-500 uppercase lg:hidden">
+                  <div className="mb-4 text-left font-mono text-sm/6 font-medium tracking-widest text-gray-500 uppercase lg:hidden">
                     {formatDate(meta.date)}
                   </div>
 
