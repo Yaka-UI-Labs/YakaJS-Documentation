@@ -28,6 +28,7 @@ export default function TableOfContents({ tableOfContents }: { tableOfContents: 
     });
 
     let visibleHeadings = new Set<HTMLElement>();
+    const SCROLL_OFFSET_THRESHOLD = 100;
 
     const callback = (entries: IntersectionObserverEntry[]) => {
       for (let entry of entries) {
@@ -55,7 +56,7 @@ export default function TableOfContents({ tableOfContents }: { tableOfContents: 
         let lastHeadingAbove: HTMLElement | null = null;
         
         for (const heading of headings) {
-          if (heading.offsetTop <= scrollPosition + 100) {
+          if (heading.offsetTop <= scrollPosition + SCROLL_OFFSET_THRESHOLD) {
             lastHeadingAbove = heading;
           } else {
             break;

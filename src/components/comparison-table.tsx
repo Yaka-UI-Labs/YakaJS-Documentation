@@ -10,8 +10,8 @@ function renderCellContent(content: string) {
   if (!content) return content;
   
   // Check if content contains **text** pattern for bold
-  const boldPattern = /\*\*(.*?)\*\*/g;
-  if (boldPattern.test(content)) {
+  if (content.includes('**')) {
+    const boldPattern = /\*\*(.*?)\*\*/g;
     const parts = content.split(boldPattern);
     return (
       <>
