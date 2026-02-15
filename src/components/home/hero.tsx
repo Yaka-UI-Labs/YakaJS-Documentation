@@ -333,7 +333,24 @@ export default Hero;
 const TRANSITION = { duration: 0.35 };
 
 function Example({ step }: { step: number }) {
-  const count = step >= 5 ? Math.min(step - 4, 5) : 0;
+  const [clickCount, setClickCount] = React.useState(0);
+  const [showCounter, setShowCounter] = React.useState(false);
+  const [showCelebration, setShowCelebration] = React.useState(false);
+
+  const handleClick = () => {
+    const newCount = clickCount + 1;
+    setClickCount(newCount);
+    
+    // Show counter after first click
+    if (!showCounter) {
+      setShowCounter(true);
+    }
+    
+    // Show celebration at 5 clicks
+    if (newCount === 5 && !showCelebration) {
+      setShowCelebration(true);
+    }
+  };
   
   return (
     <motion.div
@@ -352,13 +369,14 @@ function Example({ step }: { step: number }) {
         <motion.button
           layout="position"
           transition={TRANSITION}
-          className="relative overflow-hidden rounded-xl bg-gradient-to-r from-oatmeal-stone to-oatmeal-olive px-8 py-4 text-lg font-bold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl active:scale-95 dark:from-oatmeal-white dark:to-oatmeal-light dark:text-oatmeal-darkest"
+          onClick={handleClick}
+          className="relative overflow-hidden rounded-xl bg-gradient-to-r from-oatmeal-stone to-oatmeal-olive px-8 py-4 text-lg font-bold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl active:scale-95 dark:from-oatmeal-white dark:to-oatmeal-light dark:text-oatmeal-darkest cursor-pointer"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 transition-opacity hover:opacity-100" />
           <span className="relative z-10">Click Me!</span>
         </motion.button>
         
-        {step >= 2 && (
+        {showCounter && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -367,7 +385,7 @@ function Example({ step }: { step: number }) {
             className="text-center"
           >
             <motion.div
-              key={count}
+              key={clickCount}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={TRANSITION}
@@ -378,16 +396,16 @@ function Example({ step }: { step: number }) {
                 Counter
               </div>
               <div className="mt-1 text-3xl font-extrabold text-oatmeal-darkest dark:text-oatmeal-white">
-                {count}
+                {clickCount}
               </div>
               <div className="mt-1 text-xs font-medium text-oatmeal-stone dark:text-oatmeal-medium">
-                {count === 1 ? 'click' : 'clicks'}
+                {clickCount === 1 ? 'click' : 'clicks'}
               </div>
             </motion.div>
           </motion.div>
         )}
         
-        {step >= 9 && (
+        {showCelebration && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
