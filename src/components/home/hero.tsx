@@ -13,6 +13,8 @@ const SYMBOL = { color: "var(--color-slate-400)" };
 const ELEMENT = { color: "var(--color-pink-400)" };
 const KEYWORD = { color: "var(--color-slate-300)" };
 const STRING = { color: "var(--color-sky-300)" };
+const FUNCTION = { color: "var(--color-amber-300)" };
+const COMMENT = { color: "var(--color-slate-500)" };
 
 const Hero: React.FC = () => {
   let [step, setStep] = useState(0);
@@ -130,13 +132,24 @@ const Hero: React.FC = () => {
                   <code>
                     <code>
                       <span className="line">
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>div</span>
+                        <span style={COMMENT}>// Create a beautiful card with YakaJS</span>
+                      </span>
+                      <span className="line">
+                        <span style={KEYWORD}>const</span>
                         <span style={SYMBOL}> </span>
-                        <span style={KEYWORD}>class</span>
-                        <span style={SYMBOL}>=</span>
+                        <span style={{ color: "var(--color-slate-50)" }}>card</span>
+                        <span style={SYMBOL}> = </span>
+                        <span style={FUNCTION}>@</span>
+                        <span style={SYMBOL}>(</span>
+                        <span style={STRING}>'&lt;div&gt;'</span>
+                        <span style={SYMBOL}>)</span>
+                      </span>
+                      <span className="line">
+                        <span>{"  "}.</span>
+                        <span style={FUNCTION}>addClass</span>
+                        <span style={SYMBOL}>(</span>
                         <span style={STRING}>
-                          "flex flex-col items-center
+                          'flex flex-col items-center
                           <TypeWord
                             isTyping={isTyping}
                             word=" gap-6"
@@ -169,25 +182,37 @@ const Hero: React.FC = () => {
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />{" "}
-                          rounded-2xl"
+                          rounded-2xl'
                         </span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span style={SYMBOL}>)</span>
                       </span>
                       <span className="line">
-                        <span>{"  "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>div</span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span>{"  "}.</span>
+                        <span style={FUNCTION}>append</span>
+                        <span style={SYMBOL}>(</span>
                       </span>
                       <span className="line">
                         <span>{"    "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>img</span>
-                        <span style={SYMBOL}> </span>
-                        <span style={KEYWORD}>class</span>
-                        <span style={SYMBOL}>=</span>
+                        <span style={FUNCTION}>@</span>
+                        <span style={SYMBOL}>(</span>
+                        <span style={STRING}>'&lt;img&gt;'</span>
+                        <span style={SYMBOL}>)</span>
+                      </span>
+                      <span className="line">
+                        <span>{"      "}.</span>
+                        <span style={FUNCTION}>attr</span>
+                        <span style={SYMBOL}>(</span>
+                        <span style={STRING}>'src'</span>
+                        <span style={SYMBOL}>, </span>
+                        <span style={STRING}>'/img/cover.png'</span>
+                        <span style={SYMBOL}>)</span>
+                      </span>
+                      <span className="line">
+                        <span>{"      "}.</span>
+                        <span style={FUNCTION}>addClass</span>
+                        <span style={SYMBOL}>(</span>
                         <span style={STRING}>
-                          "size-48 shadow-xl
+                          'size-48 shadow-xl
                           <TypeWord
                             isTyping={isTyping}
                             word=" rounded-md"
@@ -196,33 +221,24 @@ const Hero: React.FC = () => {
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
-                          "
+                          '
                         </span>
-                        <span style={SYMBOL}> </span>
-                        <span style={KEYWORD}>alt</span>
-                        <span style={SYMBOL}>=</span>
-                        <span style={STRING}>""</span>
-                        <span style={SYMBOL}> </span>
-                        <span style={KEYWORD}>src</span>
-                        <span style={SYMBOL}>=</span>
-                        <span style={STRING}>"/img/cover.png"</span>
-                        <span style={SYMBOL}> /&gt;</span>
+                        <span style={SYMBOL}>)</span>
+                        <span style={SYMBOL}>,</span>
                       </span>
                       <span className="line">
-                        <span>{"  "}</span>
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>div</span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span>{"    "}</span>
+                        <span style={FUNCTION}>@</span>
+                        <span style={SYMBOL}>(</span>
+                        <span style={STRING}>'&lt;div&gt;'</span>
+                        <span style={SYMBOL}>)</span>
                       </span>
                       <span className="line">
-                        <span>{"  "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>div</span>
-                        <span style={SYMBOL}> </span>
-                        <span style={KEYWORD}>class</span>
-                        <span style={SYMBOL}>=</span>
+                        <span>{"      "}.</span>
+                        <span style={FUNCTION}>addClass</span>
+                        <span style={SYMBOL}>(</span>
                         <span style={STRING}>
-                          "flex
+                          'flex
                           <TypeWord
                             isTyping={isTyping}
                             word=" items-center"
@@ -239,55 +255,68 @@ const Hero: React.FC = () => {
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
-                          "
+                          '
                         </span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span style={SYMBOL}>)</span>
                       </span>
                       <span className="line">
-                        <span>{"    "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>span</span>
+                        <span>{"      "}.</span>
+                        <span style={FUNCTION}>append</span>
+                        <span style={SYMBOL}>(</span>
+                      </span>
+                      <span className="line">
+                        <span>{"        "}</span>
+                        <span style={FUNCTION}>@</span>
+                        <span style={SYMBOL}>(</span>
+                        <span style={STRING}>'&lt;span&gt;'</span>
+                        <span style={SYMBOL}>)</span>
                         <TypeWord
                           isTyping={isTyping}
-                          word={` class="text-2xl font-medium"`}
+                          word={`.addClass('text-2xl font-medium')`}
                           step={2}
                           currentStep={step}
                           onNextStep={nextStep}
                           autostart={shouldAutostartTypingAnimations}
                         />
-                        <span style={SYMBOL}>&gt;</span>
-                        <span style={{ color: "var(--color-slate-50)" }}>Class Warfare</span>
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span style={SYMBOL}>.</span>
+                        <span style={FUNCTION}>text</span>
+                        <span style={SYMBOL}>(</span>
+                        <span style={STRING}>'Class Warfare'</span>
+                        <span style={SYMBOL}>),</span>
                       </span>
                       <span className="line">
-                        <span>{"    "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>span</span>
+                        <span>{"        "}</span>
+                        <span style={FUNCTION}>@</span>
+                        <span style={SYMBOL}>(</span>
+                        <span style={STRING}>'&lt;span&gt;'</span>
+                        <span style={SYMBOL}>)</span>
                         <TypeWord
                           isTyping={isTyping}
-                          word={` class="font-medium text-yaka-accent"`}
+                          word={`.addClass('font-medium text-yaka-accent')`}
                           step={3}
                           currentStep={step}
                           onNextStep={nextStep}
                           autostart={shouldAutostartTypingAnimations}
                         />
-                        <span style={SYMBOL}>&gt;</span>
-                        <span style={{ color: "var(--color-slate-50)" }}>The Anti-Patterns</span>
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span style={SYMBOL}>.</span>
+                        <span style={FUNCTION}>text</span>
+                        <span style={SYMBOL}>(</span>
+                        <span style={STRING}>'The Anti-Patterns'</span>
+                        <span style={SYMBOL}>),</span>
                       </span>
                       <span className="line">
-                        <span>{"    "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}> </span>
-                        <span style={KEYWORD}>class</span>
-                        <span style={SYMBOL}>=</span>
+                        <span>{"        "}</span>
+                        <span style={FUNCTION}>@</span>
+                        <span style={SYMBOL}>(</span>
+                        <span style={STRING}>'&lt;span&gt;'</span>
+                        <span style={SYMBOL}>)</span>
+                      </span>
+                      <span className="line">
+                        <span>{"          "}.</span>
+                        <span style={FUNCTION}>addClass</span>
+                        <span style={SYMBOL}>(</span>
                         <span style={STRING}>
-                          "flex
+                          'flex
                           <TypeWord
                             isTyping={isTyping}
                             word=" gap-2 font-medium text-gray-600 dark:text-gray-400"
@@ -296,56 +325,31 @@ const Hero: React.FC = () => {
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
-                          "
+                          '
                         </span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span style={SYMBOL}>)</span>
+                      </span>
+                      <span className="line">
+                        <span>{"          "}.</span>
+                        <span style={FUNCTION}>html</span>
+                        <span style={SYMBOL}>(</span>
+                        <span style={STRING}>'&lt;span&gt;No. 4&lt;/span&gt;&lt;span&gt;&middot;&lt;/span&gt;&lt;span&gt;2025&lt;/span&gt;'</span>
+                        <span style={SYMBOL}>)</span>
                       </span>
                       <span className="line">
                         <span>{"      "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
-                        <span style={{ color: "var(--color-slate-50)" }}>No. 4</span>
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
-                      </span>
-                      <span className="line">
-                        <span>{"      "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
-                        <span style={{ color: "var(--color-slate-50)" }}>·</span>
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
-                      </span>
-                      <span className="line">
-                        <span>{"      "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
-                        <span style={{ color: "var(--color-slate-50)" }}>2025</span>
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
-                      </span>
-                      <span className="line">
-                        <span>{"    "}</span>
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span style={SYMBOL}>)</span>
                       </span>
                       <span className="line">
                         <span>{"  "}</span>
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>div</span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span style={SYMBOL}>)</span>
                       </span>
                       <span className="line">
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>div</span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span>{"  "}.</span>
+                        <span style={FUNCTION}>appendTo</span>
+                        <span style={SYMBOL}>(</span>
+                        <span style={STRING}>'body'</span>
+                        <span style={SYMBOL}>);</span>
                       </span>
                     </code>
                   </code>
@@ -491,6 +495,8 @@ function TypeWord({
   autostart: boolean;
 }) {
   let startsWithClassEquals = word.startsWith(" class=");
+  let startsWithDot = word.startsWith(".");
+  let isYakaMethod = word.startsWith(".addClass");
 
   if (currentStep < step) return null;
 
@@ -509,20 +515,37 @@ function TypeWord({
         onAnimationComplete={onNextStep}
         {...(autostart ? { whileInView: "visible", viewport: { once: true } } : { animate: "visible" })}
       >
-        {word.split("").map((letter, i) => (
-          <motion.span
-            key={i}
-            variants={{
-              hidden: { display: "none" },
-              visible: { display: "inline" },
-            }}
-            style={{
-              color: startsWithClassEquals ? (i < 6 ? KEYWORD.color : i < 7 ? SYMBOL.color : STRING.color) : undefined,
-            }}
-          >
-            {letter}
-          </motion.span>
-        ))}
+        {word.split("").map((letter, i) => {
+          let letterColor = undefined;
+          
+          if (startsWithClassEquals) {
+            letterColor = i < 6 ? KEYWORD.color : i < 7 ? SYMBOL.color : STRING.color;
+          } else if (isYakaMethod) {
+            if (letter === ".") letterColor = SYMBOL.color;
+            else if (i < 10) letterColor = FUNCTION.color;
+            else if (letter === "(" || letter === ")" || letter === ",") letterColor = SYMBOL.color;
+            else if (letter === "'") letterColor = STRING.color;
+            else if (word[i - 1] === "'" || (i > 0 && word.substring(0, i).lastIndexOf("'") > word.substring(0, i).lastIndexOf(")"))) {
+              letterColor = STRING.color;
+            }
+          } else if (startsWithDot) {
+            if (letter === ".") letterColor = SYMBOL.color;
+            else letterColor = FUNCTION.color;
+          }
+          
+          return (
+            <motion.span
+              key={i}
+              variants={{
+                hidden: { display: "none" },
+                visible: { display: "inline" },
+              }}
+              style={{ color: letterColor }}
+            >
+              {letter}
+            </motion.span>
+          );
+        })}
       </motion.span>
       {cursor}
     </>
