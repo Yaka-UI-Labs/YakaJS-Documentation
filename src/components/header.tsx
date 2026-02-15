@@ -10,15 +10,12 @@ import { SearchButton } from "./search";
 
 function Logo(props: React.ComponentProps<"div">) {
   return (
-    <div className="flex items-center gap-3" {...props}>
+    <div className="flex items-center" {...props}>
       <img 
-        src="/yaka-icon-only.svg" 
-        alt="YakaJS Icon" 
-        className="w-10 h-10 flex-shrink-0"
+        src="/yaka-logo-new.svg" 
+        alt="YakaJS" 
+        className="h-8 w-auto flex-shrink-0"
       />
-      <span className="text-lg font-bold text-white dark:text-white leading-none">
-        YakaJS
-      </span>
     </div>
   );
 }
