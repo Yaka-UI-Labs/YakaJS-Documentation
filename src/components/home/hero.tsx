@@ -356,24 +356,20 @@ function Example({ step }: { step: number }) {
     <motion.div
       layout={true}
       transition={TRANSITION}
-      className="@container rounded-3xl bg-gradient-to-br from-oatmeal-card/40 to-oatmeal-olive/30 p-1 shadow-2xl backdrop-blur-md dark:from-oatmeal-card/60 dark:to-oatmeal-olive/40 w-[340px]"
+      className="@container isolate flex flex-col gap-3 overflow-hidden rounded-2xl bg-white p-3 outline outline-gray-950/5 dark:bg-gray-950 dark:outline-white/10 w-[340px] shadow-xl"
     >
       <motion.div
-        className="relative flex w-full flex-col gap-5 rounded-[1.3rem] bg-gradient-to-br from-white to-gray-50/80 p-7 shadow-inner dark:from-oatmeal-card dark:to-oatmeal-darkest"
+        className="relative flex w-full flex-col gap-4 rounded-lg bg-gray-950/[2.5%] p-6 after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:inset-ring after:inset-ring-gray-950/5 dark:bg-white/5 dark:after:inset-ring-white/10"
         layout={true}
         transition={TRANSITION}
       >
-        {/* Decorative gradient orb */}
-        <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-gradient-to-br from-oatmeal-white/20 to-oatmeal-stone/10 blur-2xl" />
-        
         <motion.button
           layout="position"
           transition={TRANSITION}
           onClick={handleClick}
-          className="relative overflow-hidden rounded-xl bg-gradient-to-r from-oatmeal-stone to-oatmeal-olive px-8 py-4 text-lg font-bold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl active:scale-95 dark:from-oatmeal-white dark:to-oatmeal-light dark:text-oatmeal-darkest cursor-pointer"
+          className="inline-block rounded-4xl bg-black px-8 py-4 text-sm/6 font-semibold text-white hover:bg-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors cursor-pointer"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 transition-opacity hover:opacity-100" />
-          <span className="relative z-10">Click Me!</span>
+          Click Me!
         </motion.button>
         
         {showCounter && (
@@ -389,16 +385,16 @@ function Example({ step }: { step: number }) {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={TRANSITION}
-              className="rounded-lg border-2 border-oatmeal-olive/30 bg-gradient-to-br from-oatmeal-white/10 to-oatmeal-stone/5 p-4 shadow-md backdrop-blur-sm dark:border-oatmeal-stone/30 dark:from-oatmeal-olive/20 dark:to-oatmeal-darkest/40"
+              className="rounded-xl bg-white p-5 ring-1 ring-gray-950/10 dark:bg-white/5 dark:ring-white/10"
               id="counter"
             >
-              <div className="text-sm font-semibold uppercase tracking-wider text-oatmeal-olive dark:text-oatmeal-stone">
+              <div className="text-xs/6 font-semibold uppercase tracking-widest text-gray-600 dark:text-gray-400">
                 Counter
               </div>
-              <div className="mt-1 text-3xl font-extrabold text-oatmeal-darkest dark:text-oatmeal-white">
+              <div className="mt-2 text-4xl font-bold text-gray-950 dark:text-white">
                 {clickCount}
               </div>
-              <div className="mt-1 text-xs font-medium text-oatmeal-stone dark:text-oatmeal-medium">
+              <div className="mt-1 text-sm/6 font-medium text-gray-600 dark:text-gray-400">
                 {clickCount === 1 ? 'click' : 'clicks'}
               </div>
             </motion.div>
@@ -414,14 +410,14 @@ function Example({ step }: { step: number }) {
             className="overflow-hidden"
           >
             <div 
-              className="rounded-xl border-2 border-oatmeal-white/50 bg-gradient-to-br from-oatmeal-white/30 to-oatmeal-light/20 p-5 text-center shadow-lg backdrop-blur-sm dark:border-oatmeal-light/30 dark:from-oatmeal-white/10 dark:to-oatmeal-stone/5" 
+              className="rounded-xl bg-white p-6 text-center ring-1 ring-gray-950/10 dark:bg-white/5 dark:ring-white/10" 
               id="message"
             >
-              <div className="text-3xl mb-2 animate-bounce">🎉</div>
-              <div className="text-xl font-bold text-oatmeal-darkest dark:text-oatmeal-white">
+              <div className="text-4xl mb-3 animate-bounce">🎉</div>
+              <div className="text-xl/7 font-semibold text-gray-950 dark:text-white">
                 Five clicks!
               </div>
-              <div className="mt-1 text-sm font-medium text-oatmeal-olive dark:text-oatmeal-stone">
+              <div className="mt-2 text-sm/6 font-medium text-gray-600 dark:text-gray-400">
                 You're doing great!
               </div>
             </div>
