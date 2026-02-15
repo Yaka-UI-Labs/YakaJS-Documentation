@@ -14,7 +14,7 @@ type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 export function NavListHeading({ children, level = 3 }: React.PropsWithChildren<{ level?: HeadingLevel }>) {
   let Element: `h${HeadingLevel}` = `h${level}`;
   return (
-    <Element className="py-1.5 font-mono text-xs font-semibold tracking-widest text-oatmeal-stone/70 uppercase dark:text-oatmeal-white/70">
+    <Element className="py-2 px-3 font-mono text-sm font-bold tracking-wider text-yaka-accent uppercase dark:text-yaka-accent border-b border-yaka-accent/20 mb-2">
       {children}
     </Element>
   );
@@ -53,16 +53,25 @@ export function NavListLink({
         // Default state
         "border-transparent text-yaka-medium dark:text-yaka-lighter",
         // Hover state
-        "hover:border-yaka-accent/50 hover:text-yaka-darkest hover:translate-x-0.5 dark:hover:text-yaka-lightest dark:hover:border-yaka-accent/50",
+        "hover:border-transparent hover:text-yaka-darkest hover:translate-x-0.5 dark:hover:text-yaka-lightest",
         // Active state
-        "aria-[current]:border-yaka-accent aria-[current]:font-semibold aria-[current]:text-yaka-accent-dark",
-        "dark:aria-[current]:border-yaka-accent dark:aria-[current]:text-yaka-accent",
+        "aria-[current]:border-transparent aria-[current]:font-semibold aria-[current]:text-yaka-accent-dark",
+        "dark:aria-[current]:text-yaka-accent",
         // Padding
         nested ? "pl-6" : "pl-3",
       )}
       href={href}
       {...props}
     >
+      {/* Pipe indicator for active state */}
+      <span className={clsx(
+        "absolute left-0 text-yaka-accent font-bold transition-all duration-150",
+        "opacity-0 -translate-x-1",
+        "aria-[current]:opacity-100 aria-[current]:translate-x-0"
+      )} aria-hidden="true">
+        |
+      </span>
+      
       {/* Hover background effect */}
       <span className={clsx(
         "absolute inset-y-0 left-0 w-0 bg-gradient-to-r from-yaka-accent/10 to-transparent transition-all duration-150",
