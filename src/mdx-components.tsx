@@ -2,6 +2,7 @@ import type { MDXComponents } from "mdx/types";
 import React from "react";
 import { CodeExample } from "./components/code-example";
 import Link from "next/link";
+import { Table, THead, TBody, TR, TH, TD } from "./components/table";
 
 declare module "mdx/types" {
   // Augment the MDX types to make it understand React.
@@ -71,6 +72,30 @@ const components = {
   h5: createHeading(5),
   h6: createHeading(6),
 
+  table(props) {
+    return <table className="min-w-full">{props.children}</table>;
+  },
+  
+  thead(props) {
+    return <thead>{props.children}</thead>;
+  },
+  
+  tbody(props) {
+    return <tbody>{props.children}</tbody>;
+  },
+  
+  tr(props) {
+    return <tr>{props.children}</tr>;
+  },
+  
+  th(props) {
+    return <th>{props.children}</th>;
+  },
+  
+  td(props) {
+    return <td>{props.children}</td>;
+  },
+
   a(props) {
     if (props.href?.startsWith("/plus") || props.href?.startsWith("https://tailwindcss.com/plus")) {
       return <a {...props} />;
@@ -132,3 +157,6 @@ declare global {
 export function useMDXComponents(): MDXProvidedComponents {
   return components;
 }
+
+// Export table components for use in MDX files
+export { Table, THead, TBody, TR, TH, TD };

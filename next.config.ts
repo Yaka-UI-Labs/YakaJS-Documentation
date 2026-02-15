@@ -7,15 +7,6 @@ const nextConfig = {
   outputFileTracingIncludes: {
     "/**/*": ["./src/docs/*.mdx"],
   },
-  turbopack: {
-    rules: {
-      // Support import .svg as react components in dev builds
-      "*.react.svg": {
-        loaders: ["@svgr/webpack"],
-        as: "*.js",
-      },
-    },
-  },
   async redirects() {
     return [
       // Docs
@@ -475,4 +466,4 @@ const nextConfig = {
 } satisfies NextConfig;
 
 const withMDX = createMdx();
-module.exports = withMDX(nextConfig);
+export default withMDX(nextConfig);
