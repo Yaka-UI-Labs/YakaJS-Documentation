@@ -31,15 +31,15 @@ function renderCellContent(content: string) {
 
 export function ComparisonTable({ headers, rows }: TableProps) {
   return (
-    <div className="my-8 overflow-x-auto rounded-lg border border-oatmeal-olive/20 dark:border-oatmeal-olive/30">
+    <div className="my-8 overflow-x-auto border-y-2 border-oatmeal-olive/40 dark:border-oatmeal-olive">
       <table className="w-full border-collapse">
         <thead>
-          <tr className="bg-oatmeal-card/80 dark:bg-oatmeal-card">
+          <tr className="bg-oatmeal-card/90 dark:bg-oatmeal-card border-b-2 border-oatmeal-olive/50 dark:border-oatmeal-olive">
             {headers.map((header, index) => (
               <th
                 key={`header-${header}-${index}`}
                 scope="col"
-                className="border-b-2 border-oatmeal-olive/40 dark:border-oatmeal-olive px-6 py-4 text-left text-sm font-bold text-white dark:text-white uppercase tracking-wide"
+                className="px-6 py-4 text-left text-xs font-bold text-white dark:text-white uppercase tracking-wider border-r border-oatmeal-olive/30 dark:border-oatmeal-olive/40 last:border-r-0"
               >
                 {header}
               </th>
@@ -56,22 +56,22 @@ export function ComparisonTable({ headers, rows }: TableProps) {
                 key={`row-${rowIndex}-${row[0]}`} 
                 className={`
                   ${isCategoryRow 
-                    ? 'bg-oatmeal-card/60 dark:bg-oatmeal-card/70 border-y border-oatmeal-olive/30 dark:border-oatmeal-olive/40' 
-                    : 'hover:bg-oatmeal-olive/10 dark:hover:bg-oatmeal-olive/15 border-b border-oatmeal-olive/15 dark:border-oatmeal-olive/20'
+                    ? 'bg-oatmeal-card/70 dark:bg-oatmeal-card/80 border-y-2 border-oatmeal-olive/40 dark:border-oatmeal-olive/50' 
+                    : 'hover:bg-oatmeal-olive/8 dark:hover:bg-oatmeal-olive/12 border-b border-oatmeal-olive/20 dark:border-oatmeal-olive/25'
                   } 
-                  transition-colors
+                  transition-colors duration-150
                 `}
               >
                 {row.map((cell, cellIndex) => (
                   <td
                     key={`cell-${rowIndex}-${cellIndex}-${cell.substring(0, 10)}`}
                     className={`
-                      px-6 py-3.5 text-sm
+                      px-6 py-4 text-sm border-r border-oatmeal-olive/15 dark:border-oatmeal-olive/20 last:border-r-0
                       ${isCategoryRow 
-                        ? 'font-bold text-oatmeal-white dark:text-white' 
+                        ? 'font-bold text-white dark:text-white' 
                         : 'text-oatmeal-stone dark:text-oatmeal-stone'
                       }
-                      ${cellIndex === 0 ? 'font-medium' : ''}
+                      ${cellIndex === 0 && !isCategoryRow ? 'font-semibold text-oatmeal-white dark:text-oatmeal-white' : ''}
                     `}
                   >
                     {renderCellContent(cell)}
