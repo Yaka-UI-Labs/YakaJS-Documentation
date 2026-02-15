@@ -5,21 +5,19 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import GridContainer from "../grid-container";
 import { SearchButton } from "../search";
-import cover from "./cover.png";
 import { Editor } from "./editor";
 import LinkButton from "./link-button";
 
 const SYMBOL = { color: "var(--color-slate-400)" };
-const ELEMENT = { color: "var(--color-pink-400)" };
-const KEYWORD = { color: "var(--color-slate-300)" };
-const STRING = { color: "var(--color-sky-300)" };
+const FUNCTION = { color: "#e78a4e" }; // YakaJS function/method calls
+const KEYWORD = { color: "#d8a657" }; // JavaScript keywords
+const STRING = { color: "#a9b665" }; // String literals
+const NUMBER = { color: "#d3869b" }; // Numbers
+const COMMENT = { color: "#665c54" }; // Comments
 
 const Hero: React.FC = () => {
   let [step, setStep] = useState(0);
   let [isTyping, setIsTyping] = useState(false);
-
-  // Very small screens should never try to drag the editor into a wider view.
-  let showResponsiveDemo = "window" in globalThis ? window.matchMedia("(min-width: 40rem)").matches : false;
 
   // We can not rely on starting animations when elements go into view on these
   // screens since the code might overflow and not be visible.
@@ -39,13 +37,6 @@ const Hero: React.FC = () => {
     let timeout = setTimeout(start, 1000);
     return () => clearTimeout(timeout);
   }, []);
-
-  // Widen or shrink screen
-  useEffect(() => {
-    if ((step !== 7 && step !== 11 && step !== 12) || !showResponsiveDemo) return;
-    let timeout = setTimeout(() => setStep(step + 1), step === 11 ? 1200 : 800);
-    return () => clearTimeout(timeout);
-  });
 
   return (
     <div>
@@ -76,10 +67,10 @@ const Hero: React.FC = () => {
       <GridContainer>
         <p className="max-w-(--breakpoint-md) px-2 text-lg/7 font-medium text-gray-600 max-sm:px-4 dark:text-gray-400">
           A powerful JavaScript library with intuitive syntax like{" "}
-          <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">@('#id')</span>,{" "}
+          <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">_('#id')</span>,{" "}
           <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.addClass()</span>,{" "}
           <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.on('click')</span> and{" "}
-          <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.animate()</span> that makes
+          <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.fadeIn()</span> that makes
           DOM manipulation and event handling simple and elegant.
         </p>
       </GridContainer>
@@ -130,222 +121,223 @@ const Hero: React.FC = () => {
                   <code>
                     <code>
                       <span className="line">
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>div</span>
-                        <span style={SYMBOL}> </span>
-                        <span style={KEYWORD}>class</span>
-                        <span style={SYMBOL}>=</span>
+                        <span style={COMMENT}>// Interactive counter with animations</span>
+                      </span>
+                      <span className="line">
+                        <span style={KEYWORD}>let</span>
+                        <span style={{ color: "var(--color-slate-50)" }}> count </span>
+                        <span style={SYMBOL}>= </span>
+                        <span style={NUMBER}>0</span>
+                        <span style={SYMBOL}>;</span>
+                      </span>
+                      <span className="line"></span>
+                      <span className="line">
+                        <span style={FUNCTION}>_</span>
+                        <span style={SYMBOL}>(</span>
                         <span style={STRING}>
-                          "flex flex-col items-center
+                          '&lt;button&gt;
                           <TypeWord
                             isTyping={isTyping}
-                            word=" gap-6"
-                            step={6}
-                            currentStep={step}
-                            onNextStep={nextStep}
-                            autostart={shouldAutostartTypingAnimations}
-                          />
-                          <TypeWord
-                            isTyping={isTyping}
-                            word=" p-7"
+                            word="Click me!"
                             step={0}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
-                          <TypeWord
-                            isTyping={isTyping}
-                            word=" md:flex-row"
-                            step={8}
-                            currentStep={step}
-                            onNextStep={nextStep}
-                            autostart={shouldAutostartTypingAnimations}
-                          />
-                          <TypeWord
-                            isTyping={isTyping}
-                            word=" md:gap-8"
-                            step={10}
-                            currentStep={step}
-                            onNextStep={nextStep}
-                            autostart={shouldAutostartTypingAnimations}
-                          />{" "}
-                          rounded-2xl"
+                          &lt;/button&gt;'
                         </span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span style={SYMBOL}>)</span>
                       </span>
                       <span className="line">
                         <span>{"  "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>div</span>
-                        <span style={SYMBOL}>&gt;</span>
-                      </span>
-                      <span className="line">
-                        <span>{"    "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>img</span>
-                        <span style={SYMBOL}> </span>
-                        <span style={KEYWORD}>class</span>
-                        <span style={SYMBOL}>=</span>
-                        <span style={STRING}>
-                          "size-48 shadow-xl
+                        <span style={SYMBOL}>.</span>
+                        <span style={FUNCTION}>
+                          addClass
                           <TypeWord
                             isTyping={isTyping}
-                            word=" rounded-md"
+                            word="('btn')"
                             step={1}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
-                          "
                         </span>
-                        <span style={SYMBOL}> </span>
-                        <span style={KEYWORD}>alt</span>
-                        <span style={SYMBOL}>=</span>
-                        <span style={STRING}>""</span>
-                        <span style={SYMBOL}> </span>
-                        <span style={KEYWORD}>src</span>
-                        <span style={SYMBOL}>=</span>
-                        <span style={STRING}>"/img/cover.png"</span>
-                        <span style={SYMBOL}> /&gt;</span>
                       </span>
                       <span className="line">
                         <span>{"  "}</span>
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>div</span>
-                        <span style={SYMBOL}>&gt;</span>
-                      </span>
-                      <span className="line">
-                        <span>{"  "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>div</span>
-                        <span style={SYMBOL}> </span>
-                        <span style={KEYWORD}>class</span>
-                        <span style={SYMBOL}>=</span>
-                        <span style={STRING}>
-                          "flex
+                        <span style={SYMBOL}>.</span>
+                        <span style={FUNCTION}>
+                          on
                           <TypeWord
                             isTyping={isTyping}
-                            word=" items-center"
-                            step={5}
+                            word="('click', () => {"
+                            step={2}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
+                        </span>
+                      </span>
+                      <span className="line">
+                        <span>{"    "}</span>
+                        <span style={{ color: "var(--color-slate-50)" }}>
+                          count
                           <TypeWord
                             isTyping={isTyping}
-                            word=" md:items-start"
-                            step={9}
+                            word="++"
+                            step={3}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
-                          "
                         </span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span style={SYMBOL}>;</span>
                       </span>
                       <span className="line">
                         <span>{"    "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>span</span>
-                        <TypeWord
-                          isTyping={isTyping}
-                          word={` class="text-2xl font-medium"`}
-                          step={2}
-                          currentStep={step}
-                          onNextStep={nextStep}
-                          autostart={shouldAutostartTypingAnimations}
-                        />
-                        <span style={SYMBOL}>&gt;</span>
-                        <span style={{ color: "var(--color-slate-50)" }}>Class Warfare</span>
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
-                      </span>
-                      <span className="line">
-                        <span>{"    "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>span</span>
-                        <TypeWord
-                          isTyping={isTyping}
-                          word={` class="font-medium text-yaka-accent"`}
-                          step={3}
-                          currentStep={step}
-                          onNextStep={nextStep}
-                          autostart={shouldAutostartTypingAnimations}
-                        />
-                        <span style={SYMBOL}>&gt;</span>
-                        <span style={{ color: "var(--color-slate-50)" }}>The Anti-Patterns</span>
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
-                      </span>
-                      <span className="line">
-                        <span>{"    "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}> </span>
-                        <span style={KEYWORD}>class</span>
-                        <span style={SYMBOL}>=</span>
-                        <span style={STRING}>
-                          "flex
+                        <span style={FUNCTION}>
+                          _
                           <TypeWord
                             isTyping={isTyping}
-                            word=" gap-2 font-medium text-gray-600 dark:text-gray-400"
+                            word="('#counter')"
                             step={4}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
-                          "
                         </span>
-                        <span style={SYMBOL}>&gt;</span>
                       </span>
                       <span className="line">
                         <span>{"      "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
-                        <span style={{ color: "var(--color-slate-50)" }}>No. 4</span>
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span style={SYMBOL}>.</span>
+                        <span style={FUNCTION}>
+                          text
+                          <TypeWord
+                            isTyping={isTyping}
+                            word="(count)"
+                            step={5}
+                            currentStep={step}
+                            onNextStep={nextStep}
+                            autostart={shouldAutostartTypingAnimations}
+                          />
+                        </span>
                       </span>
                       <span className="line">
                         <span>{"      "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
-                        <span style={{ color: "var(--color-slate-50)" }}>·</span>
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span style={SYMBOL}>.</span>
+                        <span style={FUNCTION}>
+                          fadeOut
+                          <TypeWord
+                            isTyping={isTyping}
+                            word="(200)"
+                            step={6}
+                            currentStep={step}
+                            onNextStep={nextStep}
+                            autostart={shouldAutostartTypingAnimations}
+                          />
+                        </span>
                       </span>
                       <span className="line">
                         <span>{"      "}</span>
-                        <span style={SYMBOL}>&lt;</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
-                        <span style={{ color: "var(--color-slate-50)" }}>2025</span>
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span style={SYMBOL}>.</span>
+                        <span style={FUNCTION}>
+                          fadeIn
+                          <TypeWord
+                            isTyping={isTyping}
+                            word="(200)"
+                            step={7}
+                            currentStep={step}
+                            onNextStep={nextStep}
+                            autostart={shouldAutostartTypingAnimations}
+                          />
+                        </span>
+                        <span style={SYMBOL}>;</span>
                       </span>
                       <span className="line">
                         <span>{"    "}</span>
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>span</span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span style={KEYWORD}>
+                          if
+                          <TypeWord
+                            isTyping={isTyping}
+                            word=" (count === 5)"
+                            step={8}
+                            currentStep={step}
+                            onNextStep={nextStep}
+                            autostart={shouldAutostartTypingAnimations}
+                          />
+                        </span>
+                        <span style={SYMBOL}> {"{"}</span>
+                      </span>
+                      <span className="line">
+                        <span>{"      "}</span>
+                        <span style={FUNCTION}>
+                          _
+                          <TypeWord
+                            isTyping={isTyping}
+                            word="('#message')"
+                            step={9}
+                            currentStep={step}
+                            onNextStep={nextStep}
+                            autostart={shouldAutostartTypingAnimations}
+                          />
+                        </span>
+                      </span>
+                      <span className="line">
+                        <span>{"        "}</span>
+                        <span style={SYMBOL}>.</span>
+                        <span style={FUNCTION}>
+                          text
+                          <TypeWord
+                            isTyping={isTyping}
+                            word="('🎉 Amazing!')"
+                            step={10}
+                            currentStep={step}
+                            onNextStep={nextStep}
+                            autostart={shouldAutostartTypingAnimations}
+                          />
+                        </span>
+                      </span>
+                      <span className="line">
+                        <span>{"        "}</span>
+                        <span style={SYMBOL}>.</span>
+                        <span style={FUNCTION}>
+                          slideDown
+                          <TypeWord
+                            isTyping={isTyping}
+                            word="()"
+                            step={11}
+                            currentStep={step}
+                            onNextStep={nextStep}
+                            autostart={shouldAutostartTypingAnimations}
+                          />
+                        </span>
+                        <span style={SYMBOL}>;</span>
+                      </span>
+                      <span className="line">
+                        <span>{"    "}</span>
+                        <span style={SYMBOL}>{"}"}</span>
                       </span>
                       <span className="line">
                         <span>{"  "}</span>
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>div</span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span style={SYMBOL}>
+                          {"}"}
+                          <TypeWord
+                            isTyping={isTyping}
+                            word=")"
+                            step={12}
+                            currentStep={step}
+                            onNextStep={nextStep}
+                            autostart={shouldAutostartTypingAnimations}
+                          />
+                        </span>
                       </span>
                       <span className="line">
-                        <span style={SYMBOL}>&lt;/</span>
-                        <span style={ELEMENT}>div</span>
-                        <span style={SYMBOL}>&gt;</span>
+                        <span>{"  "}</span>
+                        <span style={SYMBOL}>.</span>
+                        <span style={FUNCTION}>appendTo</span>
+                        <span style={SYMBOL}>(</span>
+                        <span style={STRING}>'#app'</span>
+                        <span style={SYMBOL}>);</span>
                       </span>
                     </code>
                   </code>
@@ -369,107 +361,76 @@ export default Hero;
 const TRANSITION = { duration: 0.35 };
 
 function Example({ step }: { step: number }) {
+  const [clickCount, setClickCount] = useState(0);
+  const [showCounter, setShowCounter] = useState(false);
+  const [showCelebration, setShowCelebration] = useState(false);
+
+  const handleButtonClick = () => {
+    const newCount = clickCount + 1;
+    setClickCount(newCount);
+    setShowCounter(true);
+    
+    if (newCount === 5) {
+      setShowCelebration(true);
+    }
+  };
+
   return (
     <motion.div
       layout={true}
       transition={TRANSITION}
       className={clsx(
         "@container rounded-3xl bg-black/5 p-2 outline outline-white/15 backdrop-blur-md dark:bg-white/10",
-        step > 7 && step !== 11 ? "w-[584px]" : "w-[262px] xl:ml-[3rem]",
+        "w-[340px] xl:ml-[3rem]",
       )}
     >
       <motion.div
-        className={clsx(
-          "relative flex w-full flex-col rounded-2xl bg-white outline outline-black/5 dark:bg-gray-950",
-          step > 0 ? "p-7" : null,
-          step > 6 ? "gap-6" : null,
-          step > 5 ? "items-center" : null,
-          step > 8 ? "@xs:flex-row" : null,
-          step > 10 ? "@xs:gap-8" : null,
-        )}
+        className="relative flex w-full flex-col items-center gap-6 rounded-2xl bg-white p-7 outline outline-black/5 dark:bg-gray-950"
         layout={true}
         transition={TRANSITION}
       >
-        {step === 8 || step === 11 || step === 12 ? (
-          <motion.div
-            key={step}
-            layout={true}
-            className={clsx(
-              "pointer-events-none absolute top-1/2 right-auto left-0 z-1 -mt-4 mr-0 -ml-4 rounded-full text-black",
-            )}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 1, 0] }}
-            transition={{ default: TRANSITION, opacity: { duration: 1, times: [0, 0.5, 1] } }}
-          >
-            <svg className="size-8" viewBox="0 0 100 100">
-              <circle
-                cx="50"
-                cy="50"
-                r="40"
-                stroke="rgba(255, 255, 255, 0.5)"
-                strokeWidth="8"
-                fill="rgba(0, 0, 0, 0.5)"
-              />
-            </svg>
-          </motion.div>
-        ) : null}
-
-        <motion.img
-          alt=""
+        <motion.button
+          onClick={handleButtonClick}
           layout="position"
           transition={TRANSITION}
-          className={clsx(
-            "size-48 shadow-xl transition-[border-radius] duration-350 dark:outline-1 dark:-outline-offset-1 dark:outline-white/10",
-            step > 1 ? "rounded-md" : null,
-          )}
-          src={cover.src}
-          width={192}
-          height={192}
-        />
-        <motion.div
-          className={clsx("flex flex-col", step > 5 ? "items-center" : null, step > 9 ? "@xs:items-start" : null)}
-          layout={true}
-          transition={TRANSITION}
+          className="rounded-4xl bg-gradient-to-r from-yaka-accent to-yaka-accent-dark px-8 py-3 text-lg font-semibold text-white shadow-lg hover:shadow-xl active:scale-95 transition-all"
         >
-          <motion.span
+          Click me!
+        </motion.button>
+
+        {showCounter && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
             layout="position"
             transition={TRANSITION}
-            className={clsx(
-              "text-gray-950 transition-[font-size] duration-350 dark:text-white",
-              step > 2 ? "text-2xl font-medium" : null,
-            )}
+            className="flex flex-col items-center gap-2 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 p-6 ring-1 ring-gray-950/10 dark:from-gray-900 dark:to-gray-800 dark:ring-white/10"
           >
-            Class Warfare
-          </motion.span>
-          <motion.span
-            transition={TRANSITION}
+            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Counter</span>
+            <motion.span
+              key={clickCount}
+              initial={{ scale: 1.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="text-4xl font-bold text-yaka-accent dark:text-yaka-accent"
+            >
+              {clickCount}
+            </motion.span>
+          </motion.div>
+        )}
+
+        {showCelebration && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
             layout="position"
-            className={clsx(
-              "text-gray-950 transition-colors duration-350 dark:text-white",
-              step > 3 ? "font-medium text-yaka-accent!" : null,
-            )}
-          >
-            The Anti-Patterns
-          </motion.span>
-          <motion.span
-            layout="position"
             transition={TRANSITION}
-            className={clsx(
-              "flex text-gray-950 transition-colors duration-350 dark:text-white",
-              step > 4 ? "gap-2 font-medium text-gray-600! dark:text-gray-400!" : null,
-            )}
+            className="rounded-xl bg-gradient-to-r from-yaka-accent/10 to-yaka-accent-dark/10 px-6 py-4 text-center ring-1 ring-yaka-accent/20 dark:ring-yaka-accent/30"
           >
-            <motion.span layout="position" transition={TRANSITION}>
-              No. 4
-            </motion.span>
-            <motion.span layout="position" transition={TRANSITION}>
-              &middot;
-            </motion.span>
-            <motion.span layout="position" transition={TRANSITION}>
-              2025
-            </motion.span>
-          </motion.span>
-        </motion.div>
+            <span className="text-xl font-semibold text-yaka-accent dark:text-yaka-accent">
+              🎉 Amazing!
+            </span>
+          </motion.div>
+        )}
       </motion.div>
     </motion.div>
   );
@@ -490,8 +451,6 @@ function TypeWord({
   onNextStep: () => void;
   autostart: boolean;
 }) {
-  let startsWithClassEquals = word.startsWith(" class=");
-
   if (currentStep < step) return null;
 
   let cursor =
@@ -500,6 +459,39 @@ function TypeWord({
     ) : null;
 
   if (!isTyping && currentStep === step) return cursor;
+
+  // Determine coloring based on content
+  const getCharColor = (char: string, index: number, fullWord: string) => {
+    // For function names like addClass, on, fadeOut, etc.
+    if (fullWord.startsWith("('") && index < 2) return SYMBOL.color; // opening ('
+    if (fullWord.includes("'") && fullWord.includes(")")) {
+      // Inside string parameters like ('btn') or ('click', () => {
+      if (char === "(" || char === ")") return SYMBOL.color;
+      if (char === "'") return STRING.color;
+      if (fullWord.charAt(index - 1) === "'" || (index > 0 && fullWord.substring(0, index).includes("'") && !fullWord.substring(0, index).includes(")"))) {
+        // Inside string
+        return STRING.color;
+      }
+    }
+    if (fullWord.startsWith("('#") || fullWord.startsWith("('&lt;") || fullWord.startsWith("('Click")) {
+      // YakaJS selector or HTML string
+      if (char === "(" || char === ")") return SYMBOL.color;
+      return STRING.color;
+    }
+    if (fullWord === "++" || fullWord === "(count)") return undefined; // Use default/white
+    if (fullWord.startsWith("(200)") || fullWord.startsWith("()")) return SYMBOL.color;
+    if (fullWord.includes(" === ") || fullWord.startsWith(" (count")) {
+      if (char === "(" || char === ")" || char === "=" || char === " ") return SYMBOL.color;
+      return NUMBER.color;
+    }
+    if (fullWord.includes("'🎉")) {
+      if (char === "(" || char === ")") return SYMBOL.color;
+      return STRING.color;
+    }
+    if (char === ")") return SYMBOL.color;
+    
+    return undefined; // default color
+  };
 
   return (
     <>
@@ -517,7 +509,7 @@ function TypeWord({
               visible: { display: "inline" },
             }}
             style={{
-              color: startsWithClassEquals ? (i < 6 ? KEYWORD.color : i < 7 ? SYMBOL.color : STRING.color) : undefined,
+              color: getCharColor(letter, i, word),
             }}
           >
             {letter}
