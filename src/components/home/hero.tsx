@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import GridContainer from "../grid-container";
 import { SearchButton } from "../search";
 import { Editor } from "./editor";
@@ -68,10 +68,10 @@ const Hero: React.FC = () => {
         <p className="max-w-(--breakpoint-md) px-2 text-lg/7 font-medium text-gray-600 max-sm:px-4 dark:text-gray-400">
           A powerful JavaScript library with intuitive syntax like{" "}
           <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">_('#id')</span>,{" "}
-          <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.addClass()</span>,{" "}
-          <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.on('click')</span> and{" "}
-          <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.fadeIn()</span> that makes
-          DOM manipulation and event handling simple and elegant.
+          <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.on()</span>,{" "}
+          <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.animate()</span> and{" "}
+          <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.css()</span> that makes
+          DOM manipulation, canvas art, and animations effortless.
         </p>
       </GridContainer>
       <GridContainer className="mt-10 px-4 sm:hidden">
@@ -121,30 +121,24 @@ const Hero: React.FC = () => {
                   <code>
                     <code>
                       <span className="line">
-                        <span style={COMMENT}>// Interactive counter with animations</span>
+                        <span style={COMMENT}>// Interactive particle canvas with Oatmeal colors</span>
                       </span>
                       <span className="line">
-                        <span style={KEYWORD}>let</span>
-                        <span style={{ color: "var(--color-slate-50)" }}> count </span>
+                        <span style={KEYWORD}>const</span>
+                        <span style={{ color: "var(--color-slate-50)" }}> canvas </span>
                         <span style={SYMBOL}>= </span>
-                        <span style={NUMBER}>0</span>
-                        <span style={SYMBOL}>;</span>
-                      </span>
-                      <span className="line"></span>
-                      <span className="line">
                         <span style={FUNCTION}>_</span>
                         <span style={SYMBOL}>(</span>
                         <span style={STRING}>
-                          '&lt;button&gt;
+                          '&lt;canvas&gt;
                           <TypeWord
                             isTyping={isTyping}
-                            word="Click me!"
+                            word="&lt;/canvas&gt;'"
                             step={0}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
-                          &lt;/button&gt;'
                         </span>
                         <span style={SYMBOL}>)</span>
                       </span>
@@ -152,10 +146,10 @@ const Hero: React.FC = () => {
                         <span>{"  "}</span>
                         <span style={SYMBOL}>.</span>
                         <span style={FUNCTION}>
-                          addClass
+                          attr
                           <TypeWord
                             isTyping={isTyping}
-                            word="('btn')"
+                            word="({ width: 400, height: 300 })"
                             step={1}
                             currentStep={step}
                             onNextStep={nextStep}
@@ -167,24 +161,28 @@ const Hero: React.FC = () => {
                         <span>{"  "}</span>
                         <span style={SYMBOL}>.</span>
                         <span style={FUNCTION}>
-                          on
+                          css
                           <TypeWord
                             isTyping={isTyping}
-                            word="('click', () => {"
+                            word="({ borderRadius: '12px' })"
                             step={2}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
                         </span>
+                        <span style={SYMBOL}>;</span>
                       </span>
+                      <span className="line"></span>
                       <span className="line">
-                        <span>{"    "}</span>
-                        <span style={{ color: "var(--color-slate-50)" }}>
-                          count
+                        <span style={KEYWORD}>const</span>
+                        <span style={{ color: "var(--color-slate-50)" }}> particles </span>
+                        <span style={SYMBOL}>= </span>
+                        <span style={SYMBOL}>
+                          [
                           <TypeWord
                             isTyping={isTyping}
-                            word="++"
+                            word="]"
                             step={3}
                             currentStep={step}
                             onNextStep={nextStep}
@@ -194,42 +192,41 @@ const Hero: React.FC = () => {
                         <span style={SYMBOL}>;</span>
                       </span>
                       <span className="line">
-                        <span>{"    "}</span>
-                        <span style={FUNCTION}>
-                          _
+                        <span style={KEYWORD}>const</span>
+                        <span style={{ color: "var(--color-slate-50)" }}> colors </span>
+                        <span style={SYMBOL}>= </span>
+                        <span style={SYMBOL}>
+                          [
                           <TypeWord
                             isTyping={isTyping}
-                            word="('#counter')"
+                            word="'#E7E5E4', '#A8A29E', '#2B2922'"
                             step={4}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
                         </span>
+                        <span style={SYMBOL}>];</span>
                       </span>
+                      <span className="line"></span>
                       <span className="line">
-                        <span>{"      "}</span>
-                        <span style={SYMBOL}>.</span>
                         <span style={FUNCTION}>
-                          text
+                          _
                           <TypeWord
                             isTyping={isTyping}
-                            word="(count)"
+                            word="(canvas)"
                             step={5}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
                         </span>
-                      </span>
-                      <span className="line">
-                        <span>{"      "}</span>
                         <span style={SYMBOL}>.</span>
                         <span style={FUNCTION}>
-                          fadeOut
+                          on
                           <TypeWord
                             isTyping={isTyping}
-                            word="(200)"
+                            word="('mousemove', (e) => {"
                             step={6}
                             currentStep={step}
                             onNextStep={nextStep}
@@ -238,43 +235,40 @@ const Hero: React.FC = () => {
                         </span>
                       </span>
                       <span className="line">
-                        <span>{"      "}</span>
-                        <span style={SYMBOL}>.</span>
-                        <span style={FUNCTION}>
-                          fadeIn
+                        <span>{"  "}</span>
+                        <span style={{ color: "var(--color-slate-50)" }}>
+                          particles
                           <TypeWord
                             isTyping={isTyping}
-                            word="(200)"
+                            word=".push({"
                             step={7}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
                         </span>
-                        <span style={SYMBOL}>;</span>
                       </span>
                       <span className="line">
                         <span>{"    "}</span>
-                        <span style={KEYWORD}>
-                          if
+                        <span style={{ color: "var(--color-slate-50)" }}>
+                          x
                           <TypeWord
                             isTyping={isTyping}
-                            word=" (count === 5)"
+                            word=": e.offsetX, y: e.offsetY,"
                             step={8}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
                         </span>
-                        <span style={SYMBOL}> {"{"}</span>
                       </span>
                       <span className="line">
-                        <span>{"      "}</span>
-                        <span style={FUNCTION}>
-                          _
+                        <span>{"    "}</span>
+                        <span style={{ color: "var(--color-slate-50)" }}>
+                          color
                           <TypeWord
                             isTyping={isTyping}
-                            word="('#message')"
+                            word=": colors[Math.floor(Math.random() * 3)]"
                             step={9}
                             currentStep={step}
                             onNextStep={nextStep}
@@ -283,13 +277,12 @@ const Hero: React.FC = () => {
                         </span>
                       </span>
                       <span className="line">
-                        <span>{"        "}</span>
-                        <span style={SYMBOL}>.</span>
-                        <span style={FUNCTION}>
-                          text
+                        <span>{"  "}</span>
+                        <span style={SYMBOL}>
+                          {"}"}
                           <TypeWord
                             isTyping={isTyping}
-                            word="('🎉 Amazing!')"
+                            word=");"
                             step={10}
                             currentStep={step}
                             onNextStep={nextStep}
@@ -298,46 +291,17 @@ const Hero: React.FC = () => {
                         </span>
                       </span>
                       <span className="line">
-                        <span>{"        "}</span>
-                        <span style={SYMBOL}>.</span>
-                        <span style={FUNCTION}>
-                          slideDown
+                        <span style={SYMBOL}>
+                          {"}"}
                           <TypeWord
                             isTyping={isTyping}
-                            word="()"
+                            word=");"
                             step={11}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
                         </span>
-                        <span style={SYMBOL}>;</span>
-                      </span>
-                      <span className="line">
-                        <span>{"    "}</span>
-                        <span style={SYMBOL}>{"}"}</span>
-                      </span>
-                      <span className="line">
-                        <span>{"  "}</span>
-                        <span style={SYMBOL}>
-                          {"}"}
-                          <TypeWord
-                            isTyping={isTyping}
-                            word=")"
-                            step={12}
-                            currentStep={step}
-                            onNextStep={nextStep}
-                            autostart={shouldAutostartTypingAnimations}
-                          />
-                        </span>
-                      </span>
-                      <span className="line">
-                        <span>{"  "}</span>
-                        <span style={SYMBOL}>.</span>
-                        <span style={FUNCTION}>appendTo</span>
-                        <span style={SYMBOL}>(</span>
-                        <span style={STRING}>'#app'</span>
-                        <span style={SYMBOL}>);</span>
                       </span>
                     </code>
                   </code>
@@ -360,18 +324,119 @@ export default Hero;
 
 const TRANSITION = { duration: 0.35 };
 
-function Example({ step }: { step: number }) {
-  const [clickCount, setClickCount] = useState(0);
-  const [showCounter, setShowCounter] = useState(false);
-  const [showCelebration, setShowCelebration] = useState(false);
+// Oatmeal color palette
+const OATMEAL_COLORS = {
+  white: '#E7E5E4',
+  stone: '#A8A29E',
+  olive: '#2B2922',
+  card: '#141311',
+  black: '#0B0A08',
+};
 
-  const handleButtonClick = () => {
-    const newCount = clickCount + 1;
-    setClickCount(newCount);
-    setShowCounter(true);
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  life: number;
+  color: string;
+  size: number;
+}
+
+function Example({ step }: { step: number }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const particlesRef = useRef<Particle[]>([]);
+  const [isHovering, setIsHovering] = useState(false);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const colors = [OATMEAL_COLORS.white, OATMEAL_COLORS.stone, OATMEAL_COLORS.olive];
     
-    if (newCount === 5) {
-      setShowCelebration(true);
+    const animate = () => {
+      // Create dark background with slight transparency for trail effect
+      ctx.fillStyle = 'rgba(11, 10, 8, 0.15)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Update and draw particles
+      particlesRef.current = particlesRef.current.filter(particle => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.life -= 0.01;
+        particle.vy += 0.1; // gravity
+
+        if (particle.life > 0) {
+          ctx.globalAlpha = particle.life;
+          ctx.fillStyle = particle.color;
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+          ctx.fill();
+          return true;
+        }
+        return false;
+      });
+
+      ctx.globalAlpha = 1;
+      animationId = requestAnimationFrame(animate);
+    };
+
+    let animationId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+    };
+  }, []);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const colors = [OATMEAL_COLORS.white, OATMEAL_COLORS.stone, OATMEAL_COLORS.olive];
+
+    // Create multiple particles
+    for (let i = 0; i < 3; i++) {
+      particlesRef.current.push({
+        x,
+        y,
+        vx: (Math.random() - 0.5) * 4,
+        vy: (Math.random() - 0.5) * 4 - 2,
+        life: 1,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        size: Math.random() * 4 + 2,
+      });
+    }
+  };
+
+  const handleClick = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const colors = [OATMEAL_COLORS.white, OATMEAL_COLORS.stone, OATMEAL_COLORS.olive];
+    
+    // Create burst of particles from center
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+
+    for (let i = 0; i < 30; i++) {
+      const angle = (Math.PI * 2 * i) / 30;
+      const speed = Math.random() * 5 + 3;
+      particlesRef.current.push({
+        x: centerX,
+        y: centerY,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: 1,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        size: Math.random() * 5 + 3,
+      });
     }
   };
 
@@ -380,57 +445,66 @@ function Example({ step }: { step: number }) {
       layout={true}
       transition={TRANSITION}
       className={clsx(
-        "@container rounded-3xl bg-black/5 p-2 outline outline-white/15 backdrop-blur-md dark:bg-white/10",
-        "w-[340px] xl:ml-[3rem]",
+        "@container rounded-3xl p-2 outline outline-white/15 backdrop-blur-md",
+        "w-[400px] xl:ml-[3rem]",
+        "bg-oatmeal-black/80"
       )}
     >
       <motion.div
-        className="relative flex w-full flex-col items-center gap-6 rounded-2xl bg-white p-7 outline outline-black/5 dark:bg-gray-950"
+        className="relative flex w-full flex-col items-center gap-4 rounded-2xl p-6"
+        style={{ backgroundColor: OATMEAL_COLORS.card }}
         layout={true}
         transition={TRANSITION}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
       >
-        <motion.button
-          onClick={handleButtonClick}
-          layout="position"
-          transition={TRANSITION}
-          className="rounded-4xl bg-gradient-to-r from-yaka-accent to-yaka-accent-dark px-8 py-3 text-lg font-semibold text-white shadow-lg hover:shadow-xl active:scale-95 transition-all"
-        >
-          Click me!
-        </motion.button>
+        <div className="text-center">
+          <h3 className="text-sm font-semibold mb-1" style={{ color: OATMEAL_COLORS.white }}>
+            Interactive Particle Canvas
+          </h3>
+          <p className="text-xs" style={{ color: OATMEAL_COLORS.stone }}>
+            {isHovering ? 'Move your mouse • Click for burst' : 'Hover to interact'}
+          </p>
+        </div>
 
-        {showCounter && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            layout="position"
-            transition={TRANSITION}
-            className="flex flex-col items-center gap-2 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 p-6 ring-1 ring-gray-950/10 dark:from-gray-900 dark:to-gray-800 dark:ring-white/10"
-          >
-            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Counter</span>
-            <motion.span
-              key={clickCount}
-              initial={{ scale: 1.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="text-4xl font-bold text-yaka-accent dark:text-yaka-accent"
-            >
-              {clickCount}
-            </motion.span>
-          </motion.div>
-        )}
+        <motion.canvas
+          ref={canvasRef}
+          width={360}
+          height={240}
+          onMouseMove={handleMouseMove}
+          onClick={handleClick}
+          className="cursor-crosshair rounded-xl"
+          style={{
+            backgroundColor: OATMEAL_COLORS.black,
+            boxShadow: `0 0 0 1px ${OATMEAL_COLORS.olive}, 0 4px 12px rgba(11, 10, 8, 0.5)`,
+          }}
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.2 }}
+        />
 
-        {showCelebration && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            layout="position"
-            transition={TRANSITION}
-            className="rounded-xl bg-gradient-to-r from-yaka-accent/10 to-yaka-accent-dark/10 px-6 py-4 text-center ring-1 ring-yaka-accent/20 dark:ring-yaka-accent/30"
-          >
-            <span className="text-xl font-semibold text-yaka-accent dark:text-yaka-accent">
-              🎉 Amazing!
-            </span>
-          </motion.div>
-        )}
+        <div className="flex gap-2 text-xs" style={{ color: OATMEAL_COLORS.stone }}>
+          <div className="flex items-center gap-1">
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: OATMEAL_COLORS.white }}
+            />
+            <span>Oatmeal White</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: OATMEAL_COLORS.stone }}
+            />
+            <span>Stone</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: OATMEAL_COLORS.olive }}
+            />
+            <span>Olive</span>
+          </div>
+        </div>
       </motion.div>
     </motion.div>
   );
@@ -462,35 +536,28 @@ function TypeWord({
 
   // Determine coloring based on content
   const getCharColor = (char: string, index: number, fullWord: string) => {
-    // For function names like addClass, on, fadeOut, etc.
-    if (fullWord.startsWith("('") && index < 2) return SYMBOL.color; // opening ('
+    // For function names like attr, css, on, etc.
+    if (fullWord.startsWith("({ ") || fullWord.includes(": ")) return undefined;
+    if (fullWord.startsWith("('") && index < 2) return SYMBOL.color;
     if (fullWord.includes("'") && fullWord.includes(")")) {
-      // Inside string parameters like ('btn') or ('click', () => {
       if (char === "(" || char === ")") return SYMBOL.color;
       if (char === "'") return STRING.color;
       if (fullWord.charAt(index - 1) === "'" || (index > 0 && fullWord.substring(0, index).includes("'") && !fullWord.substring(0, index).includes(")"))) {
-        // Inside string
         return STRING.color;
       }
     }
-    if (fullWord.startsWith("('#") || fullWord.startsWith("('&lt;") || fullWord.startsWith("('Click")) {
-      // YakaJS selector or HTML string
+    if (fullWord.startsWith("('#") || fullWord.startsWith("('&lt;") || fullWord.startsWith("(canvas")) {
       if (char === "(" || char === ")") return SYMBOL.color;
       return STRING.color;
     }
-    if (fullWord === "++" || fullWord === "(count)") return undefined; // Use default/white
-    if (fullWord.startsWith("(200)") || fullWord.startsWith("()")) return SYMBOL.color;
-    if (fullWord.includes(" === ") || fullWord.startsWith(" (count")) {
-      if (char === "(" || char === ")" || char === "=" || char === " ") return SYMBOL.color;
-      return NUMBER.color;
-    }
-    if (fullWord.includes("'🎉")) {
-      if (char === "(" || char === ")") return SYMBOL.color;
-      return STRING.color;
+    if (fullWord.includes("[") || fullWord === "]") return SYMBOL.color;
+    if (fullWord === ".push({" || fullWord === ");" || fullWord === ");") return SYMBOL.color;
+    if (fullWord.includes(": e.offset") || fullWord.includes(": colors[")) {
+      return undefined;
     }
     if (char === ")") return SYMBOL.color;
     
-    return undefined; // default color
+    return undefined;
   };
 
   return (
