@@ -25,7 +25,7 @@ export default async function Blog() {
 
   return (
     <div className="relative mx-auto mt-24 max-w-4xl px-4 sm:px-6 lg:px-8">
-      <div className="absolute -top-24 left-[100px] isolate z-0 not-xl:hidden xl:left-[200px]">
+      <div className="absolute -top-24 left-[200px] isolate z-0 not-xl:hidden xl:left-[300px]">
         <Keyboard />
       </div>
       <GridContainer>
