@@ -6,13 +6,14 @@ interface TableProps {
 }
 
 // Helper function to parse and render text with markdown-like bold syntax
+const BOLD_PATTERN = /\*\*(.*?)\*\*/g;
+
 function renderCellContent(content: string) {
   if (!content) return content;
   
   // Check if content contains **text** pattern for bold
   if (content.includes('**')) {
-    const boldPattern = /\*\*(.*?)\*\*/g;
-    const parts = content.split(boldPattern);
+    const parts = content.split(BOLD_PATTERN);
     return (
       <>
         {parts.map((part, index) => {
@@ -27,6 +28,11 @@ function renderCellContent(content: string) {
   }
   
   return content;
+}
+
+// Helper to detect category header rows
+function isCategoryHeaderRow(row: string[]): boolean {
+  return row[0].startsWith('**') && row.slice(1).every(cell => !cell || cell.trim() === '');
 }
 
 export function ComparisonTable({ headers, rows }: TableProps) {
@@ -48,8 +54,8 @@ export function ComparisonTable({ headers, rows }: TableProps) {
         </thead>
         <tbody>
           {rows.map((row, rowIndex) => {
-            // Check if this is a category header row (first cell has bold text and other cells are empty)
-            const isCategoryRow = row[0].startsWith('**') && row.slice(1).every(cell => !cell || cell.trim() === '');
+            // Check if this is a category header row
+            const isCategoryRow = isCategoryHeaderRow(row);
             
             return (
               <tr 
