@@ -63,14 +63,6 @@ export function NavListLink({
       href={href}
       {...props}
     >
-      {/* Active indicator dot */}
-      <span className={clsx(
-        "absolute left-0 w-1 h-1 rounded-full transition-all duration-150",
-        "opacity-0 -translate-x-1 bg-yaka-accent-dark dark:bg-yaka-accent",
-        "aria-[current]:opacity-100 aria-[current]:translate-x-0",
-        "group-hover:opacity-50 group-hover:translate-x-0"
-      )} aria-hidden="true" />
-      
       {/* Hover background effect */}
       <span className={clsx(
         "absolute inset-y-0 left-0 w-0 bg-gradient-to-r from-yaka-accent/10 to-transparent transition-all duration-150",
