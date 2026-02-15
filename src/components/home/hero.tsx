@@ -348,12 +348,10 @@ function Example({ step }: { step: number }) {
   const [nextId, setNextId] = useState(1);
   const [isHovering, setIsHovering] = useState(false);
 
-  const colors = [OATMEAL_COLORS.white, OATMEAL_COLORS.stone, OATMEAL_COLORS.olive];
-
   const addCard = () => {
     const newCard: Card = {
       id: nextId,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: OATMEAL_COLORS.white,
     };
     setCards([...cards, newCard]);
     setNextId(nextId + 1);
@@ -440,30 +438,6 @@ function Example({ step }: { step: number }) {
               </motion.div>
             ))
           )}
-        </div>
-
-        <div className="flex gap-2 text-xs flex-wrap justify-center" style={{ color: OATMEAL_COLORS.stone }}>
-          <div className="flex items-center gap-1">
-            <div
-              className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: OATMEAL_COLORS.white }}
-            />
-            <span>White</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <div
-              className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: OATMEAL_COLORS.stone }}
-            />
-            <span>Stone</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <div
-              className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: OATMEAL_COLORS.olive }}
-            />
-            <span>Olive</span>
-          </div>
         </div>
       </motion.div>
     </motion.div>
