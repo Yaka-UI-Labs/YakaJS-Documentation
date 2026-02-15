@@ -18,8 +18,8 @@ export function TR({ children }: { children: React.ReactNode }) {
   return <tr>{children}</tr>;
 }
 
-export function TH({ children }: { children: React.ReactNode }) {
-  return <th>{children}</th>;
+export function TH({ children, scope = "col" }: { children: React.ReactNode; scope?: "col" | "row" | "colgroup" | "rowgroup" }) {
+  return <th scope={scope}>{children}</th>;
 }
 
 export function TD({ children }: { children: React.ReactNode }) {
