@@ -45,7 +45,7 @@ export function ComparisonTable({ headers, rows }: TableProps) {
               <th
                 key={`header-${header}-${index}`}
                 scope="col"
-                className="px-6 py-4 text-left text-xs font-bold text-white dark:text-white uppercase tracking-wider border-r border-oatmeal-olive/30 dark:border-oatmeal-olive/40 last:border-r-0"
+                className="px-6 py-4 text-center text-xs font-bold text-white dark:text-white uppercase tracking-wider border-r border-oatmeal-olive/30 dark:border-oatmeal-olive/40 last:border-r-0"
               >
                 {header}
               </th>
