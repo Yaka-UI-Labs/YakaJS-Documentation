@@ -1,0 +1,480 @@
+import { authors } from "@/app/blog/authors";
+
+export const meta = {
+  title: "Getting Started with YakaJS Voice Commands",
+  description:
+    "Learn how to add voice control to your web applications with YakaJS. The only JavaScript library with built-in speech recognition and natural language processing.",
+  date: "2026-02-13T00:00:00.000Z",
+  authors: [authors.yakaTeam],
+  excerpt: (
+    <>
+      YakaJS is the only JavaScript library with built-in voice commands. Learn how to add
+      hands-free control to your web applications with natural language processing, custom
+      vocabularies, and smart command recognition—all in just a few lines of code.
+    </>
+  ),
+};
+
+# Getting Started with YakaJS Voice Commands
+
+Voice control is no longer just for mobile assistants. With YakaJS, you can add powerful voice commands to your web applications in minutes—no external APIs or services required.
+
+## Why Voice Commands?
+
+Voice interfaces offer unique benefits:
+
+- **Accessibility**: Help users with mobility or vision impairments
+- **Hands-Free**: Perfect for cooking apps, workout guides, or multi-tasking
+- **Modern UX**: Stand out with cutting-edge interaction patterns
+- **Efficiency**: Faster than clicking through menus
+
+And YakaJS makes it incredibly easy.
+
+## Basic Voice Commands
+
+Let's start with a simple example—voice-controlled navigation:
+
+```javascript
+// Enable voice recognition
+_.voice.listen({
+    'show menu': () => {
+        _('#menu').slideDown(300);
+    },
+    'hide menu': () => {
+        _('#menu').slideUp(300);
+    },
+    'go home': () => {
+        window.location.href = '/';
+    },
+    'scroll to top': () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+});
+```
+
+That's it! Your app now responds to voice commands.
+
+## Wildcard Parameters
+
+Capture user input with wildcards:
+
+```javascript
+_.voice.listen({
+    // Capture any text after "search for"
+    'search for *': (query) => {
+        performSearch(query);
+        _('#results').fadeIn();
+    },
+    
+    // Navigate to pages by name
+    'go to *': (page) => {
+        window.location.href = `/\${page}`;
+    },
+    
+    // Set values
+    'set volume to *': (level) => {
+        const volume = parseInt(level) / 100;
+        setAudioVolume(volume);
+    }
+});
+```
+
+## Multi-Language Support
+
+YakaJS supports 50+ languages:
+
+```javascript
+// Spanish commands
+_.voice.listen({
+    'mostrar menú': () => _('#menu').slideDown(),
+    'ocultar menú': () => _('#menu').slideUp()
+}, { language: 'es-ES' });
+
+// French commands
+_.voice.listen({
+    'afficher le menu': () => _('#menu').slideDown(),
+    'cacher le menu': () => _('#menu').slideUp()
+}, { language: 'fr-FR' });
+
+// Japanese commands
+_.voice.listen({
+    'メニューを表示': () => _('#menu').slideDown(),
+    'メニューを隠す': () => _('#menu').slideUp()
+}, { language: 'ja-JP' });
+```
+
+## Advanced Features
+
+### 1. Confidence Threshold
+
+Filter out uncertain matches:
+
+```javascript
+_.voice.listen({
+    'delete everything': () => {
+        if (confirm('Are you sure?')) {
+            deleteAllData();
+        }
+    }
+}, {
+    confidence: 0.8  // Only trigger if 80%+ confident
+});
+```
+
+### 2. Custom Vocabulary
+
+Add domain-specific terms:
+
+```javascript
+_.voice.listen({
+    'show *': (component) => {
+        _(`#\${component}`).fadeIn();
+    }
+}, {
+    vocabulary: [
+        'sidebar',
+        'navbar',
+        'dashboard',
+        'settings',
+        'analytics'
+    ]
+});
+```
+
+### 3. Contextual Commands
+
+Commands that change based on app state:
+
+```javascript
+const isMenuOpen = _.signal(false);
+
+// Dynamic command registration
+_.effect(() => {
+    if (isMenuOpen()) {
+        _.voice.listen({
+            'hide menu': () => {
+                _('#menu').slideUp();
+                isMenuOpen.set(false);
+            },
+            'select *': (item) => {
+                selectMenuItem(item);
+            }
+        });
+    } else {
+        _.voice.listen({
+            'show menu': () => {
+                _('#menu').slideDown();
+                isMenuOpen.set(true);
+            }
+        });
+    }
+});
+```
+
+### 4. Continuous vs. Single Recognition
+
+```javascript
+// Continuous listening (default)
+_.voice.listen({
+    'next': () => nextSlide(),
+    'previous': () => previousSlide(),
+    'pause': () => pausePresentation()
+}, {
+    continuous: true  // Keeps listening
+});
+
+// Single command
+_.voice.listen({
+    'start recording': () => {
+        startRecording();
+    }
+}, {
+    continuous: false  // Stops after one command
+});
+```
+
+## Real-World Examples
+
+### Example 1: Voice-Controlled Todo App
+
+```javascript
+const todos = _.signal([]);
+
+_.voice.listen({
+    'add task *': (task) => {
+        todos.set([...todos(), {
+            id: Date.now(),
+            text: task,
+            done: false
+        }]);
+        _.voice.speak(`Added: \${task}`);
+    },
+    
+    'complete task *': (taskName) => {
+        todos.set(todos().map(t =>
+            t.text.toLowerCase().includes(taskName.toLowerCase())
+                ? { ...t, done: true }
+                : t
+        ));
+        _.voice.speak(`Completed: \${taskName}`);
+    },
+    
+    'delete task *': (taskName) => {
+        todos.set(todos().filter(t =>
+            !t.text.toLowerCase().includes(taskName.toLowerCase())
+        ));
+        _.voice.speak(`Deleted: \${taskName}`);
+    },
+    
+    'list tasks': () => {
+        const taskList = todos()
+            .filter(t => !t.done)
+            .map(t => t.text)
+            .join(', ');
+        _.voice.speak(`You have: \${taskList}`);
+    }
+});
+```
+
+### Example 2: Voice-Controlled Music Player
+
+```javascript
+const player = {
+    playing: _.signal(false),
+    volume: _.signal(0.5),
+    currentSong: _.signal(null)
+};
+
+_.voice.listen({
+    'play': () => {
+        resumePlayback();
+        player.playing.set(true);
+    },
+    
+    'pause': () => {
+        pausePlayback();
+        player.playing.set(false);
+    },
+    
+    'next song': () => {
+        playNextSong();
+    },
+    
+    'previous song': () => {
+        playPreviousSong();
+    },
+    
+    'volume *': (level) => {
+        const vol = parseInt(level) / 100;
+        player.volume.set(vol);
+        setVolume(vol);
+    },
+    
+    'play *': (songName) => {
+        const song = findSong(songName);
+        if (song) {
+            playSong(song);
+            player.currentSong.set(song);
+        }
+    },
+    
+    'what song is this': () => {
+        const song = player.currentSong();
+        _.voice.speak(`Now playing: \${song.title} by \${song.artist}`);
+    }
+});
+```
+
+### Example 3: Voice-Controlled E-Commerce
+
+```javascript
+const cart = _.signal([]);
+
+_.voice.listen({
+    'add * to cart': (product) => {
+        const item = findProduct(product);
+        if (item) {
+            cart.set([...cart(), item]);
+            _.voice.speak(`Added \${item.name} to cart`);
+        }
+    },
+    
+    'remove * from cart': (product) => {
+        cart.set(cart().filter(item =>
+            !item.name.toLowerCase().includes(product.toLowerCase())
+        ));
+        _.voice.speak(`Removed \${product}`);
+    },
+    
+    'show cart': () => {
+        _('#cart-modal').fadeIn();
+    },
+    
+    'checkout': () => {
+        window.location.href = '/checkout';
+    },
+    
+    'search for *': (query) => {
+        performProductSearch(query);
+        _('#search-results').fadeIn();
+    }
+});
+```
+
+## Voice Feedback
+
+Provide audio feedback with text-to-speech:
+
+```javascript
+_.voice.listen({
+    'what time is it': () => {
+        const time = new Date().toLocaleTimeString();
+        _.voice.speak(`The time is \${time}`);
+    },
+    
+    'how many items in cart': () => {
+        const count = cart().length;
+        _.voice.speak(`You have \${count} items in your cart`);
+    }
+});
+```
+
+## Visual Feedback
+
+Show users when voice is active:
+
+```javascript
+const isListening = _.signal(false);
+
+_.voice.onStart(() => {
+    isListening.set(true);
+    _('#mic-indicator').addClass('active').fadeIn();
+});
+
+_.voice.onEnd(() => {
+    isListening.set(false);
+    _('#mic-indicator').removeClass('active').fadeOut();
+});
+
+_.voice.onError((error) => {
+    console.error('Voice error:', error);
+    _('#error-message').text(error.message).fadeIn();
+});
+```
+
+## Browser Compatibility
+
+YakaJS voice commands work in all modern browsers:
+
+- ✅ Chrome/Edge (excellent support)
+- ✅ Safari 14.1+ (good support)
+- ✅ Firefox 112+ (good support)
+- ⚠️ Mobile browsers (varies by OS)
+
+```javascript
+// Check for voice support
+if (_.voice.isSupported()) {
+    _.voice.listen({ /* commands */ });
+} else {
+    console.warn('Voice commands not supported');
+}
+```
+
+## Best Practices
+
+### 1. Keep Commands Natural
+
+```javascript
+// ✅ Good: Natural language
+_.voice.listen({
+    'show me the menu': () => showMenu(),
+    'what are my options': () => showOptions()
+});
+
+// ❌ Bad: Robotic commands
+_.voice.listen({
+    'execute menu display': () => showMenu(),
+    'options output': () => showOptions()
+});
+```
+
+### 2. Provide Visual Cues
+
+Always show users:
+- When voice is listening
+- What was recognized
+- Confirmation of action taken
+
+### 3. Handle Errors Gracefully
+
+```javascript
+_.voice.onError((error) => {
+    if (error.code === 'no-speech') {
+        _.voice.speak("I didn't catch that. Please try again.");
+    } else if (error.code === 'not-allowed') {
+        alert('Please enable microphone access');
+    }
+});
+```
+
+### 4. Offer Alternatives
+
+Not everyone can or wants to use voice. Always provide:
+- Keyboard shortcuts
+- Mouse/touch controls
+- Traditional UI elements
+
+## Privacy & Security
+
+YakaJS voice processing happens **locally in the browser**:
+
+- ✅ No data sent to external servers
+- ✅ No third-party APIs
+- ✅ Respects user privacy
+- ✅ Works offline
+
+## Performance
+
+Voice recognition is lightweight:
+
+- ~2KB additional bundle size
+- Minimal CPU usage
+- No impact when not in use
+- Automatic cleanup on unmount
+
+## Getting Started
+
+Enable voice commands in your app today:
+
+```javascript
+// 1. Basic setup
+_.voice.listen({
+    'hello': () => _.voice.speak('Hello! How can I help?')
+});
+
+// 2. Add your commands
+_.voice.listen({
+    'show dashboard': () => navigate('/dashboard'),
+    'open settings': () => openSettings(),
+    'search for *': (query) => search(query)
+});
+
+// 3. Customize behavior
+_.voice.configure({
+    language: 'en-US',
+    continuous: true,
+    confidence: 0.7
+});
+```
+
+## Next Steps
+
+Explore more voice capabilities:
+
+- [Voice API Reference](https://yakajs.org/docs/yakajs-voice-commands)
+- [Advanced Examples](https://yakajs.org/showcase)
+- [GitHub Discussions](https://github.com/Yaka-UI-Labs/YakaJS/discussions)
+
+Voice control is the future of web interaction. With YakaJS, that future is here today.
+
+**Start building voice-enabled applications now!**
