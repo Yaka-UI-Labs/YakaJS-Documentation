@@ -14,7 +14,7 @@ type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 export function NavListHeading({ children, level = 3 }: React.PropsWithChildren<{ level?: HeadingLevel }>) {
   let Element: `h${HeadingLevel}` = `h${level}`;
   return (
-    <Element className="py-1.5 font-mono text-xs font-semibold tracking-widest text-oatmeal-stone/70 uppercase dark:text-oatmeal-white/70">
+    <Element className="py-1.5 font-mono text-xs font-bold tracking-widest text-oatmeal-white uppercase dark:text-oatmeal-white">
       {children}
     </Element>
   );
