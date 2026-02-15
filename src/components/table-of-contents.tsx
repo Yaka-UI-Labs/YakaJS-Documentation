@@ -65,7 +65,7 @@ export default function TableOfContents({ tableOfContents }: { tableOfContents: 
       if (scrollTimeout) {
         clearTimeout(scrollTimeout);
       }
-      scrollTimeout = setTimeout(updateActiveSection, 10);
+      scrollTimeout = setTimeout(updateActiveSection, 100);
     };
 
     // Initial update
