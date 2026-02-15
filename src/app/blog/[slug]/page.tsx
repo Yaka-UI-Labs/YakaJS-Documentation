@@ -3,6 +3,7 @@ import React from "react";
 import { formatDate, getBlogPostBySlug, getBlogPostSlugs } from "../api";
 import Image from "next/image";
 import GridContainer from "@/components/grid-container";
+import { NewsletterForm } from "@/components/newsletter-form";
 import type { Metadata } from "next/types";
 
 type Props = {
@@ -67,41 +68,56 @@ export default async function BlogPost(props: Props) {
       {/* Add a placeholder div so the Next.js router can find the scrollable element. */}
       <div hidden />
 
-      <div className="grid grid-cols-1 xl:grid-cols-[22rem_2.5rem_auto] xl:grid-rows-[1fr_auto]">
-        <div className="col-start-2 row-span-2 border-r border-l border-gray-950/5 max-xl:hidden dark:border-white/10"></div>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 xl:grid-cols-[22rem_2.5rem_auto] xl:grid-rows-[1fr_auto]">
+          <div className="col-start-2 row-span-2 border-r border-l border-gray-950/5 max-xl:hidden dark:border-white/10"></div>
 
-        <div className="max-xl:mx-auto max-xl:w-full max-xl:max-w-(--breakpoint-md)">
-          <div className="mt-16 px-4 font-mono text-sm/7 font-medium tracking-widest text-gray-500 uppercase lg:px-2">
-            <time dateTime={post.meta.date}>{formatDate(post.meta.date)}</time>
+          <div className="max-xl:mx-auto max-xl:w-full max-xl:max-w-(--breakpoint-md)">
+            <div className="mt-16 px-4 font-mono text-sm/7 font-medium tracking-widest text-gray-500 uppercase lg:px-2">
+              <time dateTime={post.meta.date}>{formatDate(post.meta.date)}</time>
+            </div>
+
+            <GridContainer className="mb-6 px-4 lg:px-2 xl:mb-16">
+              <h1 className="inline-block max-w-(--breakpoint-md) text-[2.5rem]/10 tracking-tight text-pretty text-gray-950 max-lg:font-medium lg:text-6xl dark:text-white">
+                {post.meta.title}
+              </h1>
+            </GridContainer>
           </div>
 
-          <GridContainer className="mb-6 px-4 lg:px-2 xl:mb-16">
-            <h1 className="inline-block max-w-(--breakpoint-md) text-[2.5rem]/10 tracking-tight text-pretty text-gray-950 max-lg:font-medium lg:text-6xl dark:text-white">
-              {post.meta.title}
-            </h1>
-          </GridContainer>
-        </div>
-
-        <div className="max-xl:mx-auto max-xl:w-full max-xl:max-w-(--breakpoint-md)">
-          <div className="flex flex-col gap-4">
-            {post.meta.authors.map((author) => (
-              <GridContainer
-                direction="to-left"
-                key={author.twitter}
-                className="flex items-center px-4 py-2 font-medium whitespace-nowrap max-xl:before:-left-[100vw]! max-xl:after:-left-[100vw]! xl:px-2 xl:before:hidden"
-              >
-                <Author author={author} />
-              </GridContainer>
-            ))}
+          <div className="max-xl:mx-auto max-xl:w-full max-xl:max-w-(--breakpoint-md)">
+            <div className="flex flex-col gap-4">
+              {post.meta.authors.map((author) => (
+                <GridContainer
+                  direction="to-left"
+                  key={author.twitter}
+                  className="flex items-center px-4 py-2 font-medium whitespace-nowrap max-xl:before:-left-[100vw]! max-xl:after:-left-[100vw]! xl:px-2 xl:before:hidden"
+                >
+                  <Author author={author} />
+                </GridContainer>
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div className="max-xl:mx-auto max-xl:mt-16 max-xl:w-full max-xl:max-w-(--breakpoint-md)">
-          <GridContainer className="px-4 py-2 lg:px-2">
-            <article className="prose prose-blog max-w-(--breakpoint-md) dark:prose-invert">
-              <post.Component />
-            </article>
-          </GridContainer>
+          <div className="max-xl:mx-auto max-xl:mt-16 max-xl:w-full max-xl:max-w-(--breakpoint-md)">
+            <GridContainer className="px-4 py-2 lg:px-2">
+              <article className="prose prose-blog max-w-3xl dark:prose-invert">
+                <post.Component />
+              </article>
+            </GridContainer>
+
+            <GridContainer className="mt-16 px-4 py-4 sm:py-2 lg:px-2">
+              <section className="max-w-2xl">
+                <h2 className="text-3xl font-medium tracking-tight text-gray-950 dark:text-white">
+                  Get all of our updates directly to your&nbsp;inbox.
+                  <br />
+                  Sign up for our newsletter.
+                </h2>
+                <div className="mt-10">
+                  <NewsletterForm action="https://app.convertkit.com/forms/yakajs/subscriptions" />
+                </div>
+              </section>
+            </GridContainer>
+          </div>
         </div>
       </div>
     </>

@@ -5,14 +5,9 @@ export type Author = {
 };
 
 export const authors = {
-  yakaTeam: {
-    name: "YakaJS Team",
-    twitter: "yakajs",
-    avatar: "/images/authors/yaka-team.jpg",
-  },
-  dillLk: {
-    name: "Dill LK",
+  jinukChanthusa: {
+    name: "Jinuk Chanthusa",
     twitter: "dill_lk",
-    avatar: "/images/authors/dill-lk.jpg",
+    avatar: "https://avatars.githubusercontent.com/u/241706614?v=4&size=64",
   },
 } satisfies Record<string, Author>;

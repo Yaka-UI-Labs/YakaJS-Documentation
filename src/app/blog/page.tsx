@@ -1,5 +1,6 @@
 import { Keyboard } from "@/components/blog/keyboard";
 import GridContainer from "@/components/grid-container";
+import { NewsletterForm } from "@/components/newsletter-form";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Fragment } from "react";
@@ -23,7 +24,7 @@ export default async function Blog() {
     .filter((post) => !post.meta.private);
 
   return (
-    <div className="relative mx-auto mt-24 max-lg:max-w-2xl">
+    <div className="relative mx-auto mt-24 max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="absolute -top-24 -right-32 isolate z-0 not-xl:hidden">
         <Keyboard />
       </div>
@@ -37,6 +38,12 @@ export default async function Blog() {
         <p className="mx-2 text-lg text-gray-700 dark:text-gray-300">
           All the latest YakaJS news, straight from the team.
         </p>
+      </GridContainer>
+
+      <GridContainer className="mt-10">
+        <div className="mx-2 max-w-2xl">
+          <NewsletterForm action="https://app.convertkit.com/forms/yakajs/subscriptions" />
+        </div>
       </GridContainer>
 
       <div className="mt-12 mb-46 grid grid-cols-1 lg:grid-cols-[24rem_2.5rem_minmax(0,1fr)]">
