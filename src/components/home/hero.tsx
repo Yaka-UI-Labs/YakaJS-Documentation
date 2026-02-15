@@ -339,19 +339,23 @@ function Example({ step }: { step: number }) {
     <motion.div
       layout={true}
       transition={TRANSITION}
-      className="@container rounded-3xl bg-black/5 p-4 outline outline-white/15 backdrop-blur-md dark:bg-white/10 w-[320px]"
+      className="@container rounded-3xl bg-gradient-to-br from-oatmeal-card/40 to-oatmeal-olive/30 p-1 shadow-2xl backdrop-blur-md dark:from-oatmeal-card/60 dark:to-oatmeal-olive/40 w-[340px]"
     >
       <motion.div
-        className="relative flex w-full flex-col gap-4 rounded-2xl bg-white p-6 outline outline-black/5 dark:bg-gray-950"
+        className="relative flex w-full flex-col gap-5 rounded-[1.3rem] bg-gradient-to-br from-white to-gray-50/80 p-7 shadow-inner dark:from-oatmeal-card dark:to-oatmeal-darkest"
         layout={true}
         transition={TRANSITION}
       >
+        {/* Decorative gradient orb */}
+        <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-gradient-to-br from-oatmeal-white/20 to-oatmeal-stone/10 blur-2xl" />
+        
         <motion.button
           layout="position"
           transition={TRANSITION}
-          className="rounded-lg bg-yaka-accent px-6 py-3 text-lg font-semibold text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
+          className="relative overflow-hidden rounded-xl bg-gradient-to-r from-oatmeal-stone to-oatmeal-olive px-8 py-4 text-lg font-bold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl active:scale-95 dark:from-oatmeal-white dark:to-oatmeal-light dark:text-oatmeal-darkest"
         >
-          Click Me!
+          <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 transition-opacity hover:opacity-100" />
+          <span className="relative z-10">Click Me!</span>
         </motion.button>
         
         {step >= 2 && (
@@ -367,10 +371,18 @@ function Example({ step }: { step: number }) {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={TRANSITION}
-              className="text-2xl font-bold text-gray-900 dark:text-white"
+              className="rounded-lg border-2 border-oatmeal-olive/30 bg-gradient-to-br from-oatmeal-white/10 to-oatmeal-stone/5 p-4 shadow-md backdrop-blur-sm dark:border-oatmeal-stone/30 dark:from-oatmeal-olive/20 dark:to-oatmeal-darkest/40"
               id="counter"
             >
-              Clicked {count} {count === 1 ? 'time' : 'times'}
+              <div className="text-sm font-semibold uppercase tracking-wider text-oatmeal-olive dark:text-oatmeal-stone">
+                Counter
+              </div>
+              <div className="mt-1 text-3xl font-extrabold text-oatmeal-darkest dark:text-oatmeal-white">
+                {count}
+              </div>
+              <div className="mt-1 text-xs font-medium text-oatmeal-stone dark:text-oatmeal-medium">
+                {count === 1 ? 'click' : 'clicks'}
+              </div>
             </motion.div>
           </motion.div>
         )}
@@ -383,8 +395,17 @@ function Example({ step }: { step: number }) {
             layout="position"
             className="overflow-hidden"
           >
-            <div className="rounded-lg bg-yaka-accent/10 p-4 text-center" id="message">
-              <span className="text-xl">🎉 Five clicks!</span>
+            <div 
+              className="rounded-xl border-2 border-oatmeal-white/50 bg-gradient-to-br from-oatmeal-white/30 to-oatmeal-light/20 p-5 text-center shadow-lg backdrop-blur-sm dark:border-oatmeal-light/30 dark:from-oatmeal-white/10 dark:to-oatmeal-stone/5" 
+              id="message"
+            >
+              <div className="text-3xl mb-2 animate-bounce">🎉</div>
+              <div className="text-xl font-bold text-oatmeal-darkest dark:text-oatmeal-white">
+                Five clicks!
+              </div>
+              <div className="mt-1 text-sm font-medium text-oatmeal-olive dark:text-oatmeal-stone">
+                You're doing great!
+              </div>
             </div>
           </motion.div>
         )}
