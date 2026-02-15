@@ -89,7 +89,7 @@ const components = {
   },
   
   th(props) {
-    return <th>{props.children}</th>;
+    return <th scope="col">{props.children}</th>;
   },
   
   td(props) {
