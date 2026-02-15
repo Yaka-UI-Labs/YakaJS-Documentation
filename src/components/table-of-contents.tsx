@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { NavList, NavListHeading, NavListItem, NavListItems, NavListLink } from "./nav-list";
 
 export type TOCEntry = {
@@ -12,12 +12,19 @@ export type TOCEntry = {
 
 export default function TableOfContents({ tableOfContents }: { tableOfContents: TOCEntry[] }) {
   let [activeSection, setActiveSection] = useState<string | null>(null);
+  
+  // Memoize the first TOC slug so it doesn't change on every render
+  const firstTOCSlug = useMemo(() => 
+    tableOfContents.length > 0 ? tableOfContents[0].slug : null,
+    [tableOfContents]
+  );
+  
   useEffect(() => {
     const root = document.querySelector('[data-content="true"]');
     if (!root) return;
 
-    // Collect all headings (H2 and H3) directly
-    const headings = Array.from(root.querySelectorAll('h2[id], h3[id]')) as HTMLElement[];
+    // Collect all headings (H1, H2 and H3) directly
+    const headings = Array.from(root.querySelectorAll('h1[id], h2[id], h3[id]')) as HTMLElement[];
     if (headings.length === 0) return;
 
     const headingIds = new Map<HTMLElement, string>();
@@ -50,12 +57,9 @@ export default function TableOfContents({ tableOfContents }: { tableOfContents: 
         if (headingId) {
           setActiveSection(headingId);
         }
-      } else if (headings.length > 0) {
-        // If we're at the very top, highlight the first section
-        const headingId = headingIds.get(headings[0]);
-        if (headingId) {
-          setActiveSection(headingId);
-        }
+      } else if (firstTOCSlug) {
+        // If we're at the very top (above all tracked headings), use the first TOC entry
+        setActiveSection(firstTOCSlug);
       }
     };
 
@@ -80,7 +84,7 @@ export default function TableOfContents({ tableOfContents }: { tableOfContents: 
         clearTimeout(scrollTimeout);
       }
     };
-  }, []);
+  }, [firstTOCSlug]);
 
   return (
     <NavList>
