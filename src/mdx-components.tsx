@@ -117,7 +117,7 @@ const components = {
 
     return (
       <div>
-        <CodeExample example={{ lang, code }} className="not-prose" filename={filename} />
+        <CodeExample example={{ lang, code }} className="not-prose" filename={filename} copyable={true} />
       </div>
     );
   },
