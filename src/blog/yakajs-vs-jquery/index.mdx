@@ -1,4 +1,5 @@
 import { authors } from "@/app/blog/authors";
+import { ComparisonTable } from "@/components/comparison-table";
 
 export const meta = {
   title: "YakaJS vs jQuery: Why It's Time to Upgrade",
@@ -317,24 +318,27 @@ _(document).on('click', '.button', function() {
 
 _Prepare yourself for some hard truths. This table is about to roast jQuery harder than your CPU running Electron apps._ 🔥
 
-| Feature | jQuery 3.x | YakaJS 1.1 | Improvement |
-|---------|-----------|-----------|-------------|
-| DOM Manipulation | ✓ | ✓ | Same great API |
-| Event Handling | ✓ | ✓ Enhanced | Better performance |
-| Basic Animations | ✓ 4 effects | ✓ | Same |
-| Advanced Effects | ✗ | ✓ 15+ | Huge upgrade |
-| State Management | ✗ | ✓ Signals | Modern reactivity |
-| Computed Values | ✗ | ✓ | Automatic updates |
-| SPA Routing | ✗ | ✓ Full router | No extra library |
-| Voice Commands | ✗ | ✓ Built-in | Industry first |
-| XSS Protection | Manual | ✓ Automatic | Safer by default |
-| CSRF Tokens | Manual | ✓ Automatic | Security built-in |
-| Virtual Scroll | ✗ | ✓ | Handle 10k+ items |
-| Command Palette | ✗ | ✓ | VS Code-style UI |
-| AJAX Retry | ✗ | ✓ | Better reliability |
-| Progress Tracking | ✗ | ✓ | UX improvement |
-| TypeScript | Community | ✓ Official | Better DX |
-| Bundle Size | 87 KB | 151 KB | +74% for 3x features |
+<ComparisonTable 
+  headers={["Feature", "jQuery 3.x", "YakaJS 1.1", "Improvement"]}
+  rows={[
+    ["DOM Manipulation", "✓", "✓", "Same great API"],
+    ["Event Handling", "✓", "✓ Enhanced", "Better performance"],
+    ["Basic Animations", "✓ 4 effects", "✓", "Same"],
+    ["Advanced Effects", "✗", "✓ 15+", "Huge upgrade"],
+    ["State Management", "✗", "✓ Signals", "Modern reactivity"],
+    ["Computed Values", "✗", "✓", "Automatic updates"],
+    ["SPA Routing", "✗", "✓ Full router", "No extra library"],
+    ["Voice Commands", "✗", "✓ Built-in", "Industry first"],
+    ["XSS Protection", "Manual", "✓ Automatic", "Safer by default"],
+    ["CSRF Tokens", "Manual", "✓ Automatic", "Security built-in"],
+    ["Virtual Scroll", "✗", "✓", "Handle 10k+ items"],
+    ["Command Palette", "✗", "✓", "VS Code-style UI"],
+    ["AJAX Retry", "✗", "✓", "Better reliability"],
+    ["Progress Tracking", "✗", "✓", "UX improvement"],
+    ["TypeScript", "Community", "✓ Official", "Better DX"],
+    ["Bundle Size", "87 KB", "151 KB", "+74% for 3x features"],
+  ]}
+/>
 
 ## Migration is Easy
 
@@ -344,8 +348,13 @@ Switching from jQuery to YakaJS is easier than switching from coffee to tea. And
 
 ```bash
 npm install yakajs
-# or
-<script src="https://cdn.yakajs.org/1.1/yaka.min.js"></script>
+```
+
+Or use the CDN (just drop this in your HTML and you're good to go!):
+
+```html
+<!-- Just drop this in your HTML and you're good to go! -->
+<script src="https://cdn.jsdelivr.net/gh/Yaka-UI-Labs/YakaJS@latest/dist/min.yaka.js"></script>
 ```
 
 ### Step 2: Global Find & Replace
