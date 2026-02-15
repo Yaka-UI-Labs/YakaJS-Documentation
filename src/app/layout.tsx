@@ -160,7 +160,7 @@ export default async function RootLayout({
         <link rel="alternate" type="application/json" title="JSON Feed" href="/feeds/feed.json" />
         <meta name="apple-mobile-web-app-title" content="YakaJS" />
         <meta name="application-name" content="YakaJS" />
-        <meta name="msapplication-TileColor" content="#38bdf8" />
+        <meta name="msapplication-TileColor" content="#0B0A08" />
         <meta name="msapplication-config" content={v("/favicons/browserconfig.xml")} />
         <script type="text/javascript" dangerouslySetInnerHTML={{ __html: darkModeScript }}></script>
         {/*

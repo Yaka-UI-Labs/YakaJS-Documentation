@@ -73,7 +73,7 @@ export default function TableOfContents({ tableOfContents }: { tableOfContents: 
     };
 
     const observer = new IntersectionObserver(callback, {
-      rootMargin: "-100px 0px -80% 0px",
+      rootMargin: "-100px 0px -50% 0px",
       threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
     });
 
