@@ -67,8 +67,7 @@ export function NavListLink({
       <span className={clsx(
         "absolute left-0 w-1 h-1 rounded-full transition-all duration-150",
         "opacity-0 -translate-x-1 bg-yaka-accent-dark dark:bg-yaka-accent",
-        "aria-[current=location]:opacity-100 aria-[current=location]:translate-x-0",
-        "group-hover:opacity-50 group-hover:translate-x-0"
+        "aria-[current=location]:opacity-100 aria-[current=location]:translate-x-0"
       )} aria-hidden="true" />
       
       {/* Hover background effect */}
