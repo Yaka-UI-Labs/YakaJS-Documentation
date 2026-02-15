@@ -70,8 +70,8 @@ const Hero: React.FC = () => {
           <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">_('#id')</span>,{" "}
           <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.on()</span>,{" "}
           <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.animate()</span> and{" "}
-          <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.css()</span> that makes
-          DOM manipulation, canvas art, and animations effortless.
+          <span className="font-mono text-[1.0625rem] text-yaka-accent dark:text-yaka-accent">.fadeIn()</span> that makes
+          DOM manipulation, dynamic content, and animations effortless.
         </p>
       </GridContainer>
       <GridContainer className="mt-10 px-4 sm:hidden">
@@ -121,92 +121,23 @@ const Hero: React.FC = () => {
                   <code>
                     <code>
                       <span className="line">
-                        <span style={COMMENT}>// Interactive particle canvas with Oatmeal colors</span>
+                        <span style={COMMENT}>// Dynamic card creation with animations</span>
                       </span>
                       <span className="line">
-                        <span style={KEYWORD}>const</span>
-                        <span style={{ color: "var(--color-slate-50)" }}> canvas </span>
+                        <span style={KEYWORD}>let</span>
+                        <span style={{ color: "var(--color-slate-50)" }}> cardId </span>
                         <span style={SYMBOL}>= </span>
-                        <span style={FUNCTION}>_</span>
-                        <span style={SYMBOL}>(</span>
-                        <span style={STRING}>
-                          '&lt;canvas&gt;
+                        <span style={NUMBER}>
+                          0
                           <TypeWord
                             isTyping={isTyping}
-                            word="&lt;/canvas&gt;'"
+                            word=";"
                             step={0}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
                         </span>
-                        <span style={SYMBOL}>)</span>
-                      </span>
-                      <span className="line">
-                        <span>{"  "}</span>
-                        <span style={SYMBOL}>.</span>
-                        <span style={FUNCTION}>
-                          attr
-                          <TypeWord
-                            isTyping={isTyping}
-                            word="({ width: 400, height: 300 })"
-                            step={1}
-                            currentStep={step}
-                            onNextStep={nextStep}
-                            autostart={shouldAutostartTypingAnimations}
-                          />
-                        </span>
-                      </span>
-                      <span className="line">
-                        <span>{"  "}</span>
-                        <span style={SYMBOL}>.</span>
-                        <span style={FUNCTION}>
-                          css
-                          <TypeWord
-                            isTyping={isTyping}
-                            word="({ borderRadius: '12px' })"
-                            step={2}
-                            currentStep={step}
-                            onNextStep={nextStep}
-                            autostart={shouldAutostartTypingAnimations}
-                          />
-                        </span>
-                        <span style={SYMBOL}>;</span>
-                      </span>
-                      <span className="line"></span>
-                      <span className="line">
-                        <span style={KEYWORD}>const</span>
-                        <span style={{ color: "var(--color-slate-50)" }}> particles </span>
-                        <span style={SYMBOL}>= </span>
-                        <span style={SYMBOL}>
-                          [
-                          <TypeWord
-                            isTyping={isTyping}
-                            word="]"
-                            step={3}
-                            currentStep={step}
-                            onNextStep={nextStep}
-                            autostart={shouldAutostartTypingAnimations}
-                          />
-                        </span>
-                        <span style={SYMBOL}>;</span>
-                      </span>
-                      <span className="line">
-                        <span style={KEYWORD}>const</span>
-                        <span style={{ color: "var(--color-slate-50)" }}> colors </span>
-                        <span style={SYMBOL}>= </span>
-                        <span style={SYMBOL}>
-                          [
-                          <TypeWord
-                            isTyping={isTyping}
-                            word="'#E7E5E4', '#A8A29E', '#2B2922'"
-                            step={4}
-                            currentStep={step}
-                            onNextStep={nextStep}
-                            autostart={shouldAutostartTypingAnimations}
-                          />
-                        </span>
-                        <span style={SYMBOL}>];</span>
                       </span>
                       <span className="line"></span>
                       <span className="line">
@@ -214,8 +145,8 @@ const Hero: React.FC = () => {
                           _
                           <TypeWord
                             isTyping={isTyping}
-                            word="(canvas)"
-                            step={5}
+                            word="('#add-btn')"
+                            step={1}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
@@ -226,8 +157,8 @@ const Hero: React.FC = () => {
                           on
                           <TypeWord
                             isTyping={isTyping}
-                            word="('mousemove', (e) => {"
-                            step={6}
+                            word="('click', () => {"
+                            step={2}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
@@ -236,11 +167,75 @@ const Hero: React.FC = () => {
                       </span>
                       <span className="line">
                         <span>{"  "}</span>
+                        <span style={KEYWORD}>const</span>
                         <span style={{ color: "var(--color-slate-50)" }}>
-                          particles
+                          {" card "}
                           <TypeWord
                             isTyping={isTyping}
-                            word=".push({"
+                            word="= _"
+                            step={3}
+                            currentStep={step}
+                            onNextStep={nextStep}
+                            autostart={shouldAutostartTypingAnimations}
+                          />
+                        </span>
+                        <span style={SYMBOL}>(</span>
+                        <span style={STRING}>'&lt;div&gt;'</span>
+                        <span style={SYMBOL}>)</span>
+                      </span>
+                      <span className="line">
+                        <span>{"    "}</span>
+                        <span style={SYMBOL}>.</span>
+                        <span style={FUNCTION}>
+                          addClass
+                          <TypeWord
+                            isTyping={isTyping}
+                            word="('card')"
+                            step={4}
+                            currentStep={step}
+                            onNextStep={nextStep}
+                            autostart={shouldAutostartTypingAnimations}
+                          />
+                        </span>
+                      </span>
+                      <span className="line">
+                        <span>{"    "}</span>
+                        <span style={SYMBOL}>.</span>
+                        <span style={FUNCTION}>
+                          html
+                          <TypeWord
+                            isTyping={isTyping}
+                            word="(`Card ${++cardId}`)"
+                            step={5}
+                            currentStep={step}
+                            onNextStep={nextStep}
+                            autostart={shouldAutostartTypingAnimations}
+                          />
+                        </span>
+                      </span>
+                      <span className="line">
+                        <span>{"    "}</span>
+                        <span style={SYMBOL}>.</span>
+                        <span style={FUNCTION}>
+                          css
+                          <TypeWord
+                            isTyping={isTyping}
+                            word="({ opacity: 0, transform: 'scale(0.8)' })"
+                            step={6}
+                            currentStep={step}
+                            onNextStep={nextStep}
+                            autostart={shouldAutostartTypingAnimations}
+                          />
+                        </span>
+                      </span>
+                      <span className="line">
+                        <span>{"    "}</span>
+                        <span style={SYMBOL}>.</span>
+                        <span style={FUNCTION}>
+                          appendTo
+                          <TypeWord
+                            isTyping={isTyping}
+                            word="('#cards')"
                             step={7}
                             currentStep={step}
                             onNextStep={nextStep}
@@ -250,39 +245,40 @@ const Hero: React.FC = () => {
                       </span>
                       <span className="line">
                         <span>{"    "}</span>
-                        <span style={{ color: "var(--color-slate-50)" }}>
-                          x
+                        <span style={SYMBOL}>.</span>
+                        <span style={FUNCTION}>
+                          animate
                           <TypeWord
                             isTyping={isTyping}
-                            word=": e.offsetX, y: e.offsetY,"
+                            word="({ opacity: 1, transform: 'scale(1)' }, 300)"
                             step={8}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
                         </span>
+                        <span style={SYMBOL}>;</span>
                       </span>
+                      <span className="line"></span>
                       <span className="line">
-                        <span>{"    "}</span>
-                        <span style={{ color: "var(--color-slate-50)" }}>
-                          color
+                        <span>{"  "}</span>
+                        <span style={FUNCTION}>
+                          _
                           <TypeWord
                             isTyping={isTyping}
-                            word=": colors[Math.floor(Math.random() * 3)]"
+                            word="(card)"
                             step={9}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
                         </span>
-                      </span>
-                      <span className="line">
-                        <span>{"  "}</span>
-                        <span style={SYMBOL}>
-                          {"}"}
+                        <span style={SYMBOL}>.</span>
+                        <span style={FUNCTION}>
+                          on
                           <TypeWord
                             isTyping={isTyping}
-                            word=");"
+                            word="('click', () => {"
                             step={10}
                             currentStep={step}
                             onNextStep={nextStep}
@@ -291,17 +287,26 @@ const Hero: React.FC = () => {
                         </span>
                       </span>
                       <span className="line">
-                        <span style={SYMBOL}>
-                          {"}"}
+                        <span>{"    "}</span>
+                        <span style={FUNCTION}>
+                          _
                           <TypeWord
                             isTyping={isTyping}
-                            word=");"
+                            word="(card).fadeOut(300).remove();"
                             step={11}
                             currentStep={step}
                             onNextStep={nextStep}
                             autostart={shouldAutostartTypingAnimations}
                           />
                         </span>
+                      </span>
+                      <span className="line">
+                        <span>{"  "}</span>
+                        <span style={SYMBOL}>{"}"})</span>
+                        <span style={SYMBOL}>;</span>
+                      </span>
+                      <span className="line">
+                        <span style={SYMBOL}>{"}"});</span>
                       </span>
                     </code>
                   </code>
@@ -333,111 +338,29 @@ const OATMEAL_COLORS = {
   black: '#0B0A08',
 };
 
-interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  life: number;
+interface Card {
+  id: number;
   color: string;
-  size: number;
 }
 
 function Example({ step }: { step: number }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const particlesRef = useRef<Particle[]>([]);
+  const [cards, setCards] = useState<Card[]>([]);
+  const [nextId, setNextId] = useState(1);
   const [isHovering, setIsHovering] = useState(false);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+  const colors = [OATMEAL_COLORS.white, OATMEAL_COLORS.stone, OATMEAL_COLORS.olive];
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const colors = [OATMEAL_COLORS.white, OATMEAL_COLORS.stone, OATMEAL_COLORS.olive];
-    
-    const animate = () => {
-      // Create dark background with slight transparency for trail effect
-      ctx.fillStyle = 'rgba(11, 10, 8, 0.15)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Update and draw particles
-      particlesRef.current = particlesRef.current.filter(particle => {
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-        particle.life -= 0.01;
-        particle.vy += 0.1; // gravity
-
-        if (particle.life > 0) {
-          ctx.globalAlpha = particle.life;
-          ctx.fillStyle = particle.color;
-          ctx.beginPath();
-          ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-          ctx.fill();
-          return true;
-        }
-        return false;
-      });
-
-      ctx.globalAlpha = 1;
-      animationId = requestAnimationFrame(animate);
+  const addCard = () => {
+    const newCard: Card = {
+      id: nextId,
+      color: colors[Math.floor(Math.random() * colors.length)],
     };
-
-    let animationId = requestAnimationFrame(animate);
-
-    return () => {
-      cancelAnimationFrame(animationId);
-    };
-  }, []);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const colors = [OATMEAL_COLORS.white, OATMEAL_COLORS.stone, OATMEAL_COLORS.olive];
-
-    // Create multiple particles
-    for (let i = 0; i < 3; i++) {
-      particlesRef.current.push({
-        x,
-        y,
-        vx: (Math.random() - 0.5) * 4,
-        vy: (Math.random() - 0.5) * 4 - 2,
-        life: 1,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        size: Math.random() * 4 + 2,
-      });
-    }
+    setCards([...cards, newCard]);
+    setNextId(nextId + 1);
   };
 
-  const handleClick = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const colors = [OATMEAL_COLORS.white, OATMEAL_COLORS.stone, OATMEAL_COLORS.olive];
-    
-    // Create burst of particles from center
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-
-    for (let i = 0; i < 30; i++) {
-      const angle = (Math.PI * 2 * i) / 30;
-      const speed = Math.random() * 5 + 3;
-      particlesRef.current.push({
-        x: centerX,
-        y: centerY,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        life: 1,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        size: Math.random() * 5 + 3,
-      });
-    }
+  const removeCard = (id: number) => {
+    setCards(cards.filter(card => card.id !== id));
   };
 
   return (
@@ -458,37 +381,74 @@ function Example({ step }: { step: number }) {
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
-        <div className="text-center">
+        <div className="text-center w-full">
           <h3 className="text-sm font-semibold mb-1" style={{ color: OATMEAL_COLORS.white }}>
-            Interactive Particle Canvas
+            Dynamic Card Creation
           </h3>
-          <p className="text-xs" style={{ color: OATMEAL_COLORS.stone }}>
-            {isHovering ? 'Move your mouse • Click for burst' : 'Hover to interact'}
+          <p className="text-xs mb-3" style={{ color: OATMEAL_COLORS.stone }}>
+            {isHovering ? 'Click Add • Click cards to remove' : 'Hover to interact'}
           </p>
         </div>
 
-        <motion.canvas
-          ref={canvasRef}
-          width={360}
-          height={240}
-          onMouseMove={handleMouseMove}
-          onClick={handleClick}
-          className="cursor-crosshair rounded-xl"
+        <motion.button
+          onClick={addCard}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="px-6 py-2.5 rounded-lg font-medium text-sm transition-all shadow-lg hover:shadow-xl"
+          style={{
+            backgroundColor: OATMEAL_COLORS.white,
+            color: OATMEAL_COLORS.black,
+          }}
+        >
+          + Add Card
+        </motion.button>
+
+        <div
+          className="w-full min-h-[180px] max-h-[180px] overflow-y-auto rounded-xl p-3 flex flex-col gap-2"
           style={{
             backgroundColor: OATMEAL_COLORS.black,
-            boxShadow: `0 0 0 1px ${OATMEAL_COLORS.olive}, 0 4px 12px rgba(11, 10, 8, 0.5)`,
+            boxShadow: `0 0 0 1px ${OATMEAL_COLORS.olive} inset, 0 4px 12px rgba(11, 10, 8, 0.5)`,
           }}
-          whileHover={{ scale: 1.02 }}
-          transition={{ duration: 0.2 }}
-        />
+        >
+          {cards.length === 0 ? (
+            <div
+              className="flex items-center justify-center h-full text-xs"
+              style={{ color: OATMEAL_COLORS.stone }}
+            >
+              No cards yet. Click "Add Card" to start!
+            </div>
+          ) : (
+            cards.map((card) => (
+              <motion.div
+                key={card.id}
+                initial={{ opacity: 0, scale: 0.8, y: -10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.8, x: 100 }}
+                whileHover={{ scale: 1.02, x: 2 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => removeCard(card.id)}
+                className="px-4 py-3 rounded-lg cursor-pointer transition-all font-medium text-sm flex items-center justify-between"
+                style={{
+                  backgroundColor: card.color,
+                  color: OATMEAL_COLORS.black,
+                  boxShadow: `0 2px 4px rgba(0, 0, 0, 0.1)`,
+                }}
+                layout
+              >
+                <span>Card {card.id}</span>
+                <span className="text-xs opacity-60">Click to remove</span>
+              </motion.div>
+            ))
+          )}
+        </div>
 
-        <div className="flex gap-2 text-xs" style={{ color: OATMEAL_COLORS.stone }}>
+        <div className="flex gap-2 text-xs flex-wrap justify-center" style={{ color: OATMEAL_COLORS.stone }}>
           <div className="flex items-center gap-1">
             <div
               className="w-3 h-3 rounded-full"
               style={{ backgroundColor: OATMEAL_COLORS.white }}
             />
-            <span>Oatmeal White</span>
+            <span>White</span>
           </div>
           <div className="flex items-center gap-1">
             <div
