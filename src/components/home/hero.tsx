@@ -368,8 +368,7 @@ function Example({ step }: { step: number }) {
           layout="position"
           transition={TRANSITION}
           onClick={handleClick}
-          className="inline-block rounded-full bg-oatmeal-white px-8 py-4 text-sm/6 font-medium text-oatmeal-black hover:bg-oatmeal-stone transition-colors cursor-pointer dark:bg-oatmeal-white dark:hover:bg-oatmeal-stone dark:text-oatmeal-black"
-          style={{ fontFamily: 'Georgia, serif' }}
+          className="inline-block rounded-full bg-oatmeal-white px-8 py-4 text-sm/6 font-medium text-oatmeal-black hover:bg-oatmeal-stone transition-colors cursor-pointer dark:bg-oatmeal-white dark:hover:bg-oatmeal-stone dark:text-oatmeal-black font-outfit"
         >
           Click Me!
         </motion.button>
@@ -390,13 +389,13 @@ function Example({ step }: { step: number }) {
               className="bg-transparent p-5 border border-oatmeal-olive dark:bg-transparent dark:border-oatmeal-olive"
               id="counter"
             >
-              <div className="text-xs/6 font-semibold uppercase tracking-widest text-oatmeal-stone dark:text-oatmeal-stone">
+              <div className="text-xs/6 font-semibold uppercase tracking-widest text-oatmeal-stone dark:text-oatmeal-stone font-outfit">
                 Counter
               </div>
-              <div className="mt-2 text-4xl font-bold text-white dark:text-white" style={{ fontFamily: 'Georgia, serif' }}>
+              <div className="mt-2 text-4xl font-bold text-white dark:text-white font-outfit">
                 {clickCount}
               </div>
-              <div className="mt-1 text-sm/6 font-medium text-oatmeal-stone dark:text-oatmeal-stone">
+              <div className="mt-1 text-sm/6 font-medium text-oatmeal-stone dark:text-oatmeal-stone font-outfit">
                 {clickCount === 1 ? 'click' : 'clicks'}
               </div>
             </motion.div>
@@ -416,10 +415,10 @@ function Example({ step }: { step: number }) {
               id="message"
             >
               <div className="text-4xl mb-3 animate-bounce">🎉</div>
-              <div className="text-xl/7 font-semibold text-white dark:text-white" style={{ fontFamily: 'Georgia, serif' }}>
+              <div className="text-xl/7 font-semibold text-white dark:text-white font-outfit">
                 Five clicks!
               </div>
-              <div className="mt-2 text-sm/6 font-medium text-oatmeal-stone dark:text-oatmeal-stone">
+              <div className="mt-2 text-sm/6 font-medium text-oatmeal-stone dark:text-oatmeal-stone font-outfit">
                 You're doing great!
               </div>
             </div>

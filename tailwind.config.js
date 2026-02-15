@@ -9,6 +9,11 @@ module.exports = {
   darkMode: 'selector',
   theme: {
     extend: {
+      fontFamily: {
+        outfit: ['var(--font-outfit)', 'sans-serif'],
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'monospace'],
+      },
       colors: {
         // Oatmeal Palette - Main colors
         oatmeal: {

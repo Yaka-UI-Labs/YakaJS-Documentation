@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
+import { Outfit } from "next/font/google";
 import { SearchProvider } from "@/components/search";
 import { ThemeProvider } from "@/components/theme-toggle";
 import Fathom from "@/components/fathom";
 import Script from "next/script";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 const inter = localFont({
   src: [
@@ -144,7 +151,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${plexMono.variable} ${source.variable} ${ubuntuMono.variable} antialiased dark:bg-gray-950`}
+      className={`${outfit.variable} ${inter.variable} ${plexMono.variable} ${source.variable} ${ubuntuMono.variable} antialiased dark:bg-gray-950`}
       suppressHydrationWarning
     >
       <head>
