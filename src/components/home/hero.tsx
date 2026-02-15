@@ -9,12 +9,13 @@ import cover from "./cover.png";
 import { Editor } from "./editor";
 import LinkButton from "./link-button";
 
-const SYMBOL = { color: "var(--color-slate-400)" };
-const ELEMENT = { color: "var(--color-pink-400)" };
-const KEYWORD = { color: "var(--color-slate-300)" };
-const STRING = { color: "var(--color-sky-300)" };
-const FUNCTION = { color: "var(--color-amber-300)" };
-const COMMENT = { color: "var(--color-slate-500)" };
+// Warm Gruvbox-inspired syntax colors for Oatmeal theme
+const SYMBOL = { color: "#a89984" }; // Warm gray
+const ELEMENT = { color: "#d8a657" }; // Warm yellow
+const KEYWORD = { color: "#d8a657" }; // Warm yellow
+const STRING = { color: "#a9b665" }; // Warm green
+const FUNCTION = { color: "#e78a4e" }; // Warm orange
+const COMMENT = { color: "#665c54" }; // Muted brown
 
 const Hero: React.FC = () => {
   let [step, setStep] = useState(0);
@@ -317,7 +318,7 @@ const Hero: React.FC = () => {
               </div>
             </Editor>
           </div>
-          <div className="relative border-(--pattern-fg) bg-[image:repeating-linear-gradient(315deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/5 max-lg:h-66 max-lg:border-t lg:border-l dark:[--pattern-fg:var(--color-white)]/10">
+          <div className="relative border-oatmeal-olive/20 bg-oatmeal-black max-lg:h-66 max-lg:border-t lg:border-l dark:border-oatmeal-olive/10 dark:bg-oatmeal-black">
             <div className="absolute right-1/2 max-lg:bottom-8 max-md:translate-x-1/2 md:right-16 lg:top-1/2 lg:-translate-y-1/2 2xl:right-1/2 2xl:translate-x-[calc(50%-3rem)]">
               <Example step={step} />
             </div>
@@ -356,10 +357,10 @@ function Example({ step }: { step: number }) {
     <motion.div
       layout={true}
       transition={TRANSITION}
-      className="@container isolate flex flex-col gap-3 overflow-hidden bg-oatmeal-card p-3 border border-oatmeal-olive/30 w-[340px] shadow-xl dark:bg-oatmeal-card dark:border-oatmeal-olive/20"
+      className="@container isolate flex flex-col gap-3 overflow-hidden bg-transparent p-3 border border-oatmeal-olive/30 w-[340px] shadow-xl dark:bg-transparent dark:border-oatmeal-olive/20"
     >
       <motion.div
-        className="relative flex w-full flex-col gap-4 bg-oatmeal-black p-6 after:pointer-events-none after:absolute after:inset-0 after:border after:border-oatmeal-olive/20 dark:bg-oatmeal-black dark:after:border-oatmeal-olive/10"
+        className="relative flex w-full flex-col gap-4 bg-transparent p-6 after:pointer-events-none after:absolute after:inset-0 after:border after:border-oatmeal-olive/20 dark:bg-transparent dark:after:border-oatmeal-olive/10"
         layout={true}
         transition={TRANSITION}
       >
@@ -367,7 +368,8 @@ function Example({ step }: { step: number }) {
           layout="position"
           transition={TRANSITION}
           onClick={handleClick}
-          className="inline-block bg-oatmeal-white px-8 py-4 text-sm/6 font-semibold text-oatmeal-black hover:bg-oatmeal-stone transition-colors cursor-pointer dark:bg-oatmeal-white dark:hover:bg-oatmeal-stone dark:text-oatmeal-black"
+          className="inline-block rounded-full bg-oatmeal-white px-8 py-4 text-sm/6 font-medium text-oatmeal-black hover:bg-oatmeal-stone transition-colors cursor-pointer dark:bg-oatmeal-white dark:hover:bg-oatmeal-stone dark:text-oatmeal-black"
+          style={{ fontFamily: 'Georgia, serif' }}
         >
           Click Me!
         </motion.button>
@@ -385,13 +387,13 @@ function Example({ step }: { step: number }) {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={TRANSITION}
-              className="bg-oatmeal-card p-5 border border-oatmeal-olive/30 dark:bg-oatmeal-card dark:border-oatmeal-olive/20"
+              className="bg-transparent p-5 border border-oatmeal-olive dark:bg-transparent dark:border-oatmeal-olive"
               id="counter"
             >
               <div className="text-xs/6 font-semibold uppercase tracking-widest text-oatmeal-stone dark:text-oatmeal-stone">
                 Counter
               </div>
-              <div className="mt-2 text-4xl font-bold text-white dark:text-white">
+              <div className="mt-2 text-4xl font-bold text-white dark:text-white" style={{ fontFamily: 'Georgia, serif' }}>
                 {clickCount}
               </div>
               <div className="mt-1 text-sm/6 font-medium text-oatmeal-stone dark:text-oatmeal-stone">
@@ -410,11 +412,11 @@ function Example({ step }: { step: number }) {
             className="overflow-hidden"
           >
             <div 
-              className="bg-oatmeal-card p-6 text-center border border-oatmeal-olive/30 dark:bg-oatmeal-card dark:border-oatmeal-olive/20" 
+              className="bg-transparent p-6 text-center border border-oatmeal-olive dark:bg-transparent dark:border-oatmeal-olive" 
               id="message"
             >
               <div className="text-4xl mb-3 animate-bounce">🎉</div>
-              <div className="text-xl/7 font-semibold text-white dark:text-white">
+              <div className="text-xl/7 font-semibold text-white dark:text-white" style={{ fontFamily: 'Georgia, serif' }}>
                 Five clicks!
               </div>
               <div className="mt-2 text-sm/6 font-medium text-oatmeal-stone dark:text-oatmeal-stone">
