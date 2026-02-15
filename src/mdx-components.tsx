@@ -121,6 +121,30 @@ const components = {
       </div>
     );
   },
+
+  table(props) {
+    return <table className="table-auto w-full" {...props} />;
+  },
+
+  th(props) {
+    return <th scope="col" {...props} />;
+  },
+
+  td(props) {
+    return <td {...props} />;
+  },
+
+  thead(props) {
+    return <thead {...props} />;
+  },
+
+  tbody(props) {
+    return <tbody {...props} />;
+  },
+
+  tr(props) {
+    return <tr {...props} />;
+  },
 } satisfies MDXComponents;
 
 declare global {

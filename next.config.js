@@ -1,20 +1,11 @@
-import type { NextConfig } from "next";
-import createMdx from "@next/mdx";
+// @ts-check
+const createMdx = require("@next/mdx");
 
 const nextConfig = {
   serverExternalPackages: ["@tailwindcss/node"],
   pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
   outputFileTracingIncludes: {
     "/**/*": ["./src/docs/*.mdx"],
-  },
-  turbopack: {
-    rules: {
-      // Support import .svg as react components in dev builds
-      "*.react.svg": {
-        loaders: ["@svgr/webpack"],
-        as: "*.js",
-      },
-    },
   },
   async redirects() {
     return [
@@ -472,7 +463,7 @@ const nextConfig = {
       },
     ]);
   },
-} satisfies NextConfig;
+};
 
 const withMDX = createMdx();
 module.exports = withMDX(nextConfig);
