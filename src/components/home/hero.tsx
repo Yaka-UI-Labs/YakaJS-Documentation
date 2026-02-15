@@ -146,7 +146,7 @@ const Hero: React.FC = () => {
                         <span>&nbsp;</span>
                       </span>
                       <span className="line">
-                        <span style={FUNCTION}>@</span>
+                        <span style={FUNCTION}>_</span>
                         <span style={SYMBOL}>(</span>
                         <span style={STRING}>'&lt;button&gt;'</span>
                         <span style={SYMBOL}>)</span>
@@ -184,7 +184,7 @@ const Hero: React.FC = () => {
                         <span>{"    "}</span>
                         <TypeWord
                           isTyping={isTyping}
-                          word="@('#counter')"
+                          word="_('#counter')"
                           step={1}
                           currentStep={step}
                           onNextStep={nextStep}
@@ -252,7 +252,7 @@ const Hero: React.FC = () => {
                         <span>{"      "}</span>
                         <TypeWord
                           isTyping={isTyping}
-                          word="@('#message')"
+                          word="_('#message')"
                           step={6}
                           currentStep={step}
                           onNextStep={nextStep}
@@ -356,10 +356,10 @@ function Example({ step }: { step: number }) {
     <motion.div
       layout={true}
       transition={TRANSITION}
-      className="@container isolate flex flex-col gap-3 overflow-hidden rounded-2xl bg-white p-3 outline outline-gray-950/5 dark:bg-gray-950 dark:outline-white/10 w-[340px] shadow-xl"
+      className="@container isolate flex flex-col gap-3 overflow-hidden bg-oatmeal-card p-3 border border-oatmeal-olive/30 w-[340px] shadow-xl dark:bg-oatmeal-card dark:border-oatmeal-olive/20"
     >
       <motion.div
-        className="relative flex w-full flex-col gap-4 rounded-lg bg-gray-950/[2.5%] p-6 after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:inset-ring after:inset-ring-gray-950/5 dark:bg-white/5 dark:after:inset-ring-white/10"
+        className="relative flex w-full flex-col gap-4 bg-oatmeal-black p-6 after:pointer-events-none after:absolute after:inset-0 after:border after:border-oatmeal-olive/20 dark:bg-oatmeal-black dark:after:border-oatmeal-olive/10"
         layout={true}
         transition={TRANSITION}
       >
@@ -367,7 +367,7 @@ function Example({ step }: { step: number }) {
           layout="position"
           transition={TRANSITION}
           onClick={handleClick}
-          className="inline-block rounded-4xl bg-black px-8 py-4 text-sm/6 font-semibold text-white hover:bg-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors cursor-pointer"
+          className="inline-block bg-oatmeal-white px-8 py-4 text-sm/6 font-semibold text-oatmeal-black hover:bg-oatmeal-stone transition-colors cursor-pointer dark:bg-oatmeal-white dark:hover:bg-oatmeal-stone dark:text-oatmeal-black"
         >
           Click Me!
         </motion.button>
@@ -385,16 +385,16 @@ function Example({ step }: { step: number }) {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={TRANSITION}
-              className="rounded-xl bg-white p-5 ring-1 ring-gray-950/10 dark:bg-white/5 dark:ring-white/10"
+              className="bg-oatmeal-card p-5 border border-oatmeal-olive/30 dark:bg-oatmeal-card dark:border-oatmeal-olive/20"
               id="counter"
             >
-              <div className="text-xs/6 font-semibold uppercase tracking-widest text-gray-600 dark:text-gray-400">
+              <div className="text-xs/6 font-semibold uppercase tracking-widest text-oatmeal-stone dark:text-oatmeal-stone">
                 Counter
               </div>
-              <div className="mt-2 text-4xl font-bold text-gray-950 dark:text-white">
+              <div className="mt-2 text-4xl font-bold text-white dark:text-white">
                 {clickCount}
               </div>
-              <div className="mt-1 text-sm/6 font-medium text-gray-600 dark:text-gray-400">
+              <div className="mt-1 text-sm/6 font-medium text-oatmeal-stone dark:text-oatmeal-stone">
                 {clickCount === 1 ? 'click' : 'clicks'}
               </div>
             </motion.div>
@@ -410,14 +410,14 @@ function Example({ step }: { step: number }) {
             className="overflow-hidden"
           >
             <div 
-              className="rounded-xl bg-white p-6 text-center ring-1 ring-gray-950/10 dark:bg-white/5 dark:ring-white/10" 
+              className="bg-oatmeal-card p-6 text-center border border-oatmeal-olive/30 dark:bg-oatmeal-card dark:border-oatmeal-olive/20" 
               id="message"
             >
               <div className="text-4xl mb-3 animate-bounce">🎉</div>
-              <div className="text-xl/7 font-semibold text-gray-950 dark:text-white">
+              <div className="text-xl/7 font-semibold text-white dark:text-white">
                 Five clicks!
               </div>
-              <div className="mt-2 text-sm/6 font-medium text-gray-600 dark:text-gray-400">
+              <div className="mt-2 text-sm/6 font-medium text-oatmeal-stone dark:text-oatmeal-stone">
                 You're doing great!
               </div>
             </div>
