@@ -12,7 +12,7 @@ export type TOCEntry = {
 
 export default function TableOfContents({ tableOfContents }: { tableOfContents: TOCEntry[] }) {
   const [activeSection, setActiveSection] = useState<string | null>(null);
-  const tocRef = useRef(tableOfContents);
+  const tocRef = useRef<TOCEntry[]>([]);
   
   // Update ref when tableOfContents changes
   useEffect(() => {
@@ -74,7 +74,7 @@ export default function TableOfContents({ tableOfContents }: { tableOfContents: 
       }
       scrollTimeout = setTimeout(updateActiveSection, 100);
     };
-
+    
     // Initial update
     updateActiveSection();
     
