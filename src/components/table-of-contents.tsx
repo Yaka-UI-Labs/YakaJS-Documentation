@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { NavList, NavListHeading, NavListItem, NavListItems, NavListLink } from "./nav-list";
 
 export type TOCEntry = {
@@ -12,6 +12,12 @@ export type TOCEntry = {
 
 export default function TableOfContents({ tableOfContents }: { tableOfContents: TOCEntry[] }) {
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const tocRef = useRef(tableOfContents);
+  
+  // Update ref when tableOfContents changes
+  useEffect(() => {
+    tocRef.current = tableOfContents;
+  }, [tableOfContents]);
   
   useEffect(() => {
     const root = document.querySelector('[data-content="true"]');
@@ -28,10 +34,10 @@ export default function TableOfContents({ tableOfContents }: { tableOfContents: 
       }
     });
 
-    // Get the first TOC entry slug for top-of-page handling
-    const firstTOCSlug = tableOfContents.length > 0 ? tableOfContents[0].slug : null;
-
     const updateActiveSection = () => {
+      // Get the first TOC entry slug for top-of-page handling from ref
+      const firstTOCSlug = tocRef.current.length > 0 ? tocRef.current[0].slug : null;
+      
       // Get scroll position with offset to trigger slightly before reaching the top
       const scrollPosition = window.scrollY + 150;
       
@@ -52,30 +58,17 @@ export default function TableOfContents({ tableOfContents }: { tableOfContents: 
       if (currentHeading) {
         const headingId = headingIds.get(currentHeading);
         if (headingId) {
-          console.log('[TOC] Setting active section to:', headingId);
-          setActiveSection(prev => {
-            if (prev !== headingId) {
-              return headingId;
-            }
-            return prev;
-          });
+          setActiveSection(headingId);
         }
       } else if (firstTOCSlug) {
         // If we're at the very top (above all tracked headings), use the first TOC entry
-        console.log('[TOC] Setting active section to first TOC:', firstTOCSlug);
-        setActiveSection(prev => {
-          if (prev !== firstTOCSlug) {
-            return firstTOCSlug;
-          }
-          return prev;
-        });
+        setActiveSection(firstTOCSlug);
       }
     };
 
     // Use scroll event with throttling for better performance
     let scrollTimeout: NodeJS.Timeout;
     const handleScroll = () => {
-      console.log('[TOC] Scroll event fired, scrollY:', window.scrollY);
       if (scrollTimeout) {
         clearTimeout(scrollTimeout);
       }
@@ -94,38 +87,30 @@ export default function TableOfContents({ tableOfContents }: { tableOfContents: 
         clearTimeout(scrollTimeout);
       }
     };
-  }, []); // Empty dependency array - only run once on mount
+  }, []); // Empty dependency array - run once on mount
 
   return (
     <NavList>
       <NavListHeading>On this page</NavListHeading>
       <NavListItems data-toc="true">
-        {tableOfContents.map(({ text, slug, children }, i) => {
-          const isActive = activeSection === slug;
-          if (i < 3) console.log(`[TOC Render] ${text}: slug="${slug}", activeSection="${activeSection}", isActive=${isActive}`);
-          return (
-            <NavListItem key={i}>
-              <NavListLink aria-current={isActive ? "location" : undefined} href={slug}>
-                {text}
-              </NavListLink>
-              {children.length > 0 && (
-                <NavListItems nested>
-                  {children.map(({ text, slug }, i) => {
-                    const isChildActive = activeSection === slug;
-                    if (i < 2) console.log(`[TOC Render Child] ${text}: slug="${slug}", activeSection="${activeSection}", isChildActive=${isChildActive}`);
-                    return (
-                      <NavListItem key={i}>
-                        <NavListLink nested aria-current={isChildActive ? "location" : undefined} href={slug}>
-                          {text}
-                        </NavListLink>
-                      </NavListItem>
-                    );
-                  })}
-                </NavListItems>
-              )}
-            </NavListItem>
-          );
-        })}
+        {tableOfContents.map(({ text, slug, children }, i) => (
+          <NavListItem key={i}>
+            <NavListLink aria-current={activeSection === slug ? "location" : undefined} href={slug}>
+              {text}
+            </NavListLink>
+            {children.length > 0 && (
+              <NavListItems nested>
+                {children.map(({ text, slug }, i) => (
+                  <NavListItem key={i}>
+                    <NavListLink nested aria-current={activeSection === slug ? "location" : undefined} href={slug}>
+                      {text}
+                    </NavListLink>
+                  </NavListItem>
+                ))}
+              </NavListItems>
+            )}
+          </NavListItem>
+        ))}
       </NavListItems>
     </NavList>
   );
