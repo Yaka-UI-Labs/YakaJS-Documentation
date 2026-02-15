@@ -27,59 +27,59 @@ export default function TableOfContents({ tableOfContents }: { tableOfContents: 
       }
     });
 
-    let visibleHeadings = new Set<HTMLElement>();
-    const SCROLL_OFFSET_THRESHOLD = 100;
-
-    const callback = (entries: IntersectionObserverEntry[]) => {
-      for (let entry of entries) {
-        const target = entry.target as HTMLElement;
-        if (entry.isIntersecting) {
-          visibleHeadings.add(target);
-        } else {
-          visibleHeadings.delete(target);
+    const updateActiveSection = () => {
+      // Get scroll position with offset to trigger slightly before reaching the top
+      const scrollPosition = window.scrollY + 150;
+      
+      // Find which section we're currently in by checking the scroll position
+      // relative to heading positions
+      let currentHeading: HTMLElement | null = null;
+      
+      for (let i = headings.length - 1; i >= 0; i--) {
+        const heading = headings[i];
+        // If the heading is above or at the scroll position, this is our active section
+        if (heading.offsetTop <= scrollPosition) {
+          currentHeading = heading;
+          break;
         }
       }
-
-      // Find the first visible heading or the one closest to the top
-      if (visibleHeadings.size > 0) {
-        const sortedHeadings = Array.from(visibleHeadings).sort((a, b) => {
-          return a.offsetTop - b.offsetTop;
-        });
-        const topHeading = sortedHeadings[0];
-        const headingId = headingIds.get(topHeading);
+      
+      // Update the active section if we found a heading
+      if (currentHeading) {
+        const headingId = headingIds.get(currentHeading);
         if (headingId) {
           setActiveSection(headingId);
         }
-      } else {
-        // If no headings are visible, find the last heading above the viewport
-        const scrollPosition = window.scrollY;
-        let lastHeadingAbove: HTMLElement | null = null;
-        
-        for (const heading of headings) {
-          if (heading.offsetTop <= scrollPosition + SCROLL_OFFSET_THRESHOLD) {
-            lastHeadingAbove = heading;
-          } else {
-            break;
-          }
-        }
-        
-        if (lastHeadingAbove) {
-          const headingId = headingIds.get(lastHeadingAbove);
-          if (headingId) {
-            setActiveSection(headingId);
-          }
+      } else if (headings.length > 0) {
+        // If we're at the very top, highlight the first section
+        const headingId = headingIds.get(headings[0]);
+        if (headingId) {
+          setActiveSection(headingId);
         }
       }
     };
 
-    const observer = new IntersectionObserver(callback, {
-      rootMargin: "-100px 0px -50% 0px",
-      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
-    });
+    // Use scroll event with throttling for better performance
+    let scrollTimeout: NodeJS.Timeout;
+    const handleScroll = () => {
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+      scrollTimeout = setTimeout(updateActiveSection, 10);
+    };
 
-    headings.forEach((heading) => observer.observe(heading));
+    // Initial update
+    updateActiveSection();
+    
+    // Listen to scroll events
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
-    return () => observer.disconnect();
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+    };
   }, []);
 
   return (
