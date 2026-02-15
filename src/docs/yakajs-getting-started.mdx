@@ -1,6 +1,8 @@
 export const title = "Getting Started";
 export const description = "Learn how to install and use YakaJS. A comprehensive guide covering installation methods, core concepts, and practical examples to get you building modern web applications.";
 
+import { ComparisonTable } from "@/components/comparison-table";
+
 # Getting Started
 
 YakaJS is a next-generation JavaScript library that bridges the gap between jQuery's simplicity and modern framework capabilities. It provides a familiar, jQuery-like API while incorporating cutting-edge features such as reactive state management, voice commands, built-in routing, and comprehensive security measures.
@@ -50,33 +52,36 @@ _.voice.listen({
 
 Understanding how YakaJS compares to other popular libraries helps you make informed decisions:
 
-| Feature | jQuery 3.x | YakaJS 1.1 | Notes |
-|---------|-----------|-----------|-------|
-| **Core Features** | | | |
-| DOM Manipulation | ✓ | ✓ | Both provide comprehensive DOM APIs |
-| Event Handling | ✓ | ✓ | YakaJS adds improved delegation |
-| CSS Manipulation | ✓ | ✓ | Identical syntax and capabilities |
-| AJAX | ✓ | ✓ | YakaJS adds retry, timeout, progress |
-| **Animations** | | | |
-| Basic Animations | ✓ | ✓ | fade, slide, show, hide |
-| Advanced Effects | ✗ | ✓ | bounce, shake, pulse, flip3D, etc. |
-| Animation Chaining | ✓ | ✓ | Fluent chaining support |
-| **Modern Features** | | | |
-| State Management | ✗ | ✓ | Vuex-style store with mutations |
-| Reactivity | ✗ | ✓ | Signals and computed values |
-| SPA Routing | ✗ | ✓ | Full-featured router with guards |
-| Voice Commands | ✗ | ✓ | Unique to YakaJS |
-| Virtual Scroll | ✗ | ✓ | Handle 10,000+ items smoothly |
-| Command Palette | ✗ | ✓ | VS Code-style interface |
-| **Security** | | | |
-| XSS Protection | Manual | ✓ Built-in | Automatic HTML sanitization |
-| CSRF Tokens | Manual | ✓ Built-in | Automatic token inclusion |
-| Input Sanitization | ✗ | ✓ | Multiple sanitization methods |
-| **Developer Experience** | | | |
-| TypeScript Support | Community | ✓ Official | Full type definitions included |
-| Documentation | Good | Excellent | 12+ comprehensive guides |
-| Bundle Size | 87 KB | 151 KB | +74% for 3x features |
-| Browser Support | IE11+ | Modern | Focused on modern browsers |
+<ComparisonTable 
+  headers={["Feature", "jQuery 3.x", "YakaJS 1.1", "Notes"]}
+  rows={[
+    ["**Core Features**", "", "", ""],
+    ["DOM Manipulation", "✓", "✓", "Both provide comprehensive DOM APIs"],
+    ["Event Handling", "✓", "✓", "YakaJS adds improved delegation"],
+    ["CSS Manipulation", "✓", "✓", "Identical syntax and capabilities"],
+    ["AJAX", "✓", "✓", "YakaJS adds retry, timeout, progress"],
+    ["**Animations**", "", "", ""],
+    ["Basic Animations", "✓", "✓", "fade, slide, show, hide"],
+    ["Advanced Effects", "✗", "✓", "bounce, shake, pulse, flip3D, etc."],
+    ["Animation Chaining", "✓", "✓", "Fluent chaining support"],
+    ["**Modern Features**", "", "", ""],
+    ["State Management", "✗", "✓", "Vuex-style store with mutations"],
+    ["Reactivity", "✗", "✓", "Signals and computed values"],
+    ["SPA Routing", "✗", "✓", "Full-featured router with guards"],
+    ["Voice Commands", "✗", "✓", "Unique to YakaJS"],
+    ["Virtual Scroll", "✗", "✓", "Handle 10,000+ items smoothly"],
+    ["Command Palette", "✗", "✓", "VS Code-style interface"],
+    ["**Security**", "", "", ""],
+    ["XSS Protection", "Manual", "✓ Built-in", "Automatic HTML sanitization"],
+    ["CSRF Tokens", "Manual", "✓ Built-in", "Automatic token inclusion"],
+    ["Input Sanitization", "✗", "✓", "Multiple sanitization methods"],
+    ["**Developer Experience**", "", "", ""],
+    ["TypeScript Support", "Community", "✓ Official", "Full type definitions included"],
+    ["Documentation", "Good", "Excellent", "12+ comprehensive guides"],
+    ["Bundle Size", "87 KB", "151 KB", "+74% for 3x features"],
+    ["Browser Support", "IE11+", "Modern", "Focused on modern browsers"],
+  ]}
+/>
 
 ### Key Advantages
 

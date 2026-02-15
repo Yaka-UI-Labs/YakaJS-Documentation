@@ -14,7 +14,7 @@ type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 export function NavListHeading({ children, level = 3 }: React.PropsWithChildren<{ level?: HeadingLevel }>) {
   let Element: `h${HeadingLevel}` = `h${level}`;
   return (
-    <Element className="py-1.5 font-mono text-xs font-semibold tracking-widest text-oatmeal-stone/70 uppercase dark:text-oatmeal-white/70">
+    <Element className="py-1.5 font-mono text-xs font-bold tracking-widest text-oatmeal-white uppercase dark:text-oatmeal-white">
       {children}
     </Element>
   );
@@ -63,12 +63,11 @@ export function NavListLink({
       href={href}
       {...props}
     >
-      {/* Active indicator dot */}
+      {/* Active indicator dot - only for "On this page" section (aria-current="location") */}
       <span className={clsx(
         "absolute left-0 w-1 h-1 rounded-full transition-all duration-150",
         "opacity-0 -translate-x-1 bg-yaka-accent-dark dark:bg-yaka-accent",
-        "aria-[current]:opacity-100 aria-[current]:translate-x-0",
-        "group-hover:opacity-50 group-hover:translate-x-0"
+        "aria-[current=location]:opacity-100 aria-[current=location]:translate-x-0"
       )} aria-hidden="true" />
       
       {/* Hover background effect */}

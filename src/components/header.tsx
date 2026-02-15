@@ -8,14 +8,18 @@ import { useState } from "react";
 import { IconButton } from "./icon-button";
 import { SearchButton } from "./search";
 
-function Logo(props: React.ComponentProps<"img">) {
+function Logo(props: React.ComponentProps<"div">) {
   return (
-    <img 
-      src="/yaka-icon-only.svg" 
-      alt="YakaJS Icon" 
-      className="w-8 h-8 flex-shrink-0"
-      {...props}
-    />
+    <div className="flex items-center gap-3" {...props}>
+      <img 
+        src="/yaka-icon-only.svg" 
+        alt="YakaJS Icon" 
+        className="w-10 h-10 flex-shrink-0"
+      />
+      <span className="text-lg font-bold text-white dark:text-white leading-none">
+        YakaJS
+      </span>
+    </div>
   );
 }
 
@@ -86,7 +90,7 @@ export function Header(props: React.PropsWithChildren) {
                 router.push("/brand");
               }}
             >
-              <Logo className="h-5 text-white dark:text-white" />
+              <Logo />
             </Link>
             <VersionPicker />
           </div>

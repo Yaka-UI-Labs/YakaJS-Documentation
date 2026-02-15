@@ -16,37 +16,68 @@ export default function TableOfContents({ tableOfContents }: { tableOfContents: 
     const root = document.querySelector('[data-content="true"]');
     if (!root) return;
 
-    let elements = root.children;
-    let sections: Map<Element, string> = new Map();
-    let currentSectionId: string | null = null;
-    for (let element of elements) {
-      if (element.id && (element.tagName === "H2" || element.tagName === "H3")) currentSectionId = element.id;
-      if (!currentSectionId) continue;
+    // Collect all headings (H2 and H3) directly
+    const headings = Array.from(root.querySelectorAll('h2[id], h3[id]')) as HTMLElement[];
+    if (headings.length === 0) return;
 
-      sections.set(element, `#${currentSectionId}`);
-    }
+    const headingIds = new Map<HTMLElement, string>();
+    headings.forEach(heading => {
+      if (heading.id) {
+        headingIds.set(heading, `#${heading.id}`);
+      }
+    });
 
-    let visibleElements = new Set<Element>();
+    let visibleHeadings = new Set<HTMLElement>();
+    const SCROLL_OFFSET_THRESHOLD = 100;
 
     const callback = (entries: IntersectionObserverEntry[]) => {
       for (let entry of entries) {
+        const target = entry.target as HTMLElement;
         if (entry.isIntersecting) {
-          visibleElements.add(entry.target);
+          visibleHeadings.add(target);
         } else {
-          visibleElements.delete(entry.target);
+          visibleHeadings.delete(target);
         }
       }
 
-      let firstVisibleSection = Array.from(sections.entries()).find(([element]) => visibleElements.has(element));
-      if (!firstVisibleSection) return;
-      setActiveSection(firstVisibleSection[1]);
+      // Find the first visible heading or the one closest to the top
+      if (visibleHeadings.size > 0) {
+        const sortedHeadings = Array.from(visibleHeadings).sort((a, b) => {
+          return a.offsetTop - b.offsetTop;
+        });
+        const topHeading = sortedHeadings[0];
+        const headingId = headingIds.get(topHeading);
+        if (headingId) {
+          setActiveSection(headingId);
+        }
+      } else {
+        // If no headings are visible, find the last heading above the viewport
+        const scrollPosition = window.scrollY;
+        let lastHeadingAbove: HTMLElement | null = null;
+        
+        for (const heading of headings) {
+          if (heading.offsetTop <= scrollPosition + SCROLL_OFFSET_THRESHOLD) {
+            lastHeadingAbove = heading;
+          } else {
+            break;
+          }
+        }
+        
+        if (lastHeadingAbove) {
+          const headingId = headingIds.get(lastHeadingAbove);
+          if (headingId) {
+            setActiveSection(headingId);
+          }
+        }
+      }
     };
 
     const observer = new IntersectionObserver(callback, {
-      rootMargin: "-56px 0px",
+      rootMargin: "-100px 0px -50% 0px",
+      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
     });
 
-    Array.from(sections.keys()).forEach((element) => observer.observe(element));
+    headings.forEach((heading) => observer.observe(heading));
 
     return () => observer.disconnect();
   }, []);
