@@ -25,7 +25,7 @@ export default async function Course() {
         <HeroSection />
       </header>
       <main className="px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl space-y-8 text-base/7 dark:text-oatmeal-stone text-gray-700 **:[strong]:font-medium dark:**:[strong]:text-oatmeal-white **:[strong]:text-gray-900">
+        <div className="mx-auto max-w-7xl space-y-8 text-base/7 dark:text-oatmeal-stone text-gray-700 **:[strong]:font-medium dark:**:[strong]:text-oatmeal-white **:[strong]:text-gray-900">
             {/* Introduction */}
             <div className="space-y-4">
               <h2 className="text-4xl font-bold dark:text-oatmeal-white text-gray-900">Interactive Learning Platform</h2>
@@ -70,7 +70,7 @@ export default async function Course() {
                 Choose a lesson below to begin your YakaJS journey. Each lesson is designed to build on the previous one, taking you from beginner to proficient.
               </p>
 
-              <div className="grid gap-6 md:grid-cols-2">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {lessonsCatalog.map((lesson) => (
                   <Link
                     key={lesson.slug}
@@ -127,7 +127,7 @@ export default async function Course() {
               <p className="dark:text-oatmeal-stone text-gray-600">
                 We're building more interactive lessons covering:
               </p>
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <div className="flex-none rounded-lg bg-blue-500/20 p-2">
