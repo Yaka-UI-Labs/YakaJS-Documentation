@@ -53,7 +53,7 @@ export function CoursePromo() {
           <div className="absolute top-0 left-4 h-full w-px bg-[linear-gradient(to_bottom,_transparent_0%,_var(--gradient-bg)_9.27%,_var(--gradient-bg)_90.7%,_transparent_100%)] [--gradient-bg:var(--color-black)]/15 dark:[--gradient-bg:var(--color-white)]/10"></div>
           <Image
             src={coursePromo}
-            alt="Build UIs that don’t suck — 5-day mini-course"
+            alt="YakaJS: Zero to Hero — Complete Interactive Course"
             width={192}
             height={108}
             className="shadow-[-5px_10px_15px_-3px_var(--shadow-color),_-5px_4px_6px_-4px_var(--shadow-color)] duration-500 [--shadow-color:var(--color-black)]/10 dark:[--shadow-color:var(--color-black)]"
@@ -72,16 +72,15 @@ export function CoursePromo() {
           </div>
         </div>
       </div>
-      <p className="text-[0.8125rem]/6 font-semibold text-sky-500 dark:text-sky-400">5-day mini-course</p>
-      <p className="mt-1.5 text-base/5 font-semibold text-gray-950 dark:text-white">Build UIs that don’t suck.</p>
+      <p className="text-[0.8125rem]/6 font-semibold text-sky-500 dark:text-sky-400">Complete Interactive Course</p>
+      <p className="mt-1.5 text-base/5 font-semibold text-gray-950 dark:text-white">YakaJS: Zero to Hero</p>
       <p className="mt-3 text-[0.8125rem]/5 text-gray-600 dark:text-gray-400">
-        Short, tactical video lessons from the creator of YakaJS, delivered directly to your inbox every day for a
-        week.
+        Master YakaJS with 12 comprehensive modules covering everything from basic DOM manipulation to advanced state management, routing, and voice commands.
       </p>
-      <p className="mt-4">
+<p className="mt-4">
         <LinkButton href="/build-uis-that-dont-suck">
           <span className="absolute inset-0" />
-          Get the free course <span aria-hidden="true">&rarr;</span>
+          Start learning <span aria-hidden="true">&rarr;</span>
         </LinkButton>
       </p>
     </div>
