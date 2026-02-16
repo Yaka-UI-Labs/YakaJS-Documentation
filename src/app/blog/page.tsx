@@ -24,7 +24,7 @@ export default async function Blog() {
     .filter((post) => !post.meta.private);
 
   return (
-    <div className="relative mt-24 max-w-2xl px-4 sm:px-6 lg:px-8 overflow-x-hidden">
+    <div className="relative mt-24 max-w-5xl px-4 sm:px-6 lg:px-8 overflow-x-hidden">
       <div className="absolute -top-24 left-[200px] isolate z-0 not-xl:hidden xl:left-[300px]">
         <Keyboard />
       </div>
@@ -41,7 +41,7 @@ export default async function Blog() {
       </GridContainer>
 
       <GridContainer className="mt-10">
-        <div className="mx-2 max-w-2xl">
+        <div className="mx-2 max-w-5xl">
           <NewsletterForm action="https://app.convertkit.com/forms/yakajs/subscriptions" />
         </div>
       </GridContainer>
@@ -55,7 +55,7 @@ export default async function Blog() {
               </div>
               <div className="max-lg:hidden" />
               <div className="text-md px-2 text-left">
-                <div className="max-w-2xl">
+                <div className="max-w-5xl">
                   <div className="mb-4 text-left font-mono text-sm/6 font-medium tracking-widest text-gray-500 uppercase lg:hidden">
                     {formatDate(meta.date)}
                   </div>
