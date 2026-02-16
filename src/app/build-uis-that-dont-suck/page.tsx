@@ -1,5 +1,4 @@
 import { SignUpForm } from "./call-to-action";
-import { GridContainer } from "./grid-container";
 import type { Metadata } from "next";
 import { HeroSection } from "./hero-section";
 import { lessonsCatalog } from "./lessons-data";
@@ -21,54 +20,53 @@ export const metadata: Metadata = {
 
 export default async function Course() {
   return (
-    <div className="dark relative px-4 py-8 sm:px-0 bg-oatmeal-black min-h-screen">
+    <div className="relative">
       <header>
         <HeroSection />
       </header>
-      <main className="pt-14 pb-28">
-        <GridContainer>
-          <div className="max-w-4xl space-y-8 text-base/7 text-oatmeal-stone **:[strong]:font-medium **:[strong]:text-oatmeal-white">
+      <main className="px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl space-y-8 text-base/7 dark:text-oatmeal-stone text-gray-700 **:[strong]:font-medium dark:**:[strong]:text-oatmeal-white **:[strong]:text-gray-900">
             {/* Introduction */}
             <div className="space-y-4">
-              <h2 className="text-4xl font-bold text-oatmeal-white">Interactive Learning Platform</h2>
+              <h2 className="text-4xl font-bold dark:text-oatmeal-white text-gray-900">Interactive Learning Platform</h2>
               <p>
                 This is <strong>not just documentation</strong> — it's an interactive learning experience! Each lesson teaches you concepts step-by-step, then lets you <strong>write and run real code</strong> to practice what you've learned.
               </p>
               <div className="grid gap-4 md:grid-cols-3">
-                <div className="rounded-lg border border-oatmeal-olive bg-oatmeal-card p-4 space-y-2">
-                  <div className="text-oatmeal-white">
+                <div className="rounded-lg border dark:border-oatmeal-olive border-gray-200 dark:bg-oatmeal-card bg-white p-4 space-y-2 shadow-sm">
+                  <div className="dark:text-oatmeal-white text-gray-900">
                     <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                     </svg>
                   </div>
-                  <h3 className="font-semibold text-oatmeal-white">Learn</h3>
-                  <p className="text-sm">Concepts explained clearly with examples</p>
+                  <h3 className="font-semibold dark:text-oatmeal-white text-gray-900">Learn</h3>
+                  <p className="text-sm dark:text-oatmeal-stone text-gray-600">Concepts explained clearly with examples</p>
                 </div>
-                <div className="rounded-lg border border-oatmeal-olive bg-oatmeal-card p-4 space-y-2">
-                  <div className="text-oatmeal-white">
+                <div className="rounded-lg border dark:border-oatmeal-olive border-gray-200 dark:bg-oatmeal-card bg-white p-4 space-y-2 shadow-sm">
+                  <div className="dark:text-oatmeal-white text-gray-900">
                     <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
                     </svg>
                   </div>
-                  <h3 className="font-semibold text-oatmeal-white">Code</h3>
-                  <p className="text-sm">Write and edit code in the browser</p>
+                  <h3 className="font-semibold dark:text-oatmeal-white text-gray-900">Code</h3>
+                  <p className="text-sm dark:text-oatmeal-stone text-gray-600">Write and edit code in the browser</p>
                 </div>
-                <div className="rounded-lg border border-oatmeal-olive bg-oatmeal-card p-4 space-y-2">
-                  <div className="text-oatmeal-white">
+                <div className="rounded-lg border dark:border-oatmeal-olive border-gray-200 dark:bg-oatmeal-card bg-white p-4 space-y-2 shadow-sm">
+                  <div className="dark:text-oatmeal-white text-gray-900">
                     <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
                     </svg>
                   </div>
-                  <h3 className="font-semibold text-oatmeal-white">Run</h3>
-                  <p className="text-sm">Execute code and see instant results</p>
+                  <h3 className="font-semibold dark:text-oatmeal-white text-gray-900">Run</h3>
+                  <p className="text-sm dark:text-oatmeal-stone text-gray-600">Execute code and see instant results</p>
                 </div>
               </div>
             </div>
 
             {/* Course Lessons */}
             <div className="mt-16 space-y-6">
-              <h2 className="text-3xl font-bold text-oatmeal-white">Start Learning</h2>
-              <p className="text-oatmeal-stone">
+              <h2 className="text-3xl font-bold dark:text-oatmeal-white text-gray-900">Start Learning</h2>
+              <p className="dark:text-oatmeal-stone text-gray-600">
                 Choose a lesson below to begin your YakaJS journey. Each lesson is designed to build on the previous one, taking you from beginner to proficient.
               </p>
 
@@ -77,16 +75,16 @@ export default async function Course() {
                   <Link
                     key={lesson.slug}
                     href={`/build-uis-that-dont-suck/${lesson.slug}`}
-                    className="group relative rounded-xl border border-oatmeal-olive bg-oatmeal-card p-6 transition-all hover:border-oatmeal-stone hover:bg-oatmeal-olive/30"
+                    className="group relative rounded-xl border dark:border-oatmeal-olive border-gray-200 dark:bg-oatmeal-card bg-white p-6 shadow-sm transition-all dark:hover:border-oatmeal-stone hover:border-gray-400 dark:hover:bg-oatmeal-olive/30 hover:shadow-md"
                   >
                     {/* Lesson number badge */}
-                    <div className="absolute -top-3 -left-3 flex items-center justify-center w-12 h-12 rounded-full bg-oatmeal-black border-2 border-oatmeal-olive text-oatmeal-white font-bold text-lg group-hover:border-oatmeal-white transition-colors">
+                    <div className="absolute -top-3 -left-3 flex items-center justify-center w-12 h-12 rounded-full dark:bg-oatmeal-black bg-gray-900 border-2 dark:border-oatmeal-olive border-gray-200 dark:text-oatmeal-white text-white font-bold text-lg dark:group-hover:border-oatmeal-white group-hover:border-gray-400 transition-colors shadow-lg">
                       {lesson.number}
                     </div>
 
                     {/* Icon and difficulty */}
                     <div className="flex items-start justify-between mb-4">
-                      <div className="text-oatmeal-white p-2 rounded-lg bg-oatmeal-olive/30">
+                      <div className="dark:text-oatmeal-white text-gray-900 p-2 rounded-lg dark:bg-oatmeal-olive/30 bg-gray-100">
                         <LessonIcon name={lesson.icon} className="w-8 h-8" />
                       </div>
                       <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
@@ -101,17 +99,17 @@ export default async function Course() {
                     </div>
 
                     {/* Title and description */}
-                    <h3 className="text-xl font-semibold text-oatmeal-white mb-2 group-hover:text-oatmeal-stone transition-colors">
+                    <h3 className="text-xl font-semibold dark:text-oatmeal-white text-gray-900 mb-2 dark:group-hover:text-oatmeal-stone group-hover:text-gray-600 transition-colors">
                       {lesson.title}
                     </h3>
-                    <p className="text-sm text-oatmeal-stone mb-4">
+                    <p className="text-sm dark:text-oatmeal-stone text-gray-600 mb-4">
                       {lesson.description}
                     </p>
 
                     {/* Time estimate and arrow */}
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-oatmeal-stone/70">~{lesson.estimatedTime}</span>
-                      <span className="inline-flex items-center gap-1 text-oatmeal-stone group-hover:text-oatmeal-white transition-colors">
+                      <span className="dark:text-oatmeal-stone/70 text-gray-500">~{lesson.estimatedTime}</span>
+                      <span className="inline-flex items-center gap-1 dark:text-oatmeal-stone text-gray-600 dark:group-hover:text-oatmeal-white group-hover:text-gray-900 transition-colors">
                         Start Lesson
                         <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -124,9 +122,9 @@ export default async function Course() {
             </div>
 
             {/* Coming Soon Section */}
-            <div className="mt-16 space-y-6 rounded-2xl border border-oatmeal-olive bg-oatmeal-card p-8">
-              <h3 className="text-2xl font-semibold text-oatmeal-white">More Lessons Coming Soon!</h3>
-              <p className="text-oatmeal-stone">
+            <div className="mt-16 space-y-6 rounded-2xl border dark:border-oatmeal-olive border-gray-200 dark:bg-oatmeal-card bg-white p-8 shadow-sm">
+              <h3 className="text-2xl font-semibold dark:text-oatmeal-white text-gray-900">More Lessons Coming Soon!</h3>
+              <p className="dark:text-oatmeal-stone text-gray-600">
                 We're building more interactive lessons covering:
               </p>
               <div className="grid gap-4 md:grid-cols-2">
@@ -137,9 +135,9 @@ export default async function Course() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                       </svg>
                     </div>
-                    <h4 className="font-semibold text-oatmeal-white">DOM Manipulation</h4>
+                    <h4 className="font-semibold dark:text-oatmeal-white text-gray-900">DOM Manipulation</h4>
                   </div>
-                  <p className="text-sm text-oatmeal-stone">
+                  <p className="text-sm dark:text-oatmeal-stone text-gray-600">
                     Creating, modifying, and removing elements dynamically
                   </p>
                 </div>
@@ -151,9 +149,9 @@ export default async function Course() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9.348 14.651a3.75 3.75 0 010-5.303m5.304 0a3.75 3.75 0 010 5.303m-7.425 2.122a6.75 6.75 0 010-9.546m9.546 0a6.75 6.75 0 010 9.546M5.106 18.894c-3.808-3.808-3.808-9.98 0-13.789m13.788 0c3.808 3.808 3.808 9.981 0 13.79M12 12h.008v.007H12V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                       </svg>
                     </div>
-                    <h4 className="font-semibold text-oatmeal-white">AJAX & APIs</h4>
+                    <h4 className="font-semibold dark:text-oatmeal-white text-gray-900">AJAX & APIs</h4>
                   </div>
-                  <p className="text-sm text-oatmeal-stone">
+                  <p className="text-sm dark:text-oatmeal-stone text-gray-600">
                     Making HTTP requests and working with external data
                   </p>
                 </div>
@@ -165,9 +163,9 @@ export default async function Course() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
                       </svg>
                     </div>
-                    <h4 className="font-semibold text-oatmeal-white">Animations</h4>
+                    <h4 className="font-semibold dark:text-oatmeal-white text-gray-900">Animations</h4>
                   </div>
-                  <p className="text-sm text-oatmeal-stone">
+                  <p className="text-sm dark:text-oatmeal-stone text-gray-600">
                     Adding smooth transitions and visual effects
                   </p>
                 </div>
@@ -179,9 +177,9 @@ export default async function Course() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
                       </svg>
                     </div>
-                    <h4 className="font-semibold text-oatmeal-white">State Management</h4>
+                    <h4 className="font-semibold dark:text-oatmeal-white text-gray-900">State Management</h4>
                   </div>
-                  <p className="text-sm text-oatmeal-stone">
+                  <p className="text-sm dark:text-oatmeal-stone text-gray-600">
                     Managing application state with signals and stores
                   </p>
                 </div>
@@ -190,14 +188,14 @@ export default async function Course() {
 
             {/* Documentation Link */}
             <div className="mt-16 space-y-6">
-              <h3 className="text-2xl font-semibold text-oatmeal-white">Need Quick Reference?</h3>
-              <p className="text-oatmeal-stone max-w-2xl">
-                While this course teaches you interactively, you can always check the <strong className="text-oatmeal-white">full documentation</strong> for detailed API references and advanced features.
+              <h3 className="text-2xl font-semibold dark:text-oatmeal-white text-gray-900">Need Quick Reference?</h3>
+              <p className="dark:text-oatmeal-stone text-gray-600 max-w-2xl">
+                While this course teaches you interactively, you can always check the <strong className="dark:text-oatmeal-white text-gray-900">full documentation</strong> for detailed API references and advanced features.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link 
                   href="/docs/yakajs-getting-started"
-                  className="inline-flex items-center gap-2 rounded-full bg-oatmeal-white px-6 py-3 text-sm font-semibold text-oatmeal-black hover:bg-oatmeal-stone transition-colors"
+                  className="inline-flex items-center gap-2 rounded-full bg-gray-900 dark:bg-oatmeal-white px-6 py-3 text-sm font-semibold text-white dark:text-oatmeal-black hover:bg-gray-700 dark:hover:bg-oatmeal-stone transition-colors"
                 >
                   View Documentation
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -206,7 +204,7 @@ export default async function Course() {
                 </Link>
                 <Link 
                   href="/docs/yakajs-api-reference"
-                  className="inline-flex items-center gap-2 rounded-full border border-oatmeal-olive bg-transparent px-6 py-3 text-sm font-semibold text-oatmeal-white hover:bg-oatmeal-olive/50 transition-colors"
+                  className="inline-flex items-center gap-2 rounded-full border dark:border-oatmeal-olive border-gray-200 bg-transparent px-6 py-3 text-sm font-semibold dark:text-oatmeal-white text-gray-900 dark:hover:bg-oatmeal-olive/50 hover:bg-gray-100 transition-colors"
                 >
                   API Reference
                 </Link>
@@ -214,8 +212,8 @@ export default async function Course() {
             </div>
 
             {/* Newsletter */}
-            <div className="mt-12 rounded-xl border border-oatmeal-olive bg-oatmeal-card p-6">
-              <p className="text-sm text-oatmeal-stone">
+            <div className="mt-12 rounded-xl border dark:border-oatmeal-olive border-gray-200 dark:bg-oatmeal-card bg-white p-6 shadow-sm">
+              <p className="text-sm dark:text-oatmeal-stone text-gray-600">
                 Want to be notified when new lessons are added? Subscribe for updates:
               </p>
               <div className="mt-4">
@@ -223,7 +221,6 @@ export default async function Course() {
               </div>
             </div>
           </div>
-        </GridContainer>
       </main>
     </div>
   );
