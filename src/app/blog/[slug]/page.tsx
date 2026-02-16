@@ -113,14 +113,16 @@ export default async function DocPage(props: Props) {
                 Sign up for our newsletter.
               </h2>
               <div className="mt-10 max-w-md">
-                <NewsletterForm action="https://app.convertkit.com/forms/3181881/subscriptions" />
+                <NewsletterForm action="https://app.convertkit.com/forms/yakajs/subscriptions" />
               </div>
             </section>
           </GridContainer>
-          <GridContainer className="mt-46">
-            <FooterSitemap className="*:first:border-l-0 *:last:border-r-0" />
-          </GridContainer>
-          <FooterMeta className="px-4 md:px-6 lg:px-8" />
+          <div className="mx-auto max-w-7xl">
+            <GridContainer className="mt-46">
+              <FooterSitemap className="*:first:border-l-0 *:last:border-r-0" />
+            </GridContainer>
+            <FooterMeta className="px-4 md:px-6 lg:px-8" />
+          </div>
         </div>
       </div>
     </>
@@ -138,7 +140,7 @@ function Author({ author }: { author: { avatar: string; twitter: string; name: s
             href={`https://twitter.com/${author.twitter}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sky-500 hover:text-sky-600 dark:text-sky-400"
+            className="text-oatmeal-stone hover:text-oatmeal-white dark:text-oatmeal-stone"
           >
             @{author.twitter}
           </a>

@@ -63,9 +63,9 @@ export default async function Blog() {
                   <div className="prose prose-blog mt-4 line-clamp-3 leading-7">{meta.excerpt}</div>
                   <Link
                     href={`/blog/${slug}`}
-                    className="mt-4 inline-block text-sm font-semibold text-sky-500 hover:text-sky-600 dark:text-sky-400"
+                    className="mt-4 inline-block text-sm font-semibold text-oatmeal-stone hover:text-oatmeal-white dark:text-oatmeal-stone"
                   >
-                    Read more
+                    Read more →
                   </Link>
                 </div>
               </div>
@@ -80,10 +80,12 @@ export default async function Blog() {
           </Fragment>
         ))}
       </div>
-      <GridContainer>
-        <FooterSitemap className="*:first:border-l-0 *:last:border-r-0" />
-      </GridContainer>
-      <FooterMeta className="px-4 md:px-6 lg:px-8" />
+      <div className="mx-auto max-w-7xl">
+        <GridContainer>
+          <FooterSitemap className="*:first:border-l-0 *:last:border-r-0" />
+        </GridContainer>
+        <FooterMeta className="px-4 md:px-6 lg:px-8" />
+      </div>
     </div>
   );
 }
