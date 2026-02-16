@@ -1,4 +1,48 @@
-export const lesson1Steps = [
+// Lesson metadata and catalog
+export interface LessonMetadata {
+  slug: string;
+  number: number;
+  title: string;
+  description: string;
+  difficulty: "beginner" | "intermediate" | "advanced";
+  icon: string; // Heroicon name
+  estimatedTime: string;
+}
+
+export const lessonsCatalog: LessonMetadata[] = [
+  {
+    slug: "lesson-1",
+    number: 1,
+    title: "Getting Started with YakaJS",
+    description: "Learn the fundamentals: selecting elements, manipulating text, and method chaining",
+    difficulty: "beginner",
+    icon: "rocket-launch",
+    estimatedTime: "15 min",
+  },
+  {
+    slug: "lesson-2",
+    number: 2,
+    title: "Events and Interactivity",
+    description: "Make your pages interactive with event handling",
+    difficulty: "beginner",
+    icon: "bolt",
+    estimatedTime: "12 min",
+  },
+];
+
+// Lesson step interface
+export interface LessonStep {
+  title: string;
+  content: string;
+  keyPoints?: string[];
+  codeExample?: {
+    initialCode: string;
+    expectedOutput?: string;
+    hint?: string;
+  };
+}
+
+export const lesson1Steps: LessonStep[] = [
   {
     title: "Welcome to YakaJS!",
     content: `YakaJS is a powerful JavaScript library that makes DOM manipulation and web development easy and fun!
@@ -144,7 +188,7 @@ Success! You did it!`,
   },
 ];
 
-export const lesson2Steps = [
+export const lesson2Steps: LessonStep[] = [
   {
     title: "Adding Click Events",
     content: `Now let's make things INTERACTIVE!
@@ -219,3 +263,25 @@ Button ID: myButton`,
     },
   },
 ];
+
+// Helper function to get lesson by slug
+export function getLessonBySlug(slug: string) {
+  const metadata = lessonsCatalog.find(lesson => lesson.slug === slug);
+  if (!metadata) return null;
+
+  const steps = slug === "lesson-1" ? lesson1Steps : slug === "lesson-2" ? lesson2Steps : null;
+  if (!steps) return null;
+
+  return { metadata, steps };
+}
+
+// Helper function to get next/prev lesson
+export function getAdjacentLessons(currentSlug: string) {
+  const currentIndex = lessonsCatalog.findIndex(lesson => lesson.slug === currentSlug);
+  if (currentIndex === -1) return { prev: null, next: null };
+
+  return {
+    prev: currentIndex > 0 ? lessonsCatalog[currentIndex - 1] : null,
+    next: currentIndex < lessonsCatalog.length - 1 ? lessonsCatalog[currentIndex + 1] : null,
+  };
+}
