@@ -77,7 +77,7 @@ export function CoursePromo() {
       <p className="mt-3 text-[0.8125rem]/5 text-gray-600 dark:text-gray-400">
         Master YakaJS with 12 comprehensive modules covering everything from basic DOM manipulation to advanced state management, routing, and voice commands.
       </p>
-<p className="mt-4">
+      <p className="mt-4">
         <LinkButton href="/build-uis-that-dont-suck">
           <span className="absolute inset-0" />
           Start learning <span aria-hidden="true">&rarr;</span>
