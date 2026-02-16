@@ -60,8 +60,8 @@ export async function CodeExample({
             className={clsx(
               "absolute z-10",
               filename
-                ? "-top-1 right-0 text-oatmeal-stone/50 hover:text-oatmeal-white/75"
-                : "top-2 right-2 rounded-lg border border-white/10 bg-black/20 text-white/90 backdrop-blur-md hover:bg-black/30 hover:text-white",
+                ? "-top-1 right-0"
+                : "top-2 right-2",
             )}
             value={stripShikiComments(example.code)}
           />

@@ -21,15 +21,18 @@ export function CopyButton({ value, className }: { value: string; className?: st
   return (
     <button
       onClick={handleCopy}
-      className={clsx("flex size-8 items-center justify-center", className)}
+      className={clsx(
+        "group flex size-8 items-center justify-center rounded-full border border-oatmeal-olive/30 bg-oatmeal-card/80 backdrop-blur-sm transition-all hover:border-oatmeal-white/40 hover:bg-oatmeal-card",
+        className
+      )}
       title="Copy to clipboard"
     >
       <div className="grid size-4">
         <svg
           viewBox="0 0 16 16"
-          strokeWidth={1}
+          strokeWidth={1.5}
           className={clsx(
-            "col-start-1 row-start-1 fill-none stroke-current text-sky-400 transition-opacity duration-300 ease-in-out",
+            "col-start-1 row-start-1 fill-none stroke-current text-oatmeal-white transition-opacity duration-300 ease-in-out",
             !copied && "opacity-0",
           )}
         >
@@ -38,9 +41,9 @@ export function CopyButton({ value, className }: { value: string; className?: st
 
         <svg
           viewBox="0 0 16 16"
-          strokeWidth={1}
+          strokeWidth={1.5}
           className={clsx(
-            "col-start-1 row-start-1 fill-none stroke-current transition-opacity duration-300 ease-in-out",
+            "col-start-1 row-start-1 fill-none stroke-current text-oatmeal-stone transition-all duration-300 ease-in-out group-hover:text-oatmeal-white",
             copied && "opacity-0",
           )}
         >
