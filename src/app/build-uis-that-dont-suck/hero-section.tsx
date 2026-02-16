@@ -28,16 +28,15 @@ export function HeroSection() {
       </GridContainer>
       <div className="mt-20 flex flex-col gap-4 sm:mt-24">
         <GridContainer>
-          <p className="font-mono text-sm/6 tracking-wider text-gray-400 uppercase">5-part mini-course</p>
+          <p className="font-mono text-sm/6 tracking-wider text-gray-400 uppercase">Complete Interactive Course</p>
           <h1 className="mt-2 text-5xl tracking-tighter text-balance text-white sm:text-8xl">
-            Build UIs that don’t suck.
+            YakaJS: Zero to Hero
           </h1>
         </GridContainer>
         <GridContainer>
           <p className="max-w-2xl text-lg/7 font-medium text-gray-400">
-            <strong className="font-medium text-white">Short, tactical video lessons</strong> from the creator of
-            YakaJS, delivered directly to your inbox{" "}
-            <strong className="font-medium text-white">every day for a week</strong>.
+            <strong className="font-medium text-white">Master YakaJS from the ground up</strong> with 12 comprehensive modules covering everything from basic DOM manipulation to{" "}
+            <strong className="font-medium text-white">advanced state management, routing, and voice commands</strong>.
           </p>
         </GridContainer>
         <GridContainer>
