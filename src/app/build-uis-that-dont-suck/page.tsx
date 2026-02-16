@@ -26,6 +26,9 @@ export default async function Course() {
       </header>
       <main className="px-4 py-8 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl space-y-8 text-base/7 dark:text-oatmeal-stone text-gray-700 **:[strong]:font-medium dark:**:[strong]:text-oatmeal-white **:[strong]:text-gray-900">
+            {/* Grid line before hero section */}
+            <div className="border-t border-gray-200 dark:border-oatmeal-olive/30" />
+            
             {/* Introduction */}
             <div className="space-y-4">
               <h2 className="text-4xl font-bold dark:text-oatmeal-white text-gray-900">Interactive Learning Platform</h2>
@@ -62,6 +65,9 @@ export default async function Course() {
                 </div>
               </div>
             </div>
+
+            {/* Grid line after hero section */}
+            <div className="border-t border-gray-200 dark:border-oatmeal-olive/30" />
 
             {/* Course Lessons */}
             <div className="mt-16 space-y-6">
