@@ -180,16 +180,37 @@ const colorClasses = {
   rose: "bg-rose-500/20 text-rose-400 border-rose-500/30",
 };
 
+const colorBgClasses = {
+  blue: "bg-blue-500/20",
+  green: "bg-green-500/20",
+  purple: "bg-purple-500/20",
+  pink: "bg-pink-500/20",
+  yellow: "bg-yellow-500/20",
+  indigo: "bg-indigo-500/20",
+  red: "bg-red-500/20",
+  teal: "bg-teal-500/20",
+  orange: "bg-orange-500/20",
+  cyan: "bg-cyan-500/20",
+  lime: "bg-lime-500/20",
+  rose: "bg-rose-500/20",
+};
+
 export function InteractiveCourse() {
   const [expandedModules, setExpandedModules] = useState<Set<number>>(new Set([1]));
   const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set());
   const [hoveredLesson, setHoveredLesson] = useState<string | null>(null);
 
   useEffect(() => {
-    // Load progress from localStorage
-    const saved = localStorage.getItem("yakajs-course-progress");
-    if (saved) {
-      setCompletedLessons(new Set(JSON.parse(saved)));
+    // Load progress from localStorage (only in browser)
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem("yakajs-course-progress");
+      if (saved) {
+        try {
+          setCompletedLessons(new Set(JSON.parse(saved)));
+        } catch (error) {
+          console.error('Failed to load progress:', error);
+        }
+      }
     }
   }, []);
 
@@ -213,7 +234,13 @@ export function InteractiveCourse() {
       } else {
         next.add(link);
       }
-      localStorage.setItem("yakajs-course-progress", JSON.stringify([...next]));
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem("yakajs-course-progress", JSON.stringify([...next]));
+        } catch (error) {
+          console.error('Failed to save progress:', error);
+        }
+      }
       return next;
     });
   };
@@ -280,7 +307,7 @@ export function InteractiveCourse() {
                     <div className="mt-2 flex items-center gap-3">
                       <div className="flex-1 max-w-xs h-1.5 rounded-full bg-gray-700 overflow-hidden">
                         <motion.div
-                          className={`h-full ${colorClass.split(" ")[0]}`}
+                          className={`h-full ${colorBgClasses[module.color as keyof typeof colorBgClasses]}`}
                           initial={{ width: 0 }}
                           animate={{ width: `${progress}%` }}
                           transition={{ duration: 0.5 }}
