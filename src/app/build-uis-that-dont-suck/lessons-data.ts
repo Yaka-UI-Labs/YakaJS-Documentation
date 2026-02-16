@@ -185,16 +185,16 @@ Event handled successfully!`,
 
 Inside your event handler function:
 - 'this' refers to the element that triggered the event
-- You can use _\(this\) to work with that element
+- You can use _(this) to work with that element
 - Event object contains details about what happened
 
 Example:
 _('#btn').on('click', function() {
-    _\(this\).text('Clicked!');
+    _(this).text('Clicked!');
 });`,
     keyPoints: [
       "'this' inside the handler is the element that was clicked",
-      "Use _\(this\) to manipulate the clicked element",
+      "Use _(this) to manipulate the clicked element",
       "You can access event details through the event parameter",
     ],
     codeExample: {
@@ -205,7 +205,7 @@ const buttonElement = {
 };
 
 function handleClick() {
-    // In real YakaJS: _\(this\).text('Clicked!')
+    // In real YakaJS: _(this).text('Clicked!')
     buttonElement.text = "Clicked!";
     
     console.log("Button text changed to:", buttonElement.text);

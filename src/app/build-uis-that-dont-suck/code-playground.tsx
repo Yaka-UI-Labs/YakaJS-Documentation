@@ -37,7 +37,7 @@ export function CodePlayground({
       const sandboxConsole = {
         log: (...args: any[]) => {
           logs.push(args.map(arg => 
-            typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+            typeof arg === 'object' && arg !== null ? JSON.stringify(arg, null, 2) : String(arg)
           ).join(' '));
         },
         error: (...args: any[]) => {
