@@ -12,8 +12,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: { lesson: string } }): Promise<Metadata> {
-  const lessonData = getLessonBySlug(params.lesson);
+export async function generateMetadata({ params }: { params: Promise<{ lesson: string }> }): Promise<Metadata> {
+  const { lesson } = await params;
+  const lessonData = getLessonBySlug(lesson);
   
   if (!lessonData) {
     return {
@@ -28,20 +29,21 @@ export async function generateMetadata({ params }: { params: { lesson: string } 
       type: "website",
       title: `${lessonData.metadata.title} - YakaJS Interactive Course`,
       description: lessonData.metadata.description,
-      url: `https://yakajs.org/build-uis-that-dont-suck/${params.lesson}`,
+      url: `https://yakajs.org/build-uis-that-dont-suck/${lesson}`,
     },
   };
 }
 
-export default async function LessonPage({ params }: { params: { lesson: string } }) {
-  const lessonData = getLessonBySlug(params.lesson);
+export default async function LessonPage({ params }: { params: Promise<{ lesson: string }> }) {
+  const { lesson } = await params;
+  const lessonData = getLessonBySlug(lesson);
   
   if (!lessonData) {
     notFound();
   }
 
   const { metadata, steps } = lessonData;
-  const { prev, next } = getAdjacentLessons(params.lesson);
+  const { prev, next } = getAdjacentLessons(lesson);
 
   return (
     <div className="dark relative px-4 py-8 sm:px-0 bg-oatmeal-black min-h-screen">
