@@ -58,7 +58,7 @@ export async function CodeExample({
         {copyable && (
           <CopyButton
             className={clsx(
-              "absolute z-10",
+              "absolute z-[5]",
               filename
                 ? "-top-1 right-0"
                 : "top-2 right-2",
