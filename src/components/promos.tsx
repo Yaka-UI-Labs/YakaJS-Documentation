@@ -72,10 +72,10 @@ export function CoursePromo() {
           </div>
         </div>
       </div>
-      <p className="text-[0.8125rem]/6 font-semibold text-sky-500 dark:text-sky-400">Complete Interactive Course</p>
-      <p className="mt-1.5 text-base/5 font-semibold text-gray-950 dark:text-white">YakaJS: Zero to Hero</p>
+      <p className="text-[0.8125rem]/6 font-semibold text-sky-500 dark:text-sky-400">Interactive Learning Platform</p>
+      <p className="mt-1.5 text-base/5 font-semibold text-gray-950 dark:text-white">Learn by Doing</p>
       <p className="mt-3 text-[0.8125rem]/5 text-gray-600 dark:text-gray-400">
-        Master YakaJS with 12 comprehensive modules covering everything from basic DOM manipulation to advanced state management, routing, and voice commands.
+        Write real code, run it in your browser, and get instant feedback. Learn YakaJS through hands-on interactive lessons.
       </p>
       <p className="mt-4">
         <LinkButton href="/build-uis-that-dont-suck">
