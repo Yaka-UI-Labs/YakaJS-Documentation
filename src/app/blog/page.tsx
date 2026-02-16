@@ -24,7 +24,7 @@ export default async function Blog() {
     .filter((post) => !post.meta.private);
 
   return (
-    <div className="relative mt-24 max-w-7xl px-4 sm:px-6 lg:px-8 overflow-x-hidden">
+    <div className="relative mt-24 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 overflow-x-hidden">
       <div className="absolute -top-24 left-[200px] isolate z-0 not-xl:hidden xl:left-[300px]">
         <Keyboard />
       </div>

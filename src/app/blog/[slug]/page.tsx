@@ -68,7 +68,7 @@ export default async function BlogPost(props: Props) {
       {/* Add a placeholder div so the Next.js router can find the scrollable element. */}
       <div hidden />
 
-      <div className="max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 xl:grid-cols-[22rem_2.5rem_auto] xl:grid-rows-[1fr_auto]">
           <div className="col-start-2 row-span-2 border-r border-l border-gray-950/5 max-xl:hidden dark:border-white/10"></div>
 
