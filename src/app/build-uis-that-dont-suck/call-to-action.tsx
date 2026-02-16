@@ -181,7 +181,7 @@ export function HeroActions({
         <div className="fixed inset-0 grid place-items-center">
           <DialogPanel className="w-full max-w-7xl p-4 sm:p-8">
             <video autoPlay controls className="aspect-video w-full rounded-2xl">
-              <source src="https://assets.tailwindcss.com/build-uis-that-dont-suck/intro.mp4" type="video/mp4" />
+              <source src="/build-uis-that-dont-suck/YTDown.com_YouTube_SPRING-VIDEO-Free-Stock-Footage-Free-HD-_Media_o5rvZQMcMss_005_240p.mp4" type="video/mp4" />
             </video>
           </DialogPanel>
         </div>
