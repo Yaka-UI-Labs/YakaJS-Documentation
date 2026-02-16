@@ -117,12 +117,10 @@ export default async function DocPage(props: Props) {
               </div>
             </section>
           </GridContainer>
-          <div className="mx-auto max-w-7xl">
-            <GridContainer className="mt-46">
-              <FooterSitemap className="*:first:border-l-0 *:last:border-r-0" />
-            </GridContainer>
-            <FooterMeta className="px-4 md:px-6 lg:px-8" />
-          </div>
+          <GridContainer className="mt-46">
+            <FooterSitemap className="*:first:border-l-0 *:last:border-r-0" />
+          </GridContainer>
+          <FooterMeta className="px-4 md:px-6 lg:px-8" />
         </div>
       </div>
     </>

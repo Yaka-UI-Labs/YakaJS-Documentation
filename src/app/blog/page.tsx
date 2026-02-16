@@ -80,12 +80,10 @@ export default async function Blog() {
           </Fragment>
         ))}
       </div>
-      <div className="mx-auto max-w-7xl">
-        <GridContainer>
-          <FooterSitemap className="*:first:border-l-0 *:last:border-r-0" />
-        </GridContainer>
-        <FooterMeta className="px-4 md:px-6 lg:px-8" />
-      </div>
+      <GridContainer>
+        <FooterSitemap className="*:first:border-l-0 *:last:border-r-0" />
+      </GridContainer>
+      <FooterMeta className="px-4 md:px-6 lg:px-8" />
     </div>
   );
 }
