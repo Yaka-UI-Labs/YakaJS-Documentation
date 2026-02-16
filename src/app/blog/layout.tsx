@@ -12,7 +12,7 @@ export default async function BlogLayout({
       </div>
       <div className="grid min-h-dvh grid-cols-1 grid-rows-[1fr_1px_auto_1px_auto] pt-26.25 lg:pt-14.25">
         {/* Main content area */}
-        <div className="relative row-start-1">{children}</div>
+        <div className="relative row-start-1 overflow-x-hidden">{children}</div>
 
         <div className="col-span-full row-start-2 h-px bg-gray-950/5 dark:bg-white/10" />
         <div className="row-start-3">
