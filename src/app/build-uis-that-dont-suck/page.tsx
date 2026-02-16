@@ -5,6 +5,7 @@ import { lessonsCatalog } from "./lessons-data";
 import { LessonIcon } from "./lesson-icon";
 import Link from "next/link";
 import card from "./card.jpg";
+import GridContainer from "@/components/grid-container";
 
 export const metadata: Metadata = {
   title: "YakaJS Interactive Course - Learn by Doing",
@@ -24,12 +25,10 @@ export default async function Course() {
       <header>
         <HeroSection />
       </header>
-      <main className="grid grid-cols-1 lg:grid-cols-[var(--gutter-width)_minmax(0,var(--breakpoint-2xl))_var(--gutter-width)]">
-        {/* Grid line before hero section - spans full width */}
-        <div className="col-span-full border-t border-gray-200 dark:border-oatmeal-olive/30" />
+      <main className="relative mx-auto mt-12 max-lg:max-w-2xl">
         
-        <div className="lg:col-start-2 px-4 py-8 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl space-y-8 text-base/7 dark:text-oatmeal-stone text-gray-700 **:[strong]:font-medium dark:**:[strong]:text-oatmeal-white **:[strong]:text-gray-900">
+        <GridContainer className="py-8">
+          <div className="mx-2 space-y-8 text-base/7 dark:text-oatmeal-stone text-gray-700 **:[strong]:font-medium dark:**:[strong]:text-oatmeal-white **:[strong]:text-gray-900">
             
             {/* Introduction */}
             <div className="space-y-4">
@@ -69,15 +68,12 @@ export default async function Course() {
             </div>
 
           </div>
-        </div>
+        </GridContainer>
         
-        {/* Grid line after hero section - spans full width */}
-        <div className="col-span-full my-12 border-t border-gray-200 dark:border-oatmeal-olive/30" />
-        
-        <div className="lg:col-start-2 px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl space-y-8">
+        <GridContainer className="mt-16">
+          <div className="mx-2 space-y-8">
             {/* Course Lessons */}
-            <div className="mt-16 space-y-6">
+            <div className="space-y-6">
               <h2 className="text-3xl font-bold dark:text-oatmeal-white text-gray-900">Start Learning</h2>
               <p className="dark:text-oatmeal-stone text-gray-600">
                 Choose a lesson below to begin your YakaJS journey. Each lesson is designed to build on the previous one, taking you from beginner to proficient.
@@ -135,15 +131,12 @@ export default async function Course() {
             </div>
 
           </div>
-        </div>
+        </GridContainer>
         
-        {/* Grid line after lessons - spans full width */}
-        <div className="col-span-full my-12 border-t border-gray-200 dark:border-oatmeal-olive/30" />
-        
-        <div className="lg:col-start-2 px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl">
+        <GridContainer className="mt-16">
+          <div className="mx-2">
             {/* Coming Soon Section */}
-            <div className="mt-16 space-y-6 rounded-2xl border dark:border-oatmeal-olive border-gray-200 dark:bg-oatmeal-card bg-white p-8 shadow-sm">
+            <div className="space-y-6 rounded-2xl border dark:border-oatmeal-olive border-gray-200 dark:bg-oatmeal-card bg-white p-8 shadow-sm">
               <h3 className="text-2xl font-semibold dark:text-oatmeal-white text-gray-900">More Lessons Coming Soon!</h3>
               <p className="dark:text-oatmeal-stone text-gray-600">
                 We're building more interactive lessons covering:
@@ -208,15 +201,12 @@ export default async function Course() {
             </div>
 
           </div>
-        </div>
+        </GridContainer>
         
-        {/* Grid line after coming soon - spans full width */}
-        <div className="col-span-full my-12 border-t border-gray-200 dark:border-oatmeal-olive/30" />
-        
-        <div className="lg:col-start-2 px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl">
+        <GridContainer className="mt-16">
+          <div className="mx-2">
             {/* Documentation Link */}
-            <div className="mt-16 space-y-6">
+            <div className="space-y-6">
               <h3 className="text-2xl font-semibold dark:text-oatmeal-white text-gray-900">Need Quick Reference?</h3>
               <p className="dark:text-oatmeal-stone text-gray-600 max-w-2xl">
                 While this course teaches you interactively, you can always check the <strong className="dark:text-oatmeal-white text-gray-900">full documentation</strong> for detailed API references and advanced features.
@@ -241,15 +231,12 @@ export default async function Course() {
             </div>
 
           </div>
-        </div>
+        </GridContainer>
         
-        {/* Grid line after documentation links - spans full width */}
-        <div className="col-span-full my-12 border-t border-gray-200 dark:border-oatmeal-olive/30" />
-        
-        <div className="lg:col-start-2 px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl">
+        <GridContainer className="mt-12 mb-16">
+          <div className="mx-2">
             {/* Newsletter */}
-            <div className="mt-12 rounded-xl border dark:border-oatmeal-olive border-gray-200 dark:bg-oatmeal-card bg-white p-6 shadow-sm">
+            <div className="rounded-xl border dark:border-oatmeal-olive border-gray-200 dark:bg-oatmeal-card bg-white p-6 shadow-sm">
               <p className="text-sm dark:text-oatmeal-stone text-gray-600">
                 Want to be notified when new lessons are added? Subscribe for updates:
               </p>
@@ -258,7 +245,7 @@ export default async function Course() {
               </div>
             </div>
           </div>
-        </div>
+        </GridContainer>
       </main>
     </div>
   );
