@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Fragment } from "react";
 import { formatDate, getBlogPostBySlug, getBlogPostSlugs, nonNullable } from "./api";
+import { FooterSitemap, FooterMeta } from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -24,24 +25,20 @@ export default async function Blog() {
     .filter((post) => !post.meta.private);
 
   return (
-    <div className="relative mx-auto mt-24 max-w-4xl px-4 sm:px-6 lg:px-8">
-      <div className="absolute -top-24 left-[200px] isolate z-0 not-xl:hidden xl:left-[300px]">
+    <div className="relative mx-auto mt-24 max-lg:max-w-2xl">
+      <div className="absolute -top-24 -right-32 isolate z-0 not-xl:hidden">
         <Keyboard />
       </div>
       <GridContainer>
-        <h1 className="mx-2 text-6xl tracking-tighter text-balance sm:text-7xl lg:text-8xl text-gray-950 dark:text-white">
-          Latest Updates
-        </h1>
+        <h1 className="mx-2 text-6xl tracking-tighter text-balance sm:text-7xl lg:text-8xl">Latest Updates</h1>
       </GridContainer>
 
       <GridContainer className="mt-10">
-        <p className="mx-2 text-lg text-gray-700 dark:text-gray-300">
-          All the latest YakaJS news, straight from the team.
-        </p>
+        <p className="mx-2 text-lg text-gray-700 dark:text-gray-300">All the latest YakaJS news, straight from the team.</p>
       </GridContainer>
 
       <GridContainer className="mt-10">
-        <div className="mx-2 max-w-2xl">
+        <div className="mx-2">
           <NewsletterForm action="https://app.convertkit.com/forms/yakajs/subscriptions" />
         </div>
       </GridContainer>
@@ -49,29 +46,24 @@ export default async function Blog() {
       <div className="mt-12 mb-46 grid grid-cols-1 lg:grid-cols-[24rem_2.5rem_minmax(0,1fr)]">
         {posts.map(({ meta, slug }, index) => (
           <Fragment key={slug}>
-            <GridContainer className="col-span-3 grid grid-cols-subgrid divide-x divide-gray-950/5 dark:divide-white/10">
-              <div className="px-2 text-left font-mono text-sm/6 font-medium tracking-widest text-gray-500 uppercase max-lg:hidden">
+            <GridContainer className="p col-span-3 grid grid-cols-subgrid divide-x divide-gray-950/5 dark:divide-white/10">
+              <div className="px-2 font-mono text-sm/6 font-medium tracking-widest text-gray-500 uppercase max-lg:hidden">
                 {formatDate(meta.date)}
               </div>
               <div className="max-lg:hidden" />
-              <div className="text-md px-2 text-left">
+              <div className="text-md px-2">
                 <div className="max-w-(--container-2xl)">
-                  <div className="mb-4 text-left font-mono text-sm/6 font-medium tracking-widest text-gray-500 uppercase lg:hidden">
+                  <div className="mb-4 font-mono text-sm/6 font-medium tracking-widest text-gray-500 uppercase lg:hidden">
                     {formatDate(meta.date)}
                   </div>
 
-                  <Link
-                    href={`/blog/${slug}`}
-                    className="font-semibold text-gray-950 dark:text-white hover:text-yaka-accent dark:hover:text-yaka-accent"
-                  >
+                  <Link href={`/blog/${slug}`} className="font-semibold">
                     {meta.title}
                   </Link>
-                  <div className="prose prose-blog mt-4 line-clamp-3 leading-7 text-gray-700 dark:text-gray-300">
-                    {meta.excerpt}
-                  </div>
+                  <div className="prose prose-blog mt-4 line-clamp-3 leading-7">{meta.excerpt}</div>
                   <Link
                     href={`/blog/${slug}`}
-                    className="mt-4 inline-block text-sm font-semibold text-yaka-accent hover:text-yaka-accent-dark"
+                    className="mt-4 inline-block text-sm font-semibold text-oatmeal-stone hover:text-oatmeal-white dark:text-oatmeal-stone"
                   >
                     Read more →
                   </Link>
@@ -88,6 +80,10 @@ export default async function Blog() {
           </Fragment>
         ))}
       </div>
+      <GridContainer>
+        <FooterSitemap className="*:first:border-l-0 *:last:border-r-0" />
+      </GridContainer>
+      <FooterMeta className="px-4 md:px-6 lg:px-8" />
     </div>
   );
 }
